@@ -9,7 +9,7 @@ const adminRoutes = require("./routes/AdminControler");
 
 
 // database connection
-connection();
+//connection();
 
 // middlewares
 app.use(express.json());
