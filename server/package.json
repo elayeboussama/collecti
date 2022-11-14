@@ -20,7 +20,7 @@
         "joi": "^17.5.0",
         "joi-password-complexity": "^5.1.0",
         "jsonwebtoken": "^8.5.1",
-        "mongoose": "^6.1.8",
+        "mongoose": "^6.7.2",
         "nodemailer": "^6.7.5",
         "nodemon": "^2.0.16",
         "npm": "^8.5.3",
