@@ -6,6 +6,7 @@ const bcrypt = require("bcrypt")
 const Joi = require("joi");
 const ObjectId = require('mongodb').ObjectID;
 
+
 function authenticateToken(req, res, next) {
     const authHeader = req.headers['authorization']
     const token = authHeader && authHeader.split(' ')[1]
@@ -29,6 +30,9 @@ const validate = (data) => {
     });
     return schema.validate(data);
 };
+
+/*************************************************************************************** */
+
 
 router.post("/login", async(req, res) => {
     try {
