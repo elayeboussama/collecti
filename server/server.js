@@ -2,6 +2,8 @@ require("dotenv").config();
 const express = require("express");
 const cors = require('cors');
 const app = express();
+const connection = require("./db");
+const bodyParser = require('body-parser');
 
 const adminRoutes = require("./routes/AdminController");
 
