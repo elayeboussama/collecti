@@ -1,6 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
-import Header from "../components";
+import { Header } from "../components";
 import * as views from "./../views";
 
 const screens = {
@@ -19,17 +19,11 @@ const screens = {
 const Stack = createStackNavigator();
 
 const HomeStack = () => {
-  <Stack.Navigator>
-    <Stack.Screen
-      name="Home"
-      component={views.HomeScene}
-      options={{
-        headerTitle: ({ navigation }) => (
-          <Header title="Collecti" navigation={navigation} />
-        ),
-      }}
-    />
-  </Stack.Navigator>;
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Home" component={views.HomeScene} />
+    </Stack.Navigator>
+  );
 };
 
 export default HomeStack;

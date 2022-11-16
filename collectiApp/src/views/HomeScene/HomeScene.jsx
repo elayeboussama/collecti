@@ -5,7 +5,11 @@ const HomeScene = () => {
   return (
     <View style={styles.container}>
       <Text>Hello home page</Text>
-      <StatusBar style="auto" />
+      <Text>Hello home page</Text>
+      <Text>Hello home page</Text>
+      <Text>Hello home page</Text>
+      <Text>Hello home page</Text>
+      <Text>Hello home page</Text>
     </View>
   );
 };
