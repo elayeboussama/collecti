@@ -8,6 +8,7 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
+      backgroundColor: "#222",
     },
     headerText: {
       fontWeight: 'bold',
@@ -16,7 +17,7 @@ const styles = StyleSheet.create({
       letterSpacing: 1,
     },
     icon: {
-      position: 'absolute',
+      
       left: 16,
     }
   });
