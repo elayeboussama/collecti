@@ -1,6 +1,6 @@
 require("dotenv").config();
 const router = require("express").Router();
-const { Admin, validateAdmin } = require("../models/Admin");
+const { Donator, validateDonator } = require("../models/Donator");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt")
 const Joi = require("joi");
@@ -41,19 +41,18 @@ const loginValidate = (data) => {
 router.post("/signup", async(req, res) => {
     try {
         
-        const { errorValidation } = validateAdmin(req.body);
-        if (errorValidation) {
-            console.log(error)
-            res.status(400).send({ message: errorValidation.details[0].message });
+        const { validationError } = validateDonator(req.body);
+        if (validationError) {
+            console.log(validationError)
+            res.status(400).send({ message: validationError.details[0].message });
         }
-
 
         const salt = await bcrypt.genSalt(Number(process.env.SALT));
         console.log(req.body)
         const hashPassword = await bcrypt.hash(req.body.password, salt);
 
-        await new Admin({...req.body, password: hashPassword }).save();
-        res.status(201).send({ message: "Admin created successfully" });
+        await new Donator({...req.body, password: hashPassword }).save();
+        res.status(201).send({ message: "Donator created successfully" });
 
     } catch (error) {
 
@@ -64,39 +63,16 @@ router.post("/signup", async(req, res) => {
     }
 })
 
-// router.post("/delete", authenticateToken, async(req, res) => {
-//     try {
-//         await User.deleteOne({ _id: req.body._id });
-//         res.status(200).send({ message: "User deleted" });
-
-//     } catch (error) {
-//         res.status(500).send({ message: "Internal Server Error", error: error });
-//     }
-// })
-
-// router.post("/update", authenticateToken, async(req, res) => {
-//     try {
-//         console.log(req.body)
-//         const user = await User.findOne({ "_id": req.body.data._id });
-//         console.log("eeeee", user)
-//         await User.updateOne({ "_id": ObjectId(req.body.data._id) }, { $set: req.body.data });
-//         res.status(200).send({ message: "User updated" });
-
-//     } catch (error) {
-//         res.status(500).send({ message: "Internal Server Error", error: error });
-//         console.log(error)
-//     }
-// })
 
 router.post("/login", async(req, res) => {
     try {
-        const { validationError } = loginValidate(req.body);
-        if (validationError) {
-            console.log(validationError)
-            res.status(400).send({ message: validationError.details[0].message });
+        const { error } = loginValidate(req.body);
+        if (error) {
+            console.log(error)
+            res.status(400).send({ message: error.details[0].message });
         }
 
-        const admin = await Admin.findOne({ email: req.body.email });
+        const admin = await Donator.findOne({ email: req.body.email });
 
 
         var token = null
@@ -124,6 +100,29 @@ router.post("/login", async(req, res) => {
 
 
 
+router.post("/delete", authenticateToken, async(req, res) => {
+    try {
+        await Donator.deleteOne({ _id: req.body._id });
+        res.status(200).send({ message: "Donator deleted" });
+
+    } catch (error) {
+        res.status(500).send({ message: "Internal Server Error", error: error });
+    }
+})
+
+router.post("/update", authenticateToken, async(req, res) => {
+    try {
+        console.log(req.body)
+        const donator = await Donator.findOne({ "_id": req.body.data._id });
+        console.log("eeeee", donator)
+        await Donator.updateOne({ "_id": ObjectId(req.body.data._id) }, { $set: req.body.data });
+        res.status(200).send({ message: "Donator updated" });
+
+    } catch (error) {
+        res.status(500).send({ message: "Internal Server Error", error: error });
+        console.log(error)
+    }
+})
 
 
 
