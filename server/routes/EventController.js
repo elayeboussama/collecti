@@ -18,7 +18,7 @@ function authenticateToken(req, res, next) {
 
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
         if (err) return res.sendStatus(403)
-        req.event = decoded
+        req.user = decoded
         next()
     })
 }
@@ -35,10 +35,10 @@ function authenticateToken(req, res, next) {
 router.post("/create", async(req, res) => {
     try {
 
-        const { error } = validateEvent(req.body);
-        if (error) {
-            console.log(error)
-            res.status(400).send({ message: error.details[0].message });
+        const { validationError } = validateEvent(req.body);
+        if (validationError) {
+            console.log(validationError)
+            res.status(400).send({ message: validationError.details[0].message });
         }
 
         await new Event(req.body).save();
