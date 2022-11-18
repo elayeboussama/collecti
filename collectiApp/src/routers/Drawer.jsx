@@ -46,7 +46,7 @@ const RootDrawerNavigator = () => {
           drawerInactiveTintColor: "#333",
           drawerLabelStyle: {
             marginLeft: -25,
-            fontFamily: "Roboto-Medium",
+
             fontSize: 15,
           },
         }}
@@ -63,6 +63,15 @@ const RootDrawerNavigator = () => {
         <Drawer.Screen
           name="About"
           component={AboutStack}
+          options={{
+            drawerIcon: ({ color }) => (
+              <Ionicons name="person-outline" size={22} color={color} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="Auth"
+          component={views.AuthScene}
           options={{
             drawerIcon: ({ color }) => (
               <Ionicons name="person-outline" size={22} color={color} />
