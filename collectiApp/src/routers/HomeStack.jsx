@@ -21,27 +21,28 @@ const Stack = createStackNavigator();
 
 const HomeStack = () => {
   return (
-    <Stack.Navigator screenOptions={ ({ navigation, route }) => ({
-      headerLeft: () => (
-        <MaterialIcons
-          name="menu"
-          size={28}
-          onPress={()=> navigation.openDrawer()}
-          style={{position: "absolute", left: 16, color:"white" }}
-        />
-      ),
-      title: 'My home',
-      headerStyle: {
-        backgroundColor: '#432C7A',
-      },
-      headerTitleAlign:"center",
-      headerTintColor: '#fff',
-      headerTitleStyle: {
-        fontWeight: 'bold',
-      },
-      // Add a placeholder button without the `onPress` to avoid flicker
-      
-    })}>
+    <Stack.Navigator
+      screenOptions={({ navigation, route }) => ({
+        headerLeft: () => (
+          <MaterialIcons
+            name="menu"
+            size={28}
+            onPress={() => navigation.openDrawer()}
+            style={{ position: "absolute", left: 16, color: "white" }}
+          />
+        ),
+        title: "Collecti",
+        headerStyle: {
+          backgroundColor: "#432C7A",
+        },
+        headerTitleAlign: "center",
+        headerTintColor: "#fff",
+        headerTitleStyle: {
+          fontWeight: "bold",
+        },
+        // Add a placeholder button without the `onPress` to avoid flicker
+      })}
+    >
       <Stack.Screen name="Home" component={views.HomeScene} />
     </Stack.Navigator>
   );

@@ -6,7 +6,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 
 const Stack = createStackNavigator();
 // home stack navigator screens
-const AboutStack = () => {
+const CompanyStack = () => {
   return (
     <Stack.Navigator
       screenOptions={({ navigation, route }) => ({
@@ -30,17 +30,13 @@ const AboutStack = () => {
         // Add a placeholder button without the `onPress` to avoid flicker
       })}
     >
+      <Stack.Screen name="Companies" component={views.CompanySearchScene} />
       <Stack.Screen
-        name="About"
-        component={views.AboutScene}
-        // options={{
-        //   headerTitle: ({ navigation }) => (
-        //     <Header title="Collecti" navigation={navigation} />
-        //   ),
-        // }}
+        name="CompanyProfile"
+        component={views.CompanyProfileScene}
       />
     </Stack.Navigator>
   );
 };
 
-export default AboutStack;
+export default CompanyStack;

@@ -8,6 +8,7 @@ import { ViewBase } from "react-native";
 import { Header } from "../components";
 import CustomDrawer from "../components/customDrawer/CustomDrawer";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import CompanyStack from "./CompanyStack";
 // drawer navigation options
 // const RootDrawerNavigator = createDrawerNavigator({
 //   Home: {
@@ -23,20 +24,6 @@ const Drawer = createDrawerNavigator();
 const RootDrawerNavigator = () => {
   return (
     <NavigationContainer>
-      {/* <Drawer.Navigator
-        screenOptions={{
-          headerTitle: ({ navigation }) => (
-            <Header title="Collecti" navigation={navigation} />
-          ),
-        }}
-      >
-        <Drawer.Screen name="Home" options={{}} component={HomeStack} />
-        <Drawer.Screen
-          name="About"
-          
-          component={AboutStack}
-        />
-      </Drawer.Navigator> */}
       <Drawer.Navigator
         drawerContent={(props) => <CustomDrawer {...props} />}
         screenOptions={{
@@ -66,6 +53,15 @@ const RootDrawerNavigator = () => {
           options={{
             drawerIcon: ({ color }) => (
               <Ionicons name="person-outline" size={22} color={color} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="Companies"
+          component={CompanyStack}
+          options={{
+            drawerIcon: ({ color }) => (
+              <Ionicons name="globe-outline" size={22} color={color} />
             ),
           }}
         />
