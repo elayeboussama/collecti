@@ -1,6 +1,6 @@
 
 
-import { ThemeProvider } from '@rneui/themed';
+import { createTheme, ThemeProvider } from '@rneui/themed';
 import { theme } from "./src/styles"
 import Navigator from './src/routers/Drawer';
 export default function App() {

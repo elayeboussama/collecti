@@ -7,8 +7,9 @@ import { styles } from "./styles";
 import { MaterialIcons } from "@expo/vector-icons";
 import EventCard from "../../components/EventCard/EventCard";
 import { ScrollView } from "react-native";
+import CompanyCard from "../../components/CompanyCard/CompanyCard";
 
-const HomeScene = () => {
+const CompanySearchScene = ({ navigation }) => {
   const [isVisible, setIsVisible] = useState(false);
   const { theme } = useTheme();
 
@@ -21,9 +22,9 @@ const HomeScene = () => {
         </TouchableOpacity>
       </View>
       <ScrollView>
-        <EventCard />
-        <EventCard />
-        <EventCard />
+        <CompanyCard navigation={navigation} />
+        <CompanyCard />
+        <CompanyCard />
       </ScrollView>
 
       <BottomSheet modalProps={{}} isVisible={isVisible}>
@@ -91,4 +92,4 @@ const HomeScene = () => {
     </View>
   );
 };
-export default HomeScene;
+export default CompanySearchScene;
