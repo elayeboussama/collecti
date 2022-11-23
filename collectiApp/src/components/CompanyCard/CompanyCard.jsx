@@ -8,6 +8,7 @@ import { Divider } from "@rneui/themed";
 import { MaterialIcons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
 
+
 const CompanyCard = ({ navigation }) => {
   return (
     <View style={styles.cardContainer}>
