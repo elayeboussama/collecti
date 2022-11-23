@@ -10,15 +10,13 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         paddingHorizontal: 10,
         marginTop: 12,
-
         backgroundColor: "#fff",
-
         width: "95%",
         alignSelf: "center",
         justifyContent: "space-between",
         alignItems: "center",
         height: 50,
-        elevation: 3,
+        elevation: 1,
         borderRadius: 12,
     },
     bottomSheet: {
