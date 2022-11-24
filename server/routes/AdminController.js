@@ -28,7 +28,7 @@ const loginValidate = (data) => {
         email: Joi.string().email().required().label("Email"),
         password: Joi.string().required().label("Password"),
     });
-    return schema.loginValidate(data);
+    return schema.validate(data);
 };
 
 
@@ -101,10 +101,14 @@ router.post("/login", async(req, res) => {
 
         var token = null
         if (admin) {
+            console.log(admin)
+            console.log(req.body.password, admin.password)
+            
             const validPassword = await bcrypt.compare(
                 req.body.password,
                 admin.password
             );
+            console.log(validPassword)
             if (!validPassword)
                 return res.status(401).send({ message: "Invalid Password" });
 

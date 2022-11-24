@@ -28,7 +28,7 @@ const loginValidate = (data) => {
         email: Joi.string().email().required().label("Email"),
         password: Joi.string().required().label("Password"),
     });
-    return schema.loginValidate(data);
+    return schema.validate(data);
 };
 
 

@@ -28,7 +28,7 @@ const validateDonator = (data) => {
         events: Joi.array().required().label("Events"),
 
     });
-    return schema.validateDonator(data);
+    return schema.validate(data);
 };
 
 module.exports = { Donator, validateDonator };
