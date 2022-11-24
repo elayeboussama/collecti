@@ -2,10 +2,12 @@ import OrganizationCard from "../components/organization/OrganizationCard"
 
 const Organizations = () => {
     return (
-        <div className="flex gap-2 flex-wrap">
-            <OrganizationCard />
-            <OrganizationCard />
-            <OrganizationCard />
+        <div className="w-full ">
+            <div className="mx-auto gap-2 flex-wrap flex w-auto">
+                <OrganizationCard />
+                <OrganizationCard />
+                <OrganizationCard />
+            </div>
         </div>
     )
 }
