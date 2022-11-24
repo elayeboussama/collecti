@@ -6,10 +6,6 @@ const Organizations = () => {
             <OrganizationCard />
             <OrganizationCard />
             <OrganizationCard />
-            <OrganizationCard />
-            <OrganizationCard />
-            <OrganizationCard />
-            <OrganizationCard />
         </div>
     )
 }
