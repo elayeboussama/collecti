@@ -28,7 +28,7 @@ const validateAdmin = (data) => {
         email: Joi.string().email().required().label("Email"),
         password: passwordComplexity().required().label("Password"),
     });
-    return schema.validateAdmin(data);
+    return schema.validate(data);
 };
 
 module.exports = { Admin, validateAdmin };

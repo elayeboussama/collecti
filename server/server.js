@@ -2,8 +2,13 @@ require("dotenv").config();
 const express = require("express");
 const cors = require('cors');
 const app = express();
+const connection = require("./db");
+const bodyParser = require('body-parser');
 
-const adminRoutes = require("./routes/AdminControler");
+const adminRoutes = require("./routes/AdminController");
+const eventRoutes = require("./routes/EventController");
+const organizationRoutes = require("./routes/OrganizationController");
+const donatorRoutes = require("./routes/DonatorController");
 
 
 
@@ -44,6 +49,9 @@ app.options(process.env.CLIENT, cors())
 
 
 app.use("/api/admin", adminRoutes);
+app.use("/api/event", eventRoutes);
+app.use("/api/organization", organizationRoutes);
+app.use("/api/donator", donatorRoutes);
 
 
 
