@@ -41,7 +41,7 @@ const validateOrganization = (data) => {
         password: passwordComplexity().required().label("Password"),
         events: Joi.array().required().label("Events"),
     });
-    return schema.validateOrganization(data);
+    return schema.validate(data);
 };
 
 module.exports = { Organization, validateOrganization };
