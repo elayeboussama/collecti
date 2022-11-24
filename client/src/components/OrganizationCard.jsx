@@ -1,6 +1,6 @@
 const OrganizationCard = () => {
     return (
-        <div className="relative card w-96 bg-base-100 shadow-xl">
+        <div className="card w-96 bg-base-100 shadow-xl">
             <figure><img src="https://media.slidesgo.com/storage/24722876/lung-cancer-awareness-month1663157891.jpg" alt="Shoes" /></figure>
             <div className="card-body">
                 <h2 className="card-title">

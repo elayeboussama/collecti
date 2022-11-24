@@ -1,6 +1,12 @@
+import OrganizationCard from "../components/OrganizationCard"
+
 const Organizations = () => {
     return (
-        <div>Organizations</div>
+        <div className="flex gap-2 flex-wrap">
+            <OrganizationCard />
+            <OrganizationCard />
+            <OrganizationCard />
+        </div>
     )
 }
 
