@@ -31,7 +31,7 @@ const validateEvent = (data) => {
         date: Joi.date().required().label("Date"),
         requirementFunds: Joi.string().required().label("RequirementFunds"),
     });
-    return schema.validateEvent(data);
+    return schema.validate(data);
 };
 
 module.exports = { Event, validateEvent };
