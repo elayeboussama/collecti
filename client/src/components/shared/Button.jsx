@@ -1,10 +1,11 @@
 import cn from "classnames"
 
-const Button = ({ primary, wide }) => {
+const Button = ({ primary, wide, loading }) => {
     const buttonClass = cn({
         "btn": true,
         "btn-primary": primary,
-        "btn-wide": wide,
+        "btn-block": wide,
+        "loading": loading,
     })
 
     return (
