@@ -40,3 +40,5 @@ const Drawer = ({ children }) => {
 }
 
 export default Drawer
+
+// TODO: add logo on top of the drawer
