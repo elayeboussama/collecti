@@ -1,6 +1,6 @@
 import cn from "classnames"
 
-const Button = ({ primary, wide, loading }) => {
+const Button = ({ children, primary, wide, loading }) => {
     const buttonClass = cn({
         "btn": true,
         "btn-primary": primary,
@@ -9,7 +9,7 @@ const Button = ({ primary, wide, loading }) => {
     })
 
     return (
-        <button className={buttonClass}>Button</button>)
+        <button className={buttonClass}>{children}</button>)
 }
 
 export default Button
