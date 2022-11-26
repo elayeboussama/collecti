@@ -75,7 +75,7 @@ router.post("/create", async(req, res) => {
     try {
         
         const salt = await bcrypt.genSalt(Number(process.env.SALT));
-        //console.log(req.body)
+        console.log(req.body)
         const hashPassword = await bcrypt.hash(req.body.password, salt);
     
         await new Organization({...req.body, password: hashPassword }).save();
