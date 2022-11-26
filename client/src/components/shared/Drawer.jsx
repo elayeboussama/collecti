@@ -16,9 +16,9 @@ const Drawer = ({ children }) => {
                     <div className=" flex bg-base-100 flex-col justify-between w-80">
                         <ul className="menu p-4 w-80 text-base-content">
                             {/* <!-- Sidebar content here --> */}
-                            <li><NavLink to={"/"} className={({ isActive }) => cn({ "bg-primary text-white": isActive })}><HomeIcon className="h-6 w-6" />Home</NavLink></li>
-                            <li><NavLink to={"/organizations"} className={({ isActive }) => cn({ "bg-primary text-white": isActive })}><GlobeAltIcon className="h-6 w-6" />Organizations</NavLink></li>
-                            <li><NavLink to={"/events"} className={({ isActive }) => cn({ "bg-primary text-white": isActive })}><CalendarIcon className="h-6 w-6" />Events</NavLink></li>
+                            <li><NavLink end to={"/"} className={({ isActive }) => cn({ "bg-primary text-white": isActive })}><HomeIcon className="h-6 w-6" />Home</NavLink></li>
+                            <li><NavLink end to={"/organizations"} className={({ isActive }) => cn({ "bg-primary text-white": isActive })}><GlobeAltIcon className="h-6 w-6" />Organizations</NavLink></li>
+                            <li><NavLink end to={"/events"} className={({ isActive }) => cn({ "bg-primary text-white": isActive })}><CalendarIcon className="h-6 w-6" />Events</NavLink></li>
                         </ul>
                         <div className="menu flex flex-row border-t items-center p-4 text-base-content w-full">
                             <div className="avatar">
