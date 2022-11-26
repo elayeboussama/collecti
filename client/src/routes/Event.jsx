@@ -26,9 +26,9 @@ const Event = () => {
                     </div>
                     <progress className="progress progress-success w-full my-1" value="70" max="100"></progress>
                     <div className='flex xl:flex-col gap-14 xl:gap-3'>
-                        <div className='flex flex-col'>
+                        <div className='flex flex-col xl:flex-row xl:justify-between xl:items-baseline'>
                             <span className='font-bold text-emerald-500 text-lg xl:text-2xl'>420.50 TND</span>
-                            <span className='text-gray-500 text-xs'>69%</span>
+                            <span className='text-gray-500 text-xs xl:text-base font-medium'>69%</span>
                         </div>
                         <div className='flex flex-col xl:flex-row items-baseline space-x-1'>
                             <span className='font-bold text-gray-500 xl:text-2xl'>71</span>
