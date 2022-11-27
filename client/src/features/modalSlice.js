@@ -12,11 +12,14 @@ export const modalSlice = createSlice({
     showModal: (state, action) => {
       state.content = action.payload;
       state.isShowing = true;
-      console.log('showModal', state);
+    },
+    hideModal: (state) => {
+      state.content = <></>;
+      state.isShowing = false;
     }
   }
 })
 
-export const { showModal } = modalSlice.actions;
+export const { showModal, hideModal } = modalSlice.actions;
 
 export default modalSlice.reducer;
