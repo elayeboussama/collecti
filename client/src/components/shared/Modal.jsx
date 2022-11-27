@@ -1,17 +1,22 @@
 import cn from "classnames"
+import { useSelector } from "react-redux";
 
-const useModal = ({ isShowing, hide, content }) => {
+const useModal = () => {
 
-    const modalClass = cn({
-        "modal modal-bottom sm:modal-middle": true,
-        "modal-open": isShowing,
-    });
+  const isShowing = useSelector((state) => state.modal.isShowing);
+  const content = useSelector((state) => state.modal.content);
+  console.log(isShowing, content);
 
-    return isShowing && (
-        <div className={modalClass}>
-            <div className="modal-box">{content}</div>
-        </div>
-    )
+  const modalClass = cn({
+    "modal modal-bottom sm:modal-middle": true,
+    "modal-open": isShowing,
+  });
+
+  return isShowing && (
+    <div className={modalClass}>
+      <div className="modal-box">{content}</div>
+    </div>
+  )
 }
 
 export default useModal
