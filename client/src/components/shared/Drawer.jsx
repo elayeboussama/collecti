@@ -27,7 +27,8 @@ const Drawer = ({ children }) => {
                         </ul>
                         <div className="flex flex-row border-t items-center p-4 text-base-content w-full">
                             <ul className="menu p-4 w-80 text-base-content">
-                                <li onClick={() => dispatch(showModal(<Login />))}><a><UserIcon className="h-6 w-6" />Login</a></li>
+                                <label htmlFor="my-modal-4"><li onClick={() => dispatch(showModal(<Login />))}><a><UserIcon className="h-6 w-6" />Login</a></li></label>
+
                                 <li><a><ArrowLeftOnRectangleIcon className="h-6 w-6" />Sign up</a></li>
                             </ul>
                         </div>

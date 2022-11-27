@@ -4,5 +4,8 @@ import modalReducer from './features/modalSlice'
 export const store = configureStore({
     reducer: {
         modal: modalReducer,
-    }
+    },
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+        serializableCheck: false,
+    })
 })
