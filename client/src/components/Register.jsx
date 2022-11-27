@@ -32,7 +32,7 @@ const Register = () => {
                     <button className="btn btn-primary">Sign up</button>
                 </div>
                 <div className="flex text-sm">
-                    <p className="text-base-content/70 grow-0 mr-1">Already have an account?</p><a onClick={() => dispatch(setContent(<Login />))} className="link link-hover">Login</a>
+                    <p className="text-base-content/70 grow-0 mr-1">Already have an account?</p><span onClick={() => dispatch(setContent(<Login />))} className="link link-hover">Login</span>
                 </div>
             </div>
         </div>

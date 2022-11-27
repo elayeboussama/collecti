@@ -22,14 +22,14 @@ const Login = () => {
                     </label>
                     <input type="text" placeholder="password" className="input input-bordered" />
                     <label className="label">
-                        <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
+                        <span className="label-text-alt link link-hover">Forgot password?</span>
                     </label>
                 </div>
                 <div className="form-control mt-6">
                     <button className="btn btn-primary">Login</button>
                 </div>
                 <div className="flex text-sm">
-                    <p className="text-base-content/70 grow-0 mr-1">Not yet registered?</p><a onClick={() => dispatch(setContent(<Register />))} className="link link-hover">Sign up</a>
+                    <p className="text-base-content/70 grow-0 mr-1">Not yet registered?</p><span onClick={() => dispatch(setContent(<Register />))} className="link link-hover">Sign up</span>
                 </div>
             </div>
         </div>

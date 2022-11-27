@@ -27,8 +27,8 @@ const Drawer = ({ children }) => {
                         </ul>
                         <div className="flex flex-row border-t items-center p-4 text-base-content w-full">
                             <ul className="menu p-4 w-80 text-base-content">
-                                <label htmlFor="my-modal-4"><li onClick={() => dispatch(setContent(<Login />))}><a><UserIcon className="h-6 w-6" />Login</a></li></label>
-                                <label htmlFor="my-modal-4"><li onClick={() => dispatch(setContent(<Register />))}><a><ArrowLeftOnRectangleIcon className="h-6 w-6" />Sign up</a></li></label>
+                                <label htmlFor="my-modal-4"><li onClick={() => dispatch(setContent(<Login />))}><span><UserIcon className="h-6 w-6" />Login</span></li></label>
+                                <label htmlFor="my-modal-4"><li onClick={() => dispatch(setContent(<Register />))}><span><ArrowLeftOnRectangleIcon className="h-6 w-6" />Sign up</span></li></label>
                             </ul>
                         </div>
                         <div className="menu flex flex-row border-t items-center p-4 text-base-content w-full hidden">
