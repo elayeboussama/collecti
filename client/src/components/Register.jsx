@@ -1,6 +1,11 @@
 import { XMarkIcon } from "@heroicons/react/24/outline"
+import { useDispatch } from "react-redux"
+import { setContent } from "../features/modalSlice"
+import Login from "./Login"
 
 const Register = () => {
+    const dispatch = useDispatch()
+
     return (
         <div className="card flex-shrink-0 mx-auto max-w-sm">
             <label htmlFor="my-modal-4" className="btn btn-circle btn-ghost absolute right-2 top-2"><XMarkIcon className="h-6 w-6" /></label>
@@ -27,7 +32,7 @@ const Register = () => {
                     <button className="btn btn-primary">Sign up</button>
                 </div>
                 <div className="flex text-sm">
-                    <p className="text-base-content/70 grow-0 mr-1">Already have an account?</p><a className="link link-hover">Sign up</a>
+                    <p className="text-base-content/70 grow-0 mr-1">Already have an account?</p><a onClick={() => dispatch(setContent(<Login />))} className="link link-hover">Login</a>
                 </div>
             </div>
         </div>
