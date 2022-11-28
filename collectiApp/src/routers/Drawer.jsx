@@ -79,12 +79,63 @@ const RootDrawerNavigator = () => {
   );
 };
 
-const MainContainer = () => {
+
+const RootDrawerNavigatorUser = () => {
   return (
     <NavigationContainer>
-      <RootDrawerNavigator />
+      <Drawer.Navigator
+        drawerContent={(props) => <CustomDrawer {...props} />}
+        screenOptions={{
+          headerShown: false,
+          drawerActiveBackgroundColor: "#aa18ea",
+          drawerActiveTintColor: "#fff",
+          drawerInactiveTintColor: "#333",
+          drawerLabelStyle: {
+            marginLeft: -25,
+
+            fontSize: 15,
+          },
+        }}
+      >
+        <Drawer.Screen
+          name="Home"
+          component={HomeStack}
+          options={{
+            drawerIcon: ({ color }) => (
+              <Ionicons name="home-outline" size={22} color={color} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="About"
+          component={AboutStack}
+          options={{
+            drawerIcon: ({ color }) => (
+              <Ionicons name="person-outline" size={22} color={color} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="Companies"
+          component={CompanyStack}
+          options={{
+            drawerIcon: ({ color }) => (
+              <Ionicons name="globe-outline" size={22} color={color} />
+            ),
+          }}
+        />
+        
+      </Drawer.Navigator>
     </NavigationContainer>
   );
 };
 
-export default RootDrawerNavigator;
+// const MainContainer = () => {
+//   return (
+//     <NavigationContainer>
+//       <RootDrawerNavigator />
+//     </NavigationContainer>
+//   );
+// };
+
+export  {RootDrawerNavigator,RootDrawerNavigatorUser};

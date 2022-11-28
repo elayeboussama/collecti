@@ -46,6 +46,8 @@ router.post("/login", async(req, res) => {
 
         const organization = await Organization.findOne({ email: req.body.email });
 
+        // console.log(organization)
+
 
         var token = null
         if (organization) {
@@ -55,11 +57,17 @@ router.post("/login", async(req, res) => {
             );
             if (!validPassword)
                 return res.status(401).send({ message: "Invalid Password" });
-
-            token = organization.generateAuthToken();
+            
+            token = await organization.generateAuthToken();
         }
+        
+        
+        console.log(organization)
+        // console.log(organization.generateAuthToken())
+        organization.password = undefined;
+        res.status(200).send({ data:{organization, token}, message: "logged in successfully" });
 
-        res.status(200).send({ data: token, message: "logged in successfully" });
+        
 
     } catch (errors) {
 

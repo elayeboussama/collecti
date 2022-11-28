@@ -10,7 +10,7 @@ import { color } from "react-native-reanimated";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { useSignUpMutation } from "../../../redux/endpoints/AuthEndpoints";
-const SignUpScene = () => {
+const SignUpScene = ({setIndex}) => {
   const [signUp, { isLoading }] = useSignUpMutation();
 
   const signupOrganization = async (values) => {
@@ -20,6 +20,8 @@ const SignUpScene = () => {
         ...values,
       }).unwrap();
       console.log(organization_data);
+      setIndex(0)
+      
       // navigate("/", { replace: true });
     } catch (err) {
       console.log(err);
@@ -40,6 +42,7 @@ const SignUpScene = () => {
       </ImageBackground>
       <Text style={{ fontSize: 30, marginLeft: 12 }}>Sign Up</Text>
       <Formik
+        
         validationSchema={signUpValidationSchema}
         initialValues={{
           name: "",
@@ -47,12 +50,18 @@ const SignUpScene = () => {
           password: "",
           confirm_password: "",
         }}
-        onSubmit={(values) => signupOrganization(values)}
+        onSubmit={(values, {resetForm}) => {
+          signupOrganization(values)
+          resetForm({values:""})
+        }}
+
+
       >
         {({
           handleChange,
           handleBlur,
           handleSubmit,
+          resetForm,
           values,
           errors,
           isValid,
@@ -131,7 +140,7 @@ const SignUpScene = () => {
                 />
               }
               buttonStyle={styles.submitButton}
-              title={"Login"}
+              title={"SignUp"}
               iconRight
               onPress={handleSubmit}
               disabled={!isValid}
