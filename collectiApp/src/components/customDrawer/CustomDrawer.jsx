@@ -1,4 +1,5 @@
 import React from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   View,
   Text,
@@ -13,8 +14,11 @@ import {
 
 import Ionicons from "react-native-vector-icons/Ionicons";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+import { useNavigation } from "@react-navigation/native";
+
 
 const CustomDrawer = (props) => {
+
   return (
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView
@@ -76,7 +80,15 @@ const CustomDrawer = (props) => {
             </Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => {}} style={{ paddingVertical: 15 }}>
+        <TouchableOpacity onPress={() => {
+          AsyncStorage.removeItem("token")
+          props.navigation.reset({
+            index: 0,
+            routes: [{name: 'Home'}],
+          });
+          
+          
+          }} style={{ paddingVertical: 15 }}>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Ionicons name="exit-outline" size={22} />
             <Text

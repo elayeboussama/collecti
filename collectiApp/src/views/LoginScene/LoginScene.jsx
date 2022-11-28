@@ -9,7 +9,40 @@ import { ScrollView } from "react-native";
 import { color } from "react-native-reanimated";
 import { Formik } from "formik";
 import * as yup from "yup";
-const SingUpScene = () => {
+import { useLoginMutation } from "../../../redux/endpoints/AuthEndpoints";
+import { useDispatch } from "react-redux";
+import { setCredentials } from "../../../redux/slicers/AuthSlice";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from "@react-navigation/native";
+
+const LoginScene = () => {
+  const [login, { isLoading }] = useLoginMutation();
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+
+
+
+  const loginOrganization = async (values) => {
+    try {
+      console.log(values);
+      const organization_data = await login({
+        ...values,
+      }).unwrap();
+      console.log(organization_data);
+      dispatch(setCredentials(organization_data))
+      console.log(AsyncStorage.getItem("token"))
+      navigation.reset({
+        index: 0,
+        routes: [{name: 'Home'}],
+      });
+      
+
+      // navigate("/", { replace: true });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  
   return (
     <ScrollView style={styles.container}>
       <ImageBackground
@@ -28,7 +61,7 @@ const SingUpScene = () => {
       <Formik
         validationSchema={loginValidationSchema}
         initialValues={{ email: "", password: "" }}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={(values) => loginOrganization(values)}
       >
         {({
           handleChange,
@@ -101,4 +134,5 @@ const loginValidationSchema = yup.object().shape({
     .min(8, ({ min }) => `Password must be at least ${min} characters`)
     .required("Password is required"),
 });
-export default SingUpScene;
+
+export default LoginScene
