@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 const OrganizationCard = () => {
     return (
         <div className="card w-96 bg-base-100 shadow-xl">
@@ -14,7 +16,9 @@ const OrganizationCard = () => {
                         <div className="badge badge-outline">Health</div>
                     </div>
                     <div>
+                        <Link to={`organization/1`}>
                         <button className="link btn-sm hover:text-primary">Details</button>
+                        </Link>
                     </div>
                 </div>
             </div>

@@ -7,7 +7,7 @@ const Drawer = ({ children }) => {
         <>
             <div className="drawer drawer-mobile">
                 <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-                <div className="drawer-content flex flex-col w-full">
+                <div className="drawer-content flex flex-col w-full ">
                     {/* <!-- Page content here --> */}
                     {children}
                 </div>
