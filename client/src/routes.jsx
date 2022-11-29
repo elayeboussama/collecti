@@ -6,7 +6,7 @@ import ErrorPage from './routes/ErrorPage';
 import Event from './routes/Event';
 import Events from './routes/Events';
 import Index from './routes/Index';
-import Organization from './routes/Organization';
+import OrganizationDetails from './components/organization/OrganizationDetails';
 import Organizations from './routes/Organizations';
 
 const router = createBrowserRouter([
@@ -39,8 +39,8 @@ const router = createBrowserRouter([
                         element: <Organizations />,
                     },
                     {
-                        path: 'organizations/:organizationId',
-                        element: <Organization />,
+                        path: 'organizations/organization/:organizationId',
+                        element: <OrganizationDetails />,
                     },
                     {
                         path: 'organizations/:organizationId/edit',
