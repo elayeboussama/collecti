@@ -21,8 +21,8 @@ const OrganizationDetails = () => {
   ]
     return (
       <div className="flex flex-row justify-center gap-10 px-10">
-      <div className='left-container flex w-2/3 flex-col justify-center gap-10'>
-        <div className="card  w-full glass place-content-center flex-auto">
+      <div className='left-container flex w-2/3 flex-col  gap-10'>
+        <div className="card flex-initial w-full glass place-content-center max-h-max">
         <figure>
           <div className="avatar-group w-full -space-y-28 flex-col ">
             <img className='max-w-10xl h-72 w-full' src="https://placeimg.com/400/225/arch" alt="car!" />
@@ -77,8 +77,8 @@ const OrganizationDetails = () => {
       prend de plus en plus à son aise, il saisit l'occasion de me glisser ses cartes postales, il cherche à me faire tomber d'accord avec lui sur des lieux communs!
       
       La description est donc suspecte de nuire à la littérature. Que lui reproche-t-on exactement? d'abord d'être anti-poétique, à cause des lexiques trop techniques qui n'aident pas le lecteur à se représenter les objets désignés. On l'accuse aussi d'être arbitraire dans ses dimensions: effectivement, une description n'a aucune raison de s'arrêter, elle est toujours virtuellement interminable. Enfin, on la considère comme étrangère à la structure organique des œuvres littéraires puisqu'elle s'en détache facilement pour former des morceaux choisis ou fragments d'anthologie (si ce n'est des dictées…).Il est constitué du nom de la relation, du nom de ses attributs, de la clé primaire et des clés étrangères. Le schéma relationnel correspond à l'ensemble des relations présentes dans une base de données. Le schéma relationnel d'une base de données est composé de l'ensemble des schémas de relation de cette base."
-      content2={"Demander aux présidents de commission Marketing de district et de club d'élaborer un plan pour communiquer et fêter ces succès. • Collaborer avec les présidents ..."}
-      content3={"Perception du monde extérieur par la vue ; mécanisme physiologique par lequel les radiations lumineuses donnent naissance à des sensations visuelles.Vision nette, indistincte"}
+      content2={"a description au sens moderne, c'est-à-dire réaliste, du terme est née en dehors de la littérature. Depuis l'Antiquité, un certain nombre de discours techniques ou scientifiques ont recours à elle: c'est par exemple la géographie, particulièrement dans son usage militaire (décrire des paysages cela peut aussi servir à faire la guerre); c'est aussi l'architecture (la description a pour fonction de commenter des plans), la zoologie ou la botanique (il s'agit cette fois d'observer pour classer); n'oublions pas enfin le discours judiciaire (il est important de décrire les circonstances d'un délit ou de faire un portrait du caractère d'un inculpé). À la Renaissance, on appelle aussi description un ouvrage décrivant des villes à l'usage des touristes, des curieux ou des hommes d'affaires (c'est un peu l'ancêtre de nos Guides verts). L'essor de la description apparaît donc étroitement lié à l'expansion des sciences et des techniques. Demander aux présidents de commission Marketing de district et de club d'élaborer un plan pour communiquer et fêter ces succès. • Collaborer avec les présidents ..."}
+      content3={"a description au sens moderne, c'est-à-dire réaliste, du terme est née en dehors de la littérature. Depuis l'Antiquité, un certain nombre de discours techniques ou scientifiques ont recours à elle: c'est par exemple la géographie, particulièrement dans son usage militaire (décrire des paysages cela peut aussi servir à faire la guerre); c'est aussi l'architecture (la description a pour fonction de commenter des plans), la zoologie ou la botanique (il s'agit cette fois d'observer pour classer); n'oublions pas enfin le discours judiciaire (il est important de décrire les circonstances d'un délit ou de faire un portrait du caractère d'un inculpé). À la Renaissance, on appelle aussi description un ouvrage décrivant des villes à l'usage des touristes, des curieux ou des hommes d'affaires (c'est un peu l'ancêtre de nos Guides verts). L'essor de la description apparaît donc étroitement lié à l'expansion des sciences et des techniques.Perception du monde extérieur par la vue ; mécanisme physiologique par lequel les radiations lumineuses donnent naissance à des sensations visuelles.Vision nette, indistincte"}
 
       />
       </div>  
@@ -105,7 +105,7 @@ const OrganizationDetails = () => {
               </div>
             </div>
           </div>
-          <div className="card  bg-base-100 glass h-1/3 ">
+          <div className="card  bg-base-100 glass h-2/5 ">
             <div className="card-body gap-4 ">
             <h2 className="card-title">Events</h2>
                 {eventsList.map((event) =>
