@@ -1,12 +1,17 @@
-import Youtube from 'react-youtube'
+// import Youtube from 'react-youtube'
 import Button from '../components/shared/Button'
+import ImageSlider from '../components/shared/ImageSlider'
 
 const Event = () => {
+
+    const images = ['https://static.vecteezy.com/system/resources/previews/003/240/750/non_2x/breast-cancer-awareness-poster-free-vector.jpg', 'https://media.istockphoto.com/id/1419649663/vector/breast-cancer-awareness-month-suitable-for-backgrounds-banners-posters-and-others.jpg?s=612x612&w=0&k=20&c=MCE2xKXK0qj89PxVYsf3kM0ZWtOFuGib-40CcPAZTcM=', 'https://res.cloudinary.com/daily-now/image/upload/f_auto,q_auto/v1/posts/90afa2eb7a30af5f30d970f244395130']
+
     return (
         <div className='mx-auto w-full max-w-5xl'>
             <div className='xl:flex'>
                 <div className='max-w-3xl xl:max-w-2xl w-full mx-auto xl:mx-0'>
-                    <Youtube className='relative overflow-hidden w-full aspect-video [&>iframe]:absolute [&>iframe]:inset-0 [&>iframe]:w-full [&>iframe]:h-full' videoId='UT5F9AXjwhg' />
+                    <ImageSlider images={images} />
+                    {/* <Youtube className='relative overflow-hidden w-full aspect-video [&>iframe]:absolute [&>iframe]:inset-0 [&>iframe]:w-full [&>iframe]:h-full' videoId='UT5F9AXjwhg' /> */}
                 </div>
                 <div className="card-body p-4 xl:py-0 max-w-3xl xl:max-w-sm mx-auto xl:m-0">
                     <h2 className="card-title">
