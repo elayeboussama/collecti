@@ -3,8 +3,7 @@ import Button from '../components/shared/Button'
 import ImageSlider from '../components/shared/ImageSlider'
 
 const Event = () => {
-
-    const images = ['https://static.vecteezy.com/system/resources/previews/003/240/750/non_2x/breast-cancer-awareness-poster-free-vector.jpg', 'https://media.istockphoto.com/id/1419649663/vector/breast-cancer-awareness-month-suitable-for-backgrounds-banners-posters-and-others.jpg?s=612x612&w=0&k=20&c=MCE2xKXK0qj89PxVYsf3kM0ZWtOFuGib-40CcPAZTcM=', 'https://res.cloudinary.com/daily-now/image/upload/f_auto,q_auto/v1/posts/90afa2eb7a30af5f30d970f244395130']
+    const images = ['https://wallpaperaccess.com/full/4482737.png', 'https://www.goodworklabs.com/wp-content/uploads/2017/08/django.jpg', 'https://res.cloudinary.com/daily-now/image/upload/f_auto,q_auto/v1/posts/90afa2eb7a30af5f30d970f244395130']
 
     return (
         <div className='mx-auto w-full max-w-5xl'>
@@ -17,7 +16,7 @@ const Event = () => {
                     <h2 className="card-title">
                         Cookies are not for breakfast!
                     </h2>
-                    <p className=''>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi ipsam error harum.</p>
+                    <p className=''>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati molestias, at in amet vel rem ratione.</p>
                     <div className="menu flex flex-row border-y items-center py-4 text-base-content w-full xl:hidden">
                         <div className="avatar">
                             <div className="w-14 rounded-3xl">
