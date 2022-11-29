@@ -18,5 +18,5 @@ code {
 }
 
 :root {
-  --swiper-theme-color: --primary;
+  --swiper-theme-color: #500DF8 !important;
 }
