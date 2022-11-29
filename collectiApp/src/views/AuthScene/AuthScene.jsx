@@ -22,7 +22,7 @@ const AuthScene = () => {
           <LoginScene />
         </TabView.Item>
         <TabView.Item style={{ paddingTop: 25, width: "100%" }}>
-          <SignUpScene />
+          <SignUpScene setIndex={setIndex}/>
         </TabView.Item>
       </TabView>
       <Tab

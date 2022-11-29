@@ -71,3 +71,5 @@ const Event = () => {
 }
 
 export default Event
+
+// Todo: fix the button hover state and the progress bar color

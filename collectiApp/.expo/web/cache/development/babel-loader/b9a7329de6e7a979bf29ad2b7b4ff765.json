@@ -1,0 +1,1 @@
+{"ast":null,"code":"import theme from \"./theme\";\nexport { theme };","map":{"version":3,"names":["theme"],"sources":["C:/Users/ELAYEB/OneDrive/Documents/GitHub/collecti/collectiApp/src/styles/index.js"],"sourcesContent":["import theme from \"./theme\";\r\n\r\nexport {theme}"],"mappings":"AAAA,OAAOA,KAAK;AAEZ,SAAQA,KAAK"},"metadata":{},"sourceType":"module"}

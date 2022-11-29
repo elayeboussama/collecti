@@ -6,13 +6,13 @@ const passwordComplexity = require("joi-password-complexity");
 
 const organizationSchema = new mongoose.Schema({
     name: { type: String, required: true },
-    description: { type: String, required: true },
-    events: { type: Array, required: true },
-    directorName: { type: String, required: true },
-    logo: { type: String, required: true },
-    cover: { type: String, required: true },
-    catchPhrase: { type: String, required: true },
-    phone: { type: String, required: true },
+    description: { type: String, required: false },
+    events: { type: Array, required: false },
+    directorName: { type: String, required: false },
+    logo: { type: String, required: false },
+    cover: { type: String, required: false },
+    catchPhrase: { type: String, required: false },
+    phone: { type: String, required: false },
     email: { type: String, required: true },
     password: { type: String, required: true },
 
@@ -31,15 +31,15 @@ const Organization = mongoose.model("organization", organizationSchema);
 const validateOrganization = (data) => {
     const schema = Joi.object({
         name: Joi.string().required().label("Name"),
-        description: Joi.string().required().label("Description"),
-        directorName: Joi.string().required().label("DirectorName"),
-        logo: Joi.string().required().label("Logo"),
-        cover: Joi.string().required().label("Logo"),
-        namcatchPhrase: Joi.string().required().label("CatchPhrase"),
-        phone: Joi.string().required().label("Phone"),
+        description: Joi.string().label("Description"),
+        directorName: Joi.string().label("DirectorName"),
+        logo: Joi.string().label("Logo"),
+        cover: Joi.string().label("Logo"),
+        namcatchPhrase: Joi.string().label("CatchPhrase"),
+        phone: Joi.string().label("Phone"),
         email: Joi.string().email().required().label("Email"),
         password: passwordComplexity().required().label("Password"),
-        events: Joi.array().required().label("Events"),
+        events: Joi.array().label("Events"),
     });
     return schema.validate(data);
 };
