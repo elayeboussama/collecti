@@ -16,8 +16,8 @@ const OrganizationCard = () => {
                         <div className="badge badge-outline">Health</div>
                     </div>
                     <div>
-                        <Link to={`organization/1`}>
-                        <button className="link btn-sm hover:text-primary">Details</button>
+                        <Link to={`1`}>
+                            <button className="link btn-sm hover:text-primary">Details</button>
                         </Link>
                     </div>
                 </div>
