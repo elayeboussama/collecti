@@ -8,9 +8,9 @@ const Login = () => {
 
     return (
         <label className="modal-box  max-w-sm lg:max-w-2xl relative bg-base-100 p-0">
-            <div className="card flex-shrink-0 mx-auto max-w-6xl">
+            <div className="card flex-shrink-0 mx-auto">
                 <label htmlFor="my-modal-4" className="btn btn-circle btn-ghost absolute right-2 top-2"><XMarkIcon className="h-6 w-6" /></label>
-                <div className="flex flex-row p-8 justify-around">
+                <div className="flex flex-row p-8 justify-around items-center">
                     <img className="hidden lg:block max-h-80" src="https://svgshare.com/i/oTj.svg" alt="login" />
                     <div className="card-body p-0 flex-grow max-w-sm px-2">
                         <div className="form-control">
