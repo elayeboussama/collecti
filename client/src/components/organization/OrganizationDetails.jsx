@@ -66,11 +66,6 @@ const OrganizationDetails = () => {
       </div>
 
       <div className="body-container w-full glass rounded-2xl ">
-      {/* <div className="tabs h-14">
-        <a className="tab tab-lifted h-full">Description</a> 
-        <a className="tab tab-lifted tab-active h-full">plan d'action</a> 
-        <a className="tab tab-lifted h-full">Vision</a>
-      </div> */}
       <Tabs 
       tabsTitle={tabsTitle}
       content1="La description a été codifiée dès la rhétorique ancienne sous le nom grec d'ekphrasis (qu'on pourrait traduire comme morceau discursif détaché). À l'origine, elle relève surtout du discours d'apparat (genre épidictique) qui appelle la description élogieuse de personnes, de lieux ou de moments privilégiés. Et nous pouvons nous faire une idée de ce qu'elle a été si nous songeons à des pratiques rhétoriques encore vivantes aujourd'hui comme l'éloge funèbre, les discours d'inauguration ou les messages d'amitiés diplomatiquement échangés lors de visites de chefs d'état.

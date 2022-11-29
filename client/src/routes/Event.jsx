@@ -1,18 +1,22 @@
-import Youtube from 'react-youtube'
+// import Youtube from 'react-youtube'
 import Button from '../components/shared/Button'
+import ImageSlider from '../components/shared/ImageSlider'
 
 const Event = () => {
+    const images = ['https://wallpaperaccess.com/full/4482737.png', 'https://www.goodworklabs.com/wp-content/uploads/2017/08/django.jpg', 'https://res.cloudinary.com/daily-now/image/upload/f_auto,q_auto/v1/posts/90afa2eb7a30af5f30d970f244395130']
+
     return (
         <div className='mx-auto w-full max-w-5xl'>
             <div className='xl:flex'>
                 <div className='max-w-3xl xl:max-w-2xl w-full mx-auto xl:mx-0'>
-                    <Youtube className='relative overflow-hidden w-full aspect-video [&>iframe]:absolute [&>iframe]:inset-0 [&>iframe]:w-full [&>iframe]:h-full' videoId='UT5F9AXjwhg' />
+                    <ImageSlider images={images} />
+                    {/* <Youtube className='relative overflow-hidden w-full aspect-video [&>iframe]:absolute [&>iframe]:inset-0 [&>iframe]:w-full [&>iframe]:h-full' videoId='UT5F9AXjwhg' /> */}
                 </div>
                 <div className="card-body p-4 xl:py-0 max-w-3xl xl:max-w-sm mx-auto xl:m-0">
                     <h2 className="card-title">
                         Cookies are not for breakfast!
                     </h2>
-                    <p className=''>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi ipsam error harum.</p>
+                    <p className=''>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati molestias, at in amet vel rem ratione.</p>
                     <div className="menu flex flex-row border-y items-center py-4 text-base-content w-full xl:hidden">
                         <div className="avatar">
                             <div className="w-14 rounded-3xl">
