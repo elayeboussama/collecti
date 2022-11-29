@@ -8,9 +8,7 @@ const useModal = () => {
     <>
       <input type="checkbox" id="my-modal-4" className="modal-toggle" />
       <label htmlFor="my-modal-4" className="modal cursor-pointer">
-        <label className="modal-box relative bg-base-100 max-w-sm p-0">
-          {content}
-        </label>
+        {content}
       </label>
 
     </>
