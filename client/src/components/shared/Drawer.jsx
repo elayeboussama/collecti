@@ -21,7 +21,9 @@ const Drawer = ({ children }) => {
                     <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
                     <div className=" flex bg-base-100 flex-col justify-between w-80">
                         <ul className="menu p-4 w-80 text-base-content">
-                            <li><NavLink end to={"/"} className={({ isActive }) => cn({ "bg-primary text-white": isActive })}><HomeIcon className="h-6 w-6" />Home</NavLink></li>
+                            <label htmlFor="my-drawer-2">
+                                <li><NavLink end to={"/"} className={({ isActive }) => cn({ "bg-primary text-white": isActive })}><HomeIcon className="h-6 w-6" />Home</NavLink></li>
+                            </label>
                             <li><NavLink end to={"/organizations"} className={({ isActive }) => cn({ "bg-primary text-white": isActive })}><GlobeAltIcon className="h-6 w-6" />Organizations</NavLink></li>
                             <li><NavLink end to={"/events"} className={({ isActive }) => cn({ "bg-primary text-white": isActive })}><CalendarIcon className="h-6 w-6" />Events</NavLink></li>
                         </ul>
