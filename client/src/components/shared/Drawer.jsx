@@ -29,6 +29,7 @@ const Drawer = ({ children }) => {
                             </label>
                             <li><NavLink end to={"/organizations"} className={({ isActive }) => cn({ "bg-primary text-white": isActive })}><GlobeAltIcon className="h-6 w-6" />Organizations</NavLink></li>
                             <li><NavLink end to={"/events"} className={({ isActive }) => cn({ "bg-primary text-white": isActive })}><CalendarIcon className="h-6 w-6" />Events</NavLink></li>
+                            <li><NavLink end to={"/events/1"} className={({ isActive }) => cn({ "bg-primary text-white": isActive })}><CalendarIcon className="h-6 w-6" />Event Example</NavLink></li>
                         </ul>
                         <div className="flex mt-auto flex-row border-t items-center text-base-content w-full ">
                             <ul className="menu p-4 w-80 text-base-content">
