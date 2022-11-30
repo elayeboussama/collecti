@@ -1,5 +1,5 @@
 import cn from "classnames"
-import { NavLink } from "react-router-dom"
+import { Link, NavLink } from "react-router-dom"
 import { HomeIcon, GlobeAltIcon, CalendarIcon, ArrowRightOnRectangleIcon, UserIcon, ArrowLeftOnRectangleIcon } from "@heroicons/react/24/outline"
 import { useDispatch } from "react-redux";
 import { setContent } from "../../features/modalSlice";
@@ -20,9 +20,9 @@ const Drawer = ({ children }) => {
                 <div className="drawer-side border-r">
                     <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
                     <div className=" flex bg-base-100 flex-col w-80">
-                        <div className="border-b w-full">
+                        <Link to={"/"} className="border-b w-full">
                             <img className="w-52 p-5" src="https://svgshare.com/i/oV0.svg" alt="logo" />
-                        </div>
+                        </Link>
                         <ul className="menu p-4 w-80 text-base-content">
                             <label htmlFor="my-drawer-2">
                                 <li><NavLink end to={"/"} className={({ isActive }) => cn({ "bg-primary text-white": isActive })}><HomeIcon className="h-6 w-6" />Home</NavLink></li>

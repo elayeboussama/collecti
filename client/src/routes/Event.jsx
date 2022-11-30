@@ -3,7 +3,9 @@ import Button from '../components/shared/Button'
 import ImageSlider from '../components/shared/ImageSlider'
 
 const Event = () => {
-    const images = ['https://wallpaperaccess.com/full/4482737.png', 'https://www.goodworklabs.com/wp-content/uploads/2017/08/django.jpg', 'https://res.cloudinary.com/daily-now/image/upload/f_auto,q_auto/v1/posts/90afa2eb7a30af5f30d970f244395130']
+    const images = ['https://images.unsplash.com/photo-1532629345422-7515f3d16bb6',
+        'https://images.unsplash.com/photo-1593113598332-cd288d649433?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+        'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80']
 
     return (
         <div className='mx-auto w-full max-w-5xl'>
@@ -14,7 +16,7 @@ const Event = () => {
                 </div>
                 <div className="card-body p-4 xl:py-0 max-w-3xl xl:max-w-sm mx-auto xl:m-0">
                     <h2 className="card-title">
-                        Cookies are not for breakfast!
+                        Event header title!
                     </h2>
                     <p className=''>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati molestias, at in amet vel rem ratione.</p>
                     <div className="menu flex flex-row border-y items-center py-4 text-base-content w-full xl:hidden">
