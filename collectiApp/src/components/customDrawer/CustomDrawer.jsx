@@ -16,9 +16,11 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { useNavigation } from "@react-navigation/native";
 
+import { useDispatch } from "react-redux";
+import { setCredentials } from "../../../redux/slicers/AuthSlice";
 
 const CustomDrawer = (props) => {
-
+  const dispatch = useDispatch();
   return (
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView
@@ -82,6 +84,7 @@ const CustomDrawer = (props) => {
         </TouchableOpacity>
         <TouchableOpacity onPress={() => {
           AsyncStorage.removeItem("token")
+          dispatch(setCredentials({data:{token:undefined}}))
           props.navigation.reset({
             index: 0,
             routes: [{name: 'Home'}],
