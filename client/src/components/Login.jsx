@@ -2,16 +2,27 @@ import { EyeIcon, EyeSlashIcon, XMarkIcon } from "@heroicons/react/24/outline"
 import { useState } from "react";
 import { useDispatch } from "react-redux"
 import { setContent } from "../features/modalSlice"
+import { validateEmail } from "../utils/validateEmail";
 import Register from "./Register"
 
 
 const Login = () => {
     const dispatch = useDispatch()
     const [showPassword, setShowPassword] = useState(false);
+    const [error, setError] = useState(null);
 
     const toggleShowPassword = () => {
         setShowPassword(!showPassword);
     };
+
+    const handleEmailBlur = (event) => {
+        const email = event.target.value;
+        if (!validateEmail(email)) {
+            setError("Please enter a valid email address");
+        } else {
+            setError(null);
+        }
+    }
 
     return (
         <label className="relative max-w-sm p-0 modal-box lg:max-w-2xl bg-base-100">
@@ -24,7 +35,8 @@ const Login = () => {
                             <label className="label">
                                 <span className="label-text">Email</span>
                             </label>
-                            <input type="text" placeholder="email" className="input input-bordered" />
+                            <input type="text" placeholder="email" className="input input-bordered" onBlur={handleEmailBlur} required />
+                            {error && <p className="mt-2 text-xs text-red-500">{error}</p>}
                         </div>
                         <label className="form-control">
                             <label className="label">
