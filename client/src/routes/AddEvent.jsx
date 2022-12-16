@@ -1,4 +1,4 @@
-import { XMarkIcon } from '@heroicons/react/24/outline'
+import { PlusSmallIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { useRef, useState } from 'react'
 
 const AddEvent = () => {
@@ -38,8 +38,8 @@ const AddEvent = () => {
                     </label>
                     <div className="input-group">
                         <input type="text" placeholder="add tags" className="w-full input input-bordered" ref={tagInputRef} />
-                        <button className="px-14 btn btn-square" type="button" onClick={handleAddTag}>
-                            Add
+                        <button className="flex w-24 btn btn-square" type="button" onClick={handleAddTag}>
+                            <PlusSmallIcon className='w-6 h-6 mr-1 text-white' /> Add
                         </button>
                     </div>
                     <div className="flex flex-wrap items-center gap-2 mt-2">
