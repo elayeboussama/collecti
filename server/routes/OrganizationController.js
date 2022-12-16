@@ -124,7 +124,7 @@ router.post("/create", async(req, res) => {
 
 
 
-router.get("/organizations", authenticateToken, async(req, res) => {
+router.get("/organizations", async(req, res) => {
     try {
         const organizations = await Organization.find();
          
@@ -148,7 +148,7 @@ router.get("/organizations", authenticateToken, async(req, res) => {
 })
 
 
-router.post("/organizations", authenticateToken, async(req, res) => {
+router.post("/organizations", async(req, res) => {
     try {
         const   organizations = await Organization.find({_id: {$in: req.body.organizations }});
          
