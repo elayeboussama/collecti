@@ -124,14 +124,34 @@ router.post("/create", async(req, res) => {
 
 
 
-router.get("/organizations", authenticateToken, async(req, res) => {
+router.get("/organizations", async(req, res) => {
     try {
-        const organizations = null 
-        if(req.body.organizations.length()>0){
-            organizations = await Organization.find({_id: {$in: req.body.organizations }});
-        }else{ 
-            organizations = await Organization.find();
+        const organizations = await Organization.find();
+         
+        if(organizations){
+            
+            res.status(201).send({ organization: organizations, message: "Organizations found" });
+        
+        }else{
+            
+            res.status(404).send({message: "Organizations Not Found" });
+            
         }
+
+    } catch (error) {
+
+        res.status(500).send({ message: "Internal Server Error", error: error });
+        console.log(error)
+
+
+    }
+})
+
+
+router.post("/organizations", async(req, res) => {
+    try {
+        const   organizations = await Organization.find({_id: {$in: req.body.organizations }});
+         
 
 
         if(organizations){
