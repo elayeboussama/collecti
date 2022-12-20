@@ -97,5 +97,3 @@ const AddEvent = () => {
 }
 
 export default AddEvent
-
-// Todo: Change this to be CreateEvent instead of AddEvent
