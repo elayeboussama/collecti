@@ -68,11 +68,18 @@ const AddEvent = () => {
                         <span>TND</span>
                     </label>
                 </div>
-                <div className="w-full max-w-xs form-control">
+                <div className="form-control">
                     <label className="label">
                         <span className="label-text">Cover Photo</span>
                     </label>
                     <input type="file" className="w-full file-input file-input-bordered" />
+                </div>
+                <div className="form-control">
+                    <label className="label">
+                        <span className="label-text">Event date</span>
+                    </label>
+                    <input type="date" placeholder="Race for the Cure" className="input input-bordered" required />
+                    {/* {error && <p className="mt-2 text-xs text-red-500">{error}</p>} */}
                 </div>
                 <div className="form-control">
                     <label className="label">
@@ -90,3 +97,5 @@ const AddEvent = () => {
 }
 
 export default AddEvent
+
+// Todo: Change this to be CreateEvent instead of AddEvent
