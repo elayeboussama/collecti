@@ -29,7 +29,7 @@ const Login = () => {
             <div className="flex-shrink-0 mx-auto card">
                 <label htmlFor="my-modal-4" className="absolute btn btn-circle btn-ghost right-2 top-2"><XMarkIcon className="w-6 h-6" /></label>
                 <div className="flex flex-row items-center justify-around p-8">
-                    <img className="hidden lg:block max-h-80" src="https://svgshare.com/i/oTj.svg" alt="login" />
+                    <img className="hidden lg:block max-h-80" src="https://cdn.discordapp.com/attachments/311564936004370434/1054638096509042729/undraw_fingerprint_login_re_oqo9_1_2.svg" alt="login" />
                     <div className="flex-grow max-w-sm p-0 px-2 card-body">
                         <div className="form-control">
                             <label className="label">

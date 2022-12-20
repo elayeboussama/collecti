@@ -21,7 +21,7 @@ const Drawer = ({ children }) => {
                     <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
                     <div className="flex flex-col bg-base-100 w-80">
                         <Link to={"/"} className="w-full border-b">
-                            <img className="p-5 w-52" src="https://svgshare.com/i/oV0.svg" alt="logo" />
+                            <img className="p-5 w-52" src="https://cdn.discordapp.com/attachments/311564936004370434/1054638152167477298/collecti.svg" alt="logo" />
                         </Link>
                         <ul className="p-4 menu w-80 text-base-content">
                             <label htmlFor="my-drawer-2">
