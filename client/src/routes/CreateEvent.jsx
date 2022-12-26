@@ -145,3 +145,5 @@ const AddEvent = () => {
 }
 
 export default AddEvent
+
+// Todo: change how images are being handled (uplading and previewing)
