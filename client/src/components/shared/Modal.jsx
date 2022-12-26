@@ -7,7 +7,7 @@ const useModal = () => {
   return (
     <>
       <input type="checkbox" id="my-modal-4" className="modal-toggle" />
-      <label htmlFor="my-modal-4" className="modal cursor-pointer">
+      <label htmlFor="my-modal-4" className="cursor-pointer modal">
         {content}
       </label>
 
