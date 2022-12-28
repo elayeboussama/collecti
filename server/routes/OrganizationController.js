@@ -57,15 +57,16 @@ router.post("/login", async (req, res) => {
         return res.status(401).send({ message: "Invalid Password" });
 
       token = await organization.generateAuthToken();
+
+      organization.password = undefined;
+      res.status(200).send({
+        data: { organization, token },
+        message: "logged in successfully",
+      });
     }
 
     console.log(organization);
     // console.log(organization.generateAuthToken())
-    organization.password = undefined;
-    res.status(200).send({
-      data: { organization, token },
-      message: "logged in successfully",
-    });
   } catch (errors) {
     res.status(500).send({ message: "Internal Server Error", error: errors });
     console.log(errors);
@@ -111,16 +112,29 @@ router.post("/update", authenticateToken, async (req, res) => {
   }
 });
 
-router.get("/organizations", authenticateToken, async (req, res) => {
+router.get("/organizations", async (req, res) => {
   try {
-    const organizations = null;
-    if (req.body.organizations.length() > 0) {
-      organizations = await Organization.find({
-        _id: { $in: req.body.organizations },
-      });
+    const organizations = await Organization.find();
+
+    if (organizations) {
+      console.log();
+      res
+        .status(201)
+        .send({ organization: organizations, message: "Organizations found" });
     } else {
-      organizations = await Organization.find();
+      res.status(404).send({ message: "Organizations Not Found" });
     }
+  } catch (error) {
+    res.status(500).send({ message: "Internal Server Error", error: error });
+    console.log(error);
+  }
+});
+
+router.post("/organizations", async (req, res) => {
+  try {
+    const organizations = await Organization.find({
+      _id: { $in: req.body.organizations },
+    });
 
     if (organizations) {
       res
@@ -137,7 +151,6 @@ router.get("/organizations", authenticateToken, async (req, res) => {
 
 router.get("/:id", authenticateToken, async (req, res) => {
   try {
-    console.log(req);
     const organization = await Organization.findOne({ _id: req.params["id"] });
 
     if (organization) {
