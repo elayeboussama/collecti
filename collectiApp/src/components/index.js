@@ -1,3 +1,4 @@
 import Header from "./header";
-
-export { Header }
+import CustomImagePicker from "./ImagePicker/CustomImagePicker";
+import OrgImagePicker from "./OrgImagePicker/OrgImagePicker";
+export { Header, CustomImagePicker, OrgImagePicker };

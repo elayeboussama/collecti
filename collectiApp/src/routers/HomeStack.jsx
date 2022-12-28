@@ -43,6 +43,7 @@ const HomeStack = () => {
         // Add a placeholder button without the `onPress` to avoid flicker
       })}
     >
+      <Stack.Screen name="AddEvent" component={views.DonateScene} />
       <Stack.Screen name="Home" component={views.HomeScene} />
     </Stack.Navigator>
   );

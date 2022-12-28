@@ -9,6 +9,10 @@ import { Header } from "../components";
 import CustomDrawer from "../components/customDrawer/CustomDrawer";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import CompanyStack from "./CompanyStack";
+import { useSelector } from "react-redux";
+import { selectCurrentToken } from "../../redux/slicers/AuthSlice";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useEffect, useState } from "react";
 // drawer navigation options
 // const RootDrawerNavigator = createDrawerNavigator({
 //   Home: {
@@ -22,6 +26,18 @@ import CompanyStack from "./CompanyStack";
 const Drawer = createDrawerNavigator();
 
 const RootDrawerNavigator = () => {
+  const storedToken = useSelector(selectCurrentToken);
+  const [token, setToken] = useState();
+  const handleChangeToken = async () => {
+    setToken(await AsyncStorage.getItem("token"));
+  };
+  useEffect(() => {
+    handleChangeToken();
+  }, []);
+  useEffect(() => {
+    console.log("drawer token =>", token);
+  }, [token]);
+
   return (
     <NavigationContainer>
       <Drawer.Navigator
@@ -65,20 +81,21 @@ const RootDrawerNavigator = () => {
             ),
           }}
         />
-        <Drawer.Screen
-          name="Auth"
-          component={views.AuthScene}
-          options={{
-            drawerIcon: ({ color }) => (
-              <Ionicons name="person-outline" size={22} color={color} />
-            ),
-          }}
-        />
+        {!token && (
+          <Drawer.Screen
+            name="Auth"
+            component={views.AuthScene}
+            options={{
+              drawerIcon: ({ color }) => (
+                <Ionicons name="person-outline" size={22} color={color} />
+              ),
+            }}
+          />
+        )}
       </Drawer.Navigator>
     </NavigationContainer>
   );
 };
-
 
 const RootDrawerNavigatorUser = () => {
   return (
@@ -124,7 +141,6 @@ const RootDrawerNavigatorUser = () => {
             ),
           }}
         />
-        
       </Drawer.Navigator>
     </NavigationContainer>
   );
@@ -138,4 +154,4 @@ const RootDrawerNavigatorUser = () => {
 //   );
 // };
 
-export  {RootDrawerNavigator,RootDrawerNavigatorUser};
+export { RootDrawerNavigator, RootDrawerNavigatorUser };
