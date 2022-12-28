@@ -22,14 +22,15 @@ const App=()=> {
   // const [storedToken,setStoredToken] = useState(AsyncStorage.getItem("token"));
   const storedToken = useSelector(selectCurrentToken)
   const [token,setToken] = useState()
-  useEffect(()=>{
-      setToken(storedToken) 
-      console.log( "tokendddddd5: ",storedToken)
-      console.log( "tokendddddd5: ",token)
+  useEffect( ()=>{
+        setToken(storedToken) 
+        console.log( "tokendddddd5: ",storedToken)
+        console.log( "tokendddddd5: ",token)
+      
   },[storedToken])
   return (
     <ThemeProvider theme={theme}>
-      {token!==null ? 
+      {token!==null? 
 
         <RootDrawerNavigatorUser/>
         
