@@ -17,10 +17,30 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { useNavigation } from "@react-navigation/native";
 
 import { useDispatch } from "react-redux";
-import { setCredentials } from "../../../redux/slicers/AuthSlice";
+import { delCredentials } from "../../../redux/slicers/AuthSlice";
 
 const CustomDrawer = (props) => {
+
   const dispatch = useDispatch();
+  const navigation = useNavigation();
+
+  const logoutOrganization = async () => {
+    try {
+      
+      dispatch(delCredentials({token:""}))
+      navigation.reset({
+        index: 1,
+        routes: [{name: 'Home'}],
+      });
+      
+
+      // navigate("/", { replace: true });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  
+  
   return (
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView
@@ -82,16 +102,7 @@ const CustomDrawer = (props) => {
             </Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => {
-          AsyncStorage.removeItem("token")
-          dispatch(setCredentials({data:{token:undefined}}))
-          props.navigation.reset({
-            index: 0,
-            routes: [{name: 'Home'}],
-          });
-          
-          
-          }} style={{ paddingVertical: 15 }}>
+        <TouchableOpacity onPress={() => {logoutOrganization()}} style={{ paddingVertical: 15 }}>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Ionicons name="exit-outline" size={22} />
             <Text

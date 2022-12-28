@@ -1,27 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const authSlice = createSlice({
-    name: "auth",
-    initialState: { user: null, token: null },
-    reducers: {
-        setCredentials: async(state, action) => {
-            const token = action.payload.data.token;
-            state.token = action.payload.data.token;
+const organizationSlice = createSlice({
+    name: "org",
 
-            await AsyncStorage.setItem("token", JSON.stringify(token));
+    reducers: {
+        setOrganizations: async(state, action) => {
+            state.organizations = action.payload.data;
+
+            // await AsyncStorage.setItem("token", JSON.stringify(token));
 
             console.log("token from data : ", action.payload.data)
             console.log("token from payload : ", action.payload)
-            console.log("token from token : ", action.payload.data.token)
+            console.log("token from token : ", action.payload.data)
             console.log("token from message : ", action.payload.message)
         },
-        getCredentials: (state, action) => {
+        getOrganizations: (state, action) => {
             const user = action.payload.organization;
             state.user = user;
         },
 
-        delCredentials: async(state, action) => {
+
+        updateCredentials: async(state, action) => {
             console.log("token from data : ", action.payload.data)
             console.log("token from payload : ", action.payload)
             console.log("token from token : ", action.payload.data.token)
@@ -31,9 +31,8 @@ const authSlice = createSlice({
     },
 });
 
-export const { setCredentials, getCredentials, delCredentials } = authSlice.actions;
+export const { setOrganizations } = organizationSlice.actions;
 
-export default authSlice.reducer;
+export default organizationSlice.reducer;
 
-export const selectCurrentUser = (state) => state.auth.user;
-export const selectCurrentToken = (state) => state.auth.token;
+export const selectOrganizations = (state) => state.organizations;

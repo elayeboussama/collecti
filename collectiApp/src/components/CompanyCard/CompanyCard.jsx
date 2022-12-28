@@ -9,7 +9,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
 
 
-const CompanyCard = ({ navigation }) => {
+const CompanyCard = ({ navigation, org }) => {
   return (
     <View style={styles.cardContainer}>
       <View style={styles.leftSection}>
@@ -53,7 +53,7 @@ const CompanyCard = ({ navigation }) => {
         </View>
       </View>
       <View style={styles.rightSection}>
-        <Text style={styles.eventName}>Company Name</Text>
+        <Text style={styles.eventName}>{org.name}</Text>
         <View
           style={{
             flexDirection: "row",

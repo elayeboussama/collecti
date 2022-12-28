@@ -59,13 +59,16 @@ router.post("/login", async(req, res) => {
                 return res.status(401).send({ message: "Invalid Password" });
             
             token = await organization.generateAuthToken();
+
+            organization.password = undefined;
+            res.status(200).send({ data:{organization, token}, message: "logged in successfully" });
         }
         
         
         console.log(organization)
         // console.log(organization.generateAuthToken())
-        organization.password = undefined;
-        res.status(200).send({ data:{organization, token}, message: "logged in successfully" });
+
+
 
         
 
@@ -129,7 +132,7 @@ router.get("/organizations", async(req, res) => {
         const organizations = await Organization.find();
          
         if(organizations){
-            
+            console.log()
             res.status(201).send({ organization: organizations, message: "Organizations found" });
         
         }else{
