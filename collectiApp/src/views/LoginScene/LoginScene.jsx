@@ -14,13 +14,12 @@ import { useDispatch } from "react-redux";
 import { setCredentials } from "../../../redux/slicers/AuthSlice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
+import { NativeModules } from "react-native";
 
 const LoginScene = () => {
   const [login, { isLoading }] = useLoginMutation();
   const dispatch = useDispatch();
   const navigation = useNavigation();
-
-
 
   const loginOrganization = async (values) => {
     try {
@@ -29,20 +28,19 @@ const LoginScene = () => {
         ...values,
       }).unwrap();
       console.log(organization_data);
-      dispatch(setCredentials(organization_data))
-      console.log(AsyncStorage.getItem("token"))
+      dispatch(setCredentials(organization_data));
+      console.log("zzzzzzz", await AsyncStorage.getItem("token"));
       navigation.reset({
         index: 0,
-        routes: [{name: 'Home'}],
+        routes: [{ name: "Home" }],
       });
-      
 
       // navigate("/", { replace: true });
     } catch (err) {
       console.log(err);
     }
-  }
-  
+  };
+
   return (
     <ScrollView style={styles.container}>
       <ImageBackground
@@ -61,7 +59,12 @@ const LoginScene = () => {
       <Formik
         validationSchema={loginValidationSchema}
         initialValues={{ email: "", password: "" }}
-        onSubmit={(values) => loginOrganization(values)}
+        onSubmit={(values) => {
+          loginOrganization(values);
+          setTimeout(() => {
+            NativeModules.DevSettings.reload();
+          }, 1000);
+        }}
       >
         {({
           handleChange,
@@ -135,4 +138,4 @@ const loginValidationSchema = yup.object().shape({
     .required("Password is required"),
 });
 
-export default LoginScene
+export default LoginScene;

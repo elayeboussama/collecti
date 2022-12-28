@@ -6,6 +6,7 @@ import {
   ImageBackground,
   Image,
   TouchableOpacity,
+  NativeModules,
 } from "react-native";
 import {
   DrawerContentScrollView,
@@ -15,10 +16,31 @@ import {
 import Ionicons from "react-native-vector-icons/Ionicons";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { useNavigation } from "@react-navigation/native";
-
+import { useState } from "react";
+import { useEffect } from "react";
+import { useOrgDetailsQuery } from "../../../redux/endpoints/AuthEndpoints";
 
 const CustomDrawer = (props) => {
+  const [user_id, setUserId] = useState();
+  const handleChangeId = async () => {
+    setUserId(await AsyncStorage.getItem("user_id"));
+  };
+  useEffect(() => {
+    handleChangeId();
+  }, []);
+  useEffect(() => {
+    console.log(user_id);
+  }, [user_id]);
+  const {
+    data: organization_data,
+    error,
+    isLoading,
+    isSuccess,
+  } = useOrgDetailsQuery(user_id);
 
+  useEffect(() => {
+    console.log(organization_data);
+  }, [organization_data]);
   return (
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView
@@ -80,15 +102,17 @@ const CustomDrawer = (props) => {
             </Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => {
-          AsyncStorage.removeItem("token")
-          props.navigation.reset({
-            index: 0,
-            routes: [{name: 'Home'}],
-          });
-          
-          
-          }} style={{ paddingVertical: 15 }}>
+        <TouchableOpacity
+          onPress={async () => {
+            await AsyncStorage.removeItem("token");
+            props.navigation.reset({
+              index: 0,
+              routes: [{ name: "Home" }],
+            });
+            NativeModules.DevSettings.reload();
+          }}
+          style={{ paddingVertical: 15 }}
+        >
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Ionicons name="exit-outline" size={22} />
             <Text
