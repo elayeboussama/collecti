@@ -8,6 +8,7 @@ import Events from './routes/Events';
 import Index from './routes/Index';
 import OrganizationDetails from './components/organization/OrganizationDetails';
 import Organizations from './routes/Organizations';
+import CreateEvent from './routes/CreateEvent';
 
 const router = createBrowserRouter([
     {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
                     {
                         path: 'events/:eventId',
                         element: <Event />,
+                    },
+                    {
+                        path: 'events/add',
+                        element: <CreateEvent />,
                     },
                     {
                         path: 'events/:eventId/edit',

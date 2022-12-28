@@ -133,7 +133,7 @@ const RootDrawerNavigatorUser = () => {
           }}
         />
         <Drawer.Screen
-          name="Companies"
+          name="Events"
           component={CompanyStack}
           options={{
             drawerIcon: ({ color }) => (
