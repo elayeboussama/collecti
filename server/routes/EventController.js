@@ -32,7 +32,7 @@ function authenticateToken(req, res, next) {
 
 
 
-router.post("/create", async(req, res) => {
+router.post("/create", authenticateToken, async(req, res) => {
     try {
 
         const { validationError } = validateEvent(req.body);
@@ -42,6 +42,7 @@ router.post("/create", async(req, res) => {
         }
 
         await new Event(req.body).save();
+        
         res.status(201).send({ message: "Event created successfully" });
 
     } catch (error) {

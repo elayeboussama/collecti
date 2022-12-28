@@ -30,6 +30,7 @@ const validateEvent = (data) => {
         category: Joi.string().required().label("Category"),
         date: Joi.date().required().label("Date"),
         requirementFunds: Joi.string().required().label("RequirementFunds"),
+        organization_id: Joi.string().required().label("organization_id"),
     });
     return schema.validate(data);
 };
