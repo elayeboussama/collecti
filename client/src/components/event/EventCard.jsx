@@ -1,15 +1,24 @@
 
+import { useState } from "react"
 import { Link } from "react-router-dom"
+import DonationPopup from "./DonationPopup"
 import image from "./rb.jpg"
 
 
-const EventCard = ({eventTitle}) => {
+const EventCard = ({eventTitle, handleShow, handleClick}) => {
+
+    // const[showModal,setShowModal]=useState(false)
+    // const handleVisible = () => setShowModal(!showModal)
     return (
         <div className="card w-96 bg-base-100 shadow-xl image-full h-96 items-end ">
             <figure className="h-full"><img src={image} alt="Shoes" /></figure>
               
-           
-                    <button className="btn btn-primary  w-2/5 mb-80 ml-52">Donate</button>
+          
+                     <button className="btn btn-primary  w-2/5 mb-80 ml-52" onClick={() => handleClick(1)}>
+                        Donate
+                    </button> 
+               
+                 
              
             <Link to={`1`}>
             <div className="card-body bg-slate-50 h-4/6 w-11/12 mb-4 ml-4 rounded-2xl pt-3 cursor-pointer">
@@ -53,6 +62,8 @@ const EventCard = ({eventTitle}) => {
               
             </div>
             </Link>
+
+           
         </div>
     )
 }

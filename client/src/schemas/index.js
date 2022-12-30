@@ -18,3 +18,11 @@ export const LoginSchema = yup.object().shape({
     email: yup.string().email('Invalid email').required('Email is required'),
     password: yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
 })
+
+export const DonateSchema= yup.object().shape({
+    amount: yup.number().required('Le montant est obligatoire'),
+    name: yup.string().required('Le nom est obligatoire'),
+    email: yup.string().email('Adresse email non valide').required('L\'email est obligatoire'),
+    paymentMethod: yup.string().required('Le moyen de paiement est obligatoire'),
+})
+
