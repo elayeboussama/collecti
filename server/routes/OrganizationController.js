@@ -63,6 +63,8 @@ router.post("/login", async (req, res) => {
         data: { organization, token },
         message: "logged in successfully",
       });
+    } else {
+      return res.status(404).send({ message: "No User Found" });
     }
 
     console.log(organization);
