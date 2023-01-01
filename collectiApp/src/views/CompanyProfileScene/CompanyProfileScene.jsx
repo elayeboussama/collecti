@@ -19,6 +19,7 @@ import { ScrollView } from "react-native";
 import CompanyCard from "../../components/CompanyCard/CompanyCard";
 
 const CompanyProfileScene = () => {
+  const org = navigation.state.params.org
   const [isVisible, setIsVisible] = useState(false);
   const { theme } = useTheme();
 
@@ -54,8 +55,8 @@ const CompanyProfileScene = () => {
           <Text
             style={{ alignSelf: "center", fontSize: 25, fontWeight: "bold" }}
           >
-            {" "}
-            Organisation Name
+            {org.name}
+            {/* Organisation Name */}
           </Text>
           <View style={styles.chips}>
             <Chip
