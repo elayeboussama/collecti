@@ -76,9 +76,9 @@ router.post("/login", async (req, res) => {
 router.post("/create", async (req, res) => {
   try {
 
-    const org = Organization.find({email: req.body.email})
+    const org = await Organization.findOne({email: req.body.email})
     console.log(org)
-    if(org== null){
+    if(org == null){
       const salt = await bcrypt.genSalt(Number(process.env.SALT));
       console.log(req.body);
       const hashPassword = await bcrypt.hash(req.body.password, salt);
