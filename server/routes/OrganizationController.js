@@ -77,8 +77,8 @@ router.post("/create", async (req, res) => {
   try {
 
     const org = Organization.find({email: req.body.email})
-
-    if(org!= undefined){
+    console.log(org)
+    if(org== null){
       const salt = await bcrypt.genSalt(Number(process.env.SALT));
       console.log(req.body);
       const hashPassword = await bcrypt.hash(req.body.password, salt);
