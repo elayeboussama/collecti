@@ -1,8 +1,3 @@
-import HeroImage from './heroImagee.png'
-import aboutImage from './about.png'
-
-import hero from "./SimpleShiny.png"
-import AnimatedShape from "./AnimatedShape.png"
 
 const Index = () => {
     return (
@@ -15,65 +10,74 @@ const Index = () => {
             </div>
         </div> */}
         <div className="hero ">
-            <img src={hero} className="h-full"/>
+            <img src="https://cdn.discordapp.com/attachments/311564936004370434/1059448023031222322/Simple_Shiny.svg" className="h-full"/>
            
            
             <div className="hero-content flex-col lg:flex-row-reverse px-28 ">
-                <img src={HeroImage} className="max-w-md rounded-lg shadow-2xl shadow-white" />
+                <img src="https://cdn.discordapp.com/attachments/311564936004370434/1059446218146717786/Untitled_2.svg"
+                 className="max-w-md rounded-lg shadow-2xl shadow-white bg-white" />
                 <div className='text-white'>
                 <h1 className="text-5xl font-bold">Box Office News!</h1>
                 <p className="py-6 w-9/12">Provident cupiditate voluptatem et in. 
                 Quaerat fugiat ut assumenda excepturi exercitationem quasi. 
                 In deleniti eaque aut repudiandae et a id nisi.</p>
-                <button className="btn btn-primary">Get Started</button>
+                <button className="btn btn-primary" >Get Started</button>
                 </div>
             </div>
         </div>
 
-        <div className="py-28"
-         >
+        <div className="py-28 flex flex-col items-center gap-20">
              {/* <img src={wave} className="h-full"/> */}
-            <div className="hero-content flex-col lg:flex-row pl-28 pr-10">
-                <img src={aboutImage} className="max-w-sm rounded-lg shadow-2xl" />
+            <div className="hero-content flex-col lg:flex-row pl-44 ">
+                <img src="https://cdn.discordapp.com/attachments/311564936004370434/1059440775567519866/undraw_transfer_money_re_6o1h.svg" className="max-w-sm rounded-lg shadow-2xl" />
                 <div className='w-11/12 pl-24'>
                     <h1 className="text-5xl font-bold">About us!</h1>
-                    <p className="py-6 ">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
-               
-                <div className="collapse">
-                    <input type="checkbox" /> 
-                    <div className="collapse-title text-xl font-medium">
-                        <button className="btn btn-primary">See stat</button>
-                    </div>
-                    <div className="collapse-content "> 
-                    <div className="stats shadow">
+                    <p className="py-6 ">Provident cupiditate voluptatem et in.
+                     Quaerat fugiat ut assumenda excepturi exercitationem quasi.
+                      In deleniti eaque aut repudiandae et a id nisi.</p>
 
-                        <div className="stat place-items-center ">
-                            <div className="stat-title">Downloads</div>
-                            <div className="stat-value">31K</div>
-                            <div className="stat-desc">From January 1st to February 1st</div>
-                        </div>
-                        
-                        <div className="stat place-items-center">
-                            <div className="stat-title">Users</div>
-                            <div className="stat-value text-secondary">4,200</div>
-                            <div className="stat-desc text-secondary">↗︎ 40 (2%)</div>
-                        </div>
-                        
-                        <div className="stat place-items-center">
-                            <div className="stat-title">New Registers</div>
-                            <div className="stat-value">1,200</div>
-                            <div className="stat-desc">↘︎ 90 (14%)</div>
-                        </div>
-                        
-                    </div>
-                    </div>
-                    </div>
                 </div>
+                
             </div>
+            <div className="stats  w-4/5 gap-48">
+                        
+                        <div className="stat">
+                            <div className="stat-figure text-primary">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-8 h-8 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                            </div>
+                            <div className="stat-title">Total Likes</div>
+                            <div className="stat-value text-primary">25.6K</div>
+                            <div className="stat-desc">21% more than last month</div>
+                        </div>
+                        
+                        <div className="stat">
+                            <div className="stat-figure text-secondary">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-8 h-8 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div className="stat-title">Page Views</div>
+                            <div className="stat-value text-secondary">2.6M</div>
+                            <div className="stat-desc">21% more than last month</div>
+                        </div>
+                        
+                        <div className="stat">
+                            <div className="stat-figure text-secondary">
+                            <div className="avatar online">
+                                <div className="w-16 rounded-full">
+                                <img src="https://placeimg.com/128/128/people" />
+                                </div>
+                            </div>
+                            </div>
+                            <div className="stat-value">86%</div>
+                            <div className="stat-title">Tasks done</div>
+                            <div className="stat-desc text-secondary">31 tasks remaining</div>
+                        </div>
+                        
+                        </div>
         </div>
 
         <div className=" hero" >
-            <img src={AnimatedShape} className="h-full"/>
+            <img src="https://cdn.discordapp.com/attachments/311564936004370434/1059445646022692874/Animated_Shape_1.svg"
+             className="h-full"/>
             {/* <div className="hero-overlay bg-opacity-60"></div> */}
             <div className="hero-content text-center text-neutral-content ">
                 <div className="w-full">
@@ -152,7 +156,7 @@ const Index = () => {
             </div>
         </div>
 
-        <div className="hero  py-28">
+        <div className="hero  py-28" id="login">
             <div className="hero-content flex-col lg:flex-row-reverse pl-28 pr-10">
                 <div className="text-center lg:text-left w-11/12 pl-24">
                 <h1 className="text-5xl font-bold">Login now!</h1>
