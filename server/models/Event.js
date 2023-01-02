@@ -7,11 +7,11 @@ const passwordComplexity = require("joi-password-complexity");
 const eventSchema = new mongoose.Schema({
     name: { type: String, required: true },
     description: { type: String, required: true },
-    category: { type: String, required: true },
+    category: { type: Array, required: true },
     date: { type: Date, required: true },
     requirementFunds: { type: String, required: true },
     organization_id: { type: String, required: false },
-    image: { type: Object, required: false },
+    image: { type: String, required: false },
     catchphrase: { type: String, required: false }
 
 });
@@ -30,11 +30,11 @@ const validateEvent = (data) => {
     const schema = Joi.object({
         name: Joi.string().required().label("Name"),
         description: Joi.string().required().label("Description"),
-        category: Joi.string().required().label("Category"),
+        category: Joi.array().required().label("Category"),
         date: Joi.date().required().label("Date"),
         requirementFunds: Joi.string().required().label("RequirementFunds"),
         organization_id: Joi.string().label("organization_id"),
-        image: Joi.object().label("image"),
+        image: Joi.string().label("image"),
         catchphrase: Joi.string().label("catchphrase"),
     });
     return schema.validate(data);
