@@ -17,6 +17,9 @@ const authSlice = createSlice({
             const id = action.payload.data.organization._id;
 
             state.userId = id;
+            state.username = user.name;
+            state.userEmail = user.email;
+            state.userEvents = user.events;
             state.token = token;
             localStorage.setItem("token", token);
             localStorage.setItem("user", JSON.stringify(user));
