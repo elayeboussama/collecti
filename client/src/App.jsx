@@ -1,10 +1,12 @@
-import { Outlet } from "react-router-dom";
-import Footer from "./components/shared/Footer";
-import Navbar from "./components/shared/Navbar";
-import Drawer from "./components/shared/Drawer";
-import Modal from "./components/shared/Modal";
-import { useDispatch } from "react-redux";
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { Outlet } from "react-router-dom";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
+import Drawer from "./components/shared/Drawer";
+import Footer from "./components/shared/Footer";
+import Modal from "./components/shared/Modal";
+import Navbar from "./components/shared/Navbar";
 import { checkToken } from "./features/authSlice";
 
 function App() {
@@ -23,6 +25,7 @@ function App() {
         <Footer />
       </Drawer>
       <Modal />
+      <ToastContainer icon={false} />
     </div>
   );
 }

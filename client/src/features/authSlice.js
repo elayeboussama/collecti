@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 
 
 const authSlice = createSlice({
@@ -36,7 +37,7 @@ const authSlice = createSlice({
             }
         },
         logout: (state) => {
-            console.log("logout")
+            toast.success("Goodbye for now! 💔")
             state.userId = null;
             state.username = null;
             state.userEmail = null;

@@ -2,6 +2,7 @@ import { EyeIcon, EyeSlashIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useFormik } from "formik";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 import { useLoginMutation } from "../endpoints/AuthEndpoints";
 import { setCredentials } from "../features/authSlice";
 import { closeModal, setContent } from "../features/modalSlice";
@@ -26,6 +27,8 @@ const Login = () => {
                 const response = await login({ ...values }).unwrap()
                 dispatch(setCredentials(response))
                 dispatch(closeModal())
+                // add emoji to toast
+                toast.success("Glad to see you again! 🥰")
             } catch (error) {
                 if (error.data.message === "Invalid Password") {
                     setFieldError("password", "Invalid password")
