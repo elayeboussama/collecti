@@ -34,10 +34,20 @@ const authSlice = createSlice({
                 state.userEvents = user.events;
                 state.token = token;
             }
+        },
+        logout: (state) => {
+            console.log("logout")
+            state.userId = null;
+            state.username = null;
+            state.userEmail = null;
+            state.userEvents = [];
+            state.token = null;
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
         }
     }
 })
 
-export const { setCredentials, checkToken } = authSlice.actions;
+export const { setCredentials, checkToken, logout } = authSlice.actions;
 
 export default authSlice.reducer;
