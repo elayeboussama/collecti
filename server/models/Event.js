@@ -16,7 +16,7 @@ const eventSchema = new mongoose.Schema({
 
 });
 
-eventSchema.methods.generateAuthToken = function() {
+eventSchema.methods.generateAuthToken = function () {
     const token = jwt.sign({ _id: this._id }, process.env.ACCESS_TOKEN_SECRET, {
         expiresIn: "7d",
     });
@@ -30,11 +30,11 @@ const validateEvent = (data) => {
     const schema = Joi.object({
         name: Joi.string().required().label("Name"),
         description: Joi.string().required().label("Description"),
-        category: Joi.string().required().label("Category"),
+        category: { type: Array, required: true },
         date: Joi.date().required().label("Date"),
         requirementFunds: Joi.string().required().label("RequirementFunds"),
         organization_id: Joi.string().label("organization_id"),
-        image: Joi.object().label("image"),
+        image: { type: String, required: false },
         catchphrase: Joi.string().label("catchphrase"),
     });
     return schema.validate(data);
