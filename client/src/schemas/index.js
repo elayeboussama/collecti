@@ -1,11 +1,11 @@
 import * as yup from 'yup';
 
 export const CreateEventSchema = yup.object().shape({
-    title: yup.string().required('Title is required'),
-    slogan: yup.string().required('Slogan is required'),
-    price: yup.number().required('Price goal is required'),
-    date: yup.date().required('Date is required'),
-    description: yup.string().min(200, 'Description must be at least 200 characters').required('Description is required'),
+    title: yup.string().required("Your event needs a title. Please add one. 📝"),
+    slogan: yup.string().required("Don't forget to add a catchy slogan for your event. 🎉"),
+    price: yup.number().required("Please enter a goal for the amount of money you hope to raise with this event. 💰"),
+    date: yup.date().required("Don't forget to select a date for your event. 📅"),
+    description: yup.string().min(200, "Please enter a description for your event that is at least 200 characters. 📝").required("A description is required for your event. Please add one. 📝"),
 })
 
 export const RegisterSchema = yup.object().shape({
