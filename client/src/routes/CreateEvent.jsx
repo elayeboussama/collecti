@@ -43,8 +43,8 @@ const AddEvent = () => {
     return (
         <div className="w-full max-w-3xl p-4 mx-auto">
             <div className="mt-10">
-                <h2 className="mb-4 text-2xl font-bold">Create a Fundraising Event</h2>
-                <p className="mb-8 text-gray-700">Use this form to create a new fundraising event for your organization. Be sure to provide all of the necessary details, including the event name, catchphrase, categories, cover photo, and description. This information will be used to promote your event and attract potential donors.</p>
+                <h2 className="mb-4 text-2xl font-bold">Create a Fundraising Event 🎉</h2>
+                <p className="mb-8 text-gray-700">Use this form to create a new fundraising event for your organization. 📝 Be sure to provide all of the necessary details, including the event name, catchphrase, categories, cover photo, and description. 🔍 This information will be used to promote your event and attract potential donors. 💰</p>
             </div>
 
 
@@ -133,10 +133,10 @@ const AddEvent = () => {
                     {errors.description && touched.description && <p className="mt-2 text-xs text-red-500">{errors.description}</p>}
                 </div>
                 <p className="text-xs text-gray-600">
-                    Please note: By submitting this form, you are agreeing to make all of the information and data associated with this event publicly available, including the amount of money collected and the number of donors. This information will be visible to anyone who visits the event page.
+                    Please note: By submitting this form, you agree to make the event's data publicly available. This includes money collected and number of donors. This information will be visible to anyone visiting the event page. 🌍
                 </p>
                 <div className='text-right'>
-                    <button className="border-none btn btn-primary bg-gradient-to-r from-green-500 to-blue-500" type="submit">Create Event</button>
+                    <button className="border-none btn animated-gradient" type="submit">Create Event</button>
                 </div>
 
             </form>
