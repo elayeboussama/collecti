@@ -80,14 +80,9 @@ router.post("/create", authenticateToken, async(req, res) => {
 
 
 
-router.get("/events", authenticateToken, async(req, res) => {
+router.get("/events", async(req, res) => {
     try {
-        const events = null 
-        if(req.body.events.length()>0){
-            events = await Event.find({_id: {$in: req.body.events }});
-        }else{ 
-            events = await Event.find();
-        }
+        const  events = await Event.find();é
 
 
         if(events){
@@ -109,7 +104,32 @@ router.get("/events", authenticateToken, async(req, res) => {
     }
 })
 
-router.get("/event/:id", authenticateToken, async(req, res) => {
+router.post("/events", async(req, res) => {
+    try {
+        const events = await Event.find({_id: {$in: req.body.events }});
+
+
+
+        if(events){
+            
+            res.status(201).send({ event: events, message: "Events found" });
+        
+        }else{
+            
+            res.status(404).send({message: "Events Not Found" });
+            
+        }
+
+    } catch (error) {
+
+        res.status(500).send({ message: "Internal Server Error", error: error });
+        console.log(error)
+
+
+    }
+})
+
+router.get("/event/:id", async(req, res) => {
     try {
         const event = await Event.findOne({ _id: req.params['id'] });
 

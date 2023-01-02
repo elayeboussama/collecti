@@ -10,6 +10,9 @@ const eventSchema = new mongoose.Schema({
     category: { type: String, required: true },
     date: { type: Date, required: true },
     requirementFunds: { type: String, required: true },
+    organization_id: { type: String, required: false },
+    image: { type: Object, required: false },
+    catchphrase: { type: String, required: false }
 
 });
 
@@ -30,7 +33,9 @@ const validateEvent = (data) => {
         category: Joi.string().required().label("Category"),
         date: Joi.date().required().label("Date"),
         requirementFunds: Joi.string().required().label("RequirementFunds"),
-        organization_id: Joi.string().required().label("organization_id"),
+        organization_id: Joi.string().label("organization_id"),
+        image: Joi.object().label("image"),
+        catchphrase: Joi.string().label("catchphrase"),
     });
     return schema.validate(data);
 };
