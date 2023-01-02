@@ -24,3 +24,23 @@ code {
 .Toastify__toast {
   border-radius: 0.5rem !important;
 }
+
+.animated-gradient {
+  background: linear-gradient(-45deg, #FFA63D, #FF3D77, #338AFF, #3CF0C5);
+  background-size: 600%;
+  animation: anime 11s ease infinite;
+}
+
+@keyframes anime {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
