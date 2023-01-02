@@ -99,7 +99,9 @@ const CompanyCard = ({ navigation, org }) => {
         <View style={styles.actions}>
           <TouchableOpacity
             style={styles.actionLeft}
-            onPress={() => navigation.push("CompanyProfile")}
+            onPress={() => {
+              navigation.push("CompanyProfile",{"org":org,callback: callbackFunction })
+            }}
           >
             <View style={styles.actionLeft}>
               <Text style={{ fontSize: 14 }}>Details</Text>

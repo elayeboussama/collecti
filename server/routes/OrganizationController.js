@@ -63,6 +63,8 @@ router.post("/login", async (req, res) => {
         data: { organization, token },
         message: "logged in successfully",
       });
+    } else {
+      return res.status(404).send({ message: "No User Found" });
     }
 
     console.log(organization);
@@ -75,12 +77,19 @@ router.post("/login", async (req, res) => {
 
 router.post("/create", async (req, res) => {
   try {
-    const salt = await bcrypt.genSalt(Number(process.env.SALT));
-    console.log(req.body);
-    const hashPassword = await bcrypt.hash(req.body.password, salt);
 
-    await new Organization({ ...req.body, password: hashPassword }).save();
-    res.status(201).send({ message: "Organization created successfully" });
+    const org = await Organization.findOne({ email: req.body.email })
+    console.log(org)
+    if (org == null) {
+      const salt = await bcrypt.genSalt(Number(process.env.SALT));
+      console.log(req.body);
+      const hashPassword = await bcrypt.hash(req.body.password, salt);
+
+      await new Organization({ ...req.body, password: hashPassword }).save();
+      res.status(201).send({ message: "Organization created successfully" });
+    } else {
+      res.status(420).send({ message: "Email already exists!" });
+    }
   } catch (error) {
     res.status(500).send({ message: "Internal Server Error", error: error });
     console.log(error);
