@@ -2,6 +2,7 @@ import { ArrowLeftOnRectangleIcon, ArrowRightOnRectangleIcon, CalendarIcon, Glob
 import cn from "classnames";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
+import { logout } from "../../features/authSlice";
 import { setContent } from "../../features/modalSlice";
 import Login from "../Login";
 import Register from "../Register";
@@ -41,14 +42,14 @@ const Drawer = ({ children }) => {
                         <div className={cn({ "hidden": !user.token, "flex": user.token, "flex-row items-center w-full p-4 mt-auto border-t menu text-base-content": true })}>
                             <div className="avatar">
                                 <div className="w-14 rounded-3xl">
-                                    <img src="https://placeimg.com/192/192/people" alt="" />
+                                    <img src="https://placeimg.com/192/192/people" alt="Organization logo" />
                                 </div>
                             </div>
                             <div className="ml-4 leading-5 ">
                                 <h2 className="font-bold leading-4">{user.username}</h2>
                                 <p className="text-sm text-gray-500">{user.userEmail}</p>
                             </div>
-                            <button className="ml-auto btn btn-square btn-ghost drawer-button"><ArrowRightOnRectangleIcon className="w-6 h-6" /></button>
+                            <button onClick={() => dispatch(logout())} className="ml-auto btn btn-square btn-ghost drawer-button"><ArrowRightOnRectangleIcon className="w-6 h-6" /></button>
                         </div>
                     </div>
                 </div>
