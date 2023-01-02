@@ -73,9 +73,6 @@ const Register = () => {
                                 </button>
                                 {errors.password && touched.password && <p className="mt-2 text-xs text-red-500">{errors.password}</p>}
                             </div>
-                            <label className="label">
-                                <span className="label-text-alt link link-hover">Forgot password?</span>
-                            </label>
                         </label>
                         <div className="mt-6 form-control">
                             <Button primary type={'submit'}>Create an account</Button>

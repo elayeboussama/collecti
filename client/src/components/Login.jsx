@@ -1,33 +1,46 @@
-import { EyeIcon, EyeSlashIcon, XMarkIcon } from "@heroicons/react/24/outline"
+import { EyeIcon, EyeSlashIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useFormik } from "formik";
 import { useState } from "react";
-import { useDispatch } from "react-redux"
-import { setContent } from "../features/modalSlice"
+import { useDispatch } from "react-redux";
+import { useLoginMutation } from "../endpoints/AuthEndpoints";
+import { setCredentials } from "../features/authSlice";
+import { closeModal, setContent } from "../features/modalSlice";
 import { LoginSchema } from "../schemas";
-import Register from "./Register"
+import Register from "./Register";
 import Button from "./shared/Button";
 
 
 const Login = () => {
+    const [login, { isLoading }] = useLoginMutation()
     const dispatch = useDispatch()
     const [showPassword, setShowPassword] = useState(false);
 
-    const { values, handleChange, handleBlur, errors, touched, handleSubmit } = useFormik({
+    const { values, handleChange, handleBlur, errors, touched, handleSubmit, setFieldError } = useFormik({
         initialValues: {
             email: "",
             password: "",
         },
         validationSchema: LoginSchema,
-        onSubmit: (values) => {
-            console.log(values)
+        onSubmit: async (values) => {
+            try {
+                const response = await login({ ...values }).unwrap()
+                dispatch(setCredentials(response))
+                dispatch(closeModal())
+            } catch (error) {
+                if (error.data.message === "Invalid Password") {
+                    setFieldError("password", "Invalid password")
+                } else if (error.data.message === "No User Found") {
+                    setFieldError("email", "This email is not registered")
+                } else {
+                    console.log(error)
+                }
+            }
         }
     })
 
     const toggleShowPassword = () => {
         setShowPassword(!showPassword);
     };
-
-
 
     return (
         <label className="relative max-w-sm p-0 modal-box lg:max-w-2xl bg-base-100">
@@ -57,7 +70,7 @@ const Login = () => {
                                     value={values.password}
                                     onBlur={handleBlur}
                                     className={`input input-bordered w-full ${errors.password && touched.password && 'input-error'}`} />
-                                <button onClick={toggleShowPassword} className="absolute right-0 btn btn-ghost">
+                                <button onClick={toggleShowPassword} type="button" className="absolute right-0 btn btn-ghost">
                                     {showPassword ? <EyeSlashIcon className="w-6 h-6" /> : <EyeIcon className="w-6 h-6" />}
                                 </button>
                                 {errors.password && touched.password && <p className="mt-2 text-xs text-red-500">{errors.password}</p>}
@@ -67,7 +80,7 @@ const Login = () => {
                             </label>
                         </label>
                         <div className="mt-6 form-control">
-                            <Button primary type='submit'>Login</Button>
+                            <Button primary loading={isLoading} type='submit'>Login</Button>
                         </div>
                         <div className="flex text-sm">
                             <p className="mr-1 text-base-content/70 grow-0">Not yet registered?</p><span onClick={() => dispatch(setContent(<Register />))} className="link link-hover">Sign up</span>
