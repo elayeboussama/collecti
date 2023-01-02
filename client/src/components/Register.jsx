@@ -2,25 +2,44 @@ import { EyeIcon, EyeSlashIcon, XMarkIcon } from "@heroicons/react/24/outline"
 import { useFormik } from "formik"
 import { useState } from "react"
 import { useDispatch } from "react-redux"
-import { setContent } from "../features/modalSlice"
+import { toast } from "react-toastify"
+import { useLoginMutation, useRegisterMutation } from "../endpoints/AuthEndpoints"
+import { setCredentials } from "../features/authSlice"
+import { closeModal, setContent } from "../features/modalSlice"
 import { RegisterSchema } from "../schemas"
-import Login from "./Login"
 import Button from './shared/Button'
+import Login from "./Login"
+
 
 const Register = () => {
     const dispatch = useDispatch()
+    const [register, { isLoading: registerLoading }] = useRegisterMutation()
+    const [login, { isLoading: loginLoading }] = useLoginMutation()
+
 
     const [showPassword, setShowPassword] = useState(false);
 
-    const { values, handleChange, handleBlur, errors, touched, handleSubmit } = useFormik({
+    const { values, handleChange, handleBlur, errors, touched, handleSubmit, setFieldError } = useFormik({
         initialValues: {
             name: "",
             email: "",
             password: "",
         },
         validationSchema: RegisterSchema,
-        onSubmit: (values) => {
-            console.log(values)
+        onSubmit: async (values) => {
+            try {
+                await register({ ...values }).unwrap()
+                const response = await login({ email: values.email, password: values.password }).unwrap()
+                dispatch(setCredentials(response))
+                dispatch(closeModal())
+                toast.success(<p>Welcome to <strong className="text-slate-900">Collecti!</strong> We're glad you're here. 🌟</p>)
+            } catch (error) {
+                if (error.data.message === "Email already exists!") {
+                    setFieldError("email", "Looks like that email is already taken. 😞")
+                } else {
+                    console.log(error)
+                }
+            }
         }
     })
 
@@ -75,7 +94,7 @@ const Register = () => {
                             </div>
                         </label>
                         <div className="mt-6 form-control">
-                            <Button primary type={'submit'}>Create an account</Button>
+                            <Button primary loading={registerLoading || loginLoading} type={'submit'}>Create an account</Button>
                         </div>
                         <div className="flex text-sm">
                             <p className="mr-1 text-base-content/70 grow-0">Already have an account?</p><span onClick={() => dispatch(setContent(<Login />))} className="link link-hover">Login</span>

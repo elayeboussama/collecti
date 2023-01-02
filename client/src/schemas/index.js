@@ -9,17 +9,17 @@ export const CreateEventSchema = yup.object().shape({
 })
 
 export const RegisterSchema = yup.object().shape({
-    name: yup.string().required('Name is required'),
-    email: yup.string().email('Invalid email').required('Email is required'),
-    password: yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
+    name: yup.string().required("Whoops, a name is required. 😕"),
+    email: yup.string().email("Sorry, but that email doesn't seem to be valid. 😞").required("Whoops, a email is required. 😕"),
+    password: yup.string().min(6, "Your password must be at least 6 characters long. 😕").required("Whoops, a password is required. 😕"),
 })
 
 export const LoginSchema = yup.object().shape({
-    email: yup.string().email('Invalid email').required('Email is required'),
-    password: yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
+    email: yup.string().email("Sorry, but that email doesn't seem to be valid. 😞").required("Whoops, a email is required. 😕"),
+    password: yup.string().min(6, "Your password must be at least 6 characters long. 😕").required("Whoops, a password is required. 😕"),
 })
 
-export const DonateSchema= yup.object().shape({
+export const DonateSchema = yup.object().shape({
     amount: yup.number().required('Le montant est obligatoire'),
     name: yup.string().required('Le nom est obligatoire'),
     email: yup.string().email('Adresse email non valide').required('L\'email est obligatoire'),
