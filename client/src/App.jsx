@@ -27,7 +27,7 @@ function App() {
         <Footer />
       </Drawer>
       <Modal />
-      <ToastContainer icon={false} />
+      <ToastContainer />
     </div>
   );
 }

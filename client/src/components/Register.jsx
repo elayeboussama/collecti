@@ -13,8 +13,9 @@ import Login from "./Login"
 
 const Register = () => {
     const dispatch = useDispatch()
-    const [register, { isLoading: registerLoading }] = useRegisterMutation()
-    const [login, { isLoading: loginLoading }] = useLoginMutation()
+    const [register] = useRegisterMutation()
+    const [login] = useLoginMutation()
+    const [loading, setLoading] = useState(false)
 
 
     const [showPassword, setShowPassword] = useState(false);
@@ -27,6 +28,7 @@ const Register = () => {
         },
         validationSchema: RegisterSchema,
         onSubmit: async (values) => {
+            setLoading(true)
             try {
                 await register({ ...values }).unwrap()
                 const response = await login({ email: values.email, password: values.password }).unwrap()
@@ -40,6 +42,7 @@ const Register = () => {
                     console.log(error)
                 }
             }
+            setLoading(false)
         }
     })
 
@@ -94,7 +97,7 @@ const Register = () => {
                             </div>
                         </label>
                         <div className="mt-6 form-control">
-                            <Button primary loading={registerLoading || loginLoading} type={'submit'}>Create an account</Button>
+                            <Button primary loading={loading} type={'submit'}>Create an account</Button>
                         </div>
                         <div className="flex text-sm">
                             <p className="mr-1 text-base-content/70 grow-0">Already have an account?</p><span onClick={() => dispatch(setContent(<Login />))} className="link link-hover">Login</span>

@@ -28,7 +28,7 @@ code {
 .animated-gradient {
   background: linear-gradient(-45deg, #FFA63D, #FF3D77, #338AFF, #3CF0C5);
   background-size: 600%;
-  animation: anime 11s ease infinite;
+  animation: anime 16s ease infinite;
 }
 
 @keyframes anime {
@@ -43,4 +43,8 @@ code {
   100% {
     background-position: 0% 50%;
   }
+}
+
+.filepond--credits {
+  display: none;
 }

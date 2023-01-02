@@ -31,9 +31,9 @@ const Login = () => {
                 toast.success("Glad to see you again! 🥰")
             } catch (error) {
                 if (error.data.message === "Invalid Password") {
-                    setFieldError("password", "Invalid password")
+                    setFieldError("password", "Oops, that password doesn't seem to be correct. 🤔")
                 } else if (error.data.message === "No User Found") {
-                    setFieldError("email", "This email is not registered")
+                    setFieldError("email", "Whoops, the email you entered isn't registered with us. 😔")
                 } else {
                     console.log(error)
                 }
