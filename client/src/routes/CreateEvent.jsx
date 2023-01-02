@@ -2,10 +2,11 @@ import { PlusSmallIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { useRef, useState } from 'react'
 import { useFormik } from 'formik'
 import { CreateEventSchema } from '../schemas'
+import ImageUpload from '../components/ImageUpload'
 
 const AddEvent = () => {
-
     const [tags, setTags] = useState([])
+    const [images, setImages] = useState([])
     const tagInputRef = useRef(null)
 
     const { values, handleChange, handleBlur, errors, touched, setFieldValue, handleSubmit } = useFormik({
@@ -46,6 +47,7 @@ const AddEvent = () => {
                 <h2 className="mb-4 text-2xl font-bold">Create a Fundraising Event 🎉</h2>
                 <p className="mb-8 text-gray-700">Use this form to create a new fundraising event for your organization. 📝 Be sure to provide all of the necessary details, including the event name, catchphrase, categories, cover photo, and description. 🔍 This information will be used to promote your event and attract potential donors. 💰</p>
             </div>
+
 
 
             <form onSubmit={handleSubmit} className='flex flex-col space-y-3'>
@@ -104,9 +106,9 @@ const AddEvent = () => {
                 </div>
                 <div className="form-control">
                     <label className="label">
-                        <span className="label-text">Cover Photo</span>
+                        <span className="label-text">Event Images</span>
                     </label>
-                    <input type="file" multiple className="w-full file-input file-input-bordered" />
+                    <ImageUpload images={images} setImages={setImages} />
                 </div>
                 <div className="form-control">
                     <label className="label">
