@@ -21,7 +21,7 @@ function App() {
   return (
     <div>
       <Drawer>
-        {/* <Navbar /> */}
+        <Navbar />
         {/* <Home/> */}
         <Outlet />
         <Footer />
