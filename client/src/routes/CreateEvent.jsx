@@ -3,11 +3,22 @@ import { useRef, useState } from 'react'
 import { useFormik } from 'formik'
 import { CreateEventSchema } from '../schemas'
 import ImageUpload from '../components/ImageUpload'
+import { useStorage } from '../hooks/useStorage'
 
 const AddEvent = () => {
     const [tags, setTags] = useState([])
     const [images, setImages] = useState([])
+    // console.log(images[0].file)
+    const { uploadFile } = useStorage()
     const tagInputRef = useRef(null)
+
+    const uploadImages = async (images) => {
+        const promises = images.map(image => {
+            return uploadFile(image.file)
+        })
+        const urls = await Promise.all(promises)
+        return urls
+    }
 
     const { values, handleChange, handleBlur, errors, touched, setFieldValue, handleSubmit } = useFormik({
         initialValues: {
@@ -21,7 +32,7 @@ const AddEvent = () => {
         },
         validationSchema: CreateEventSchema,
         onSubmit: (values) => {
-            console.log(values)
+            uploadImages(images)
         }
     })
 

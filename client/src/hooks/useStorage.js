@@ -6,7 +6,6 @@ import { storage } from "../firebase";
 
 export const useStorage = () => {
     const [error, setError] = useState(null);
-    const [url, setUrl] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
     const uploadFile = async (file) => {
@@ -14,15 +13,14 @@ export const useStorage = () => {
         try {
             const storageRef = ref(storage, file.name + v4());
             const response = await uploadBytes(storageRef, file)
-            await getDownloadURL(response.ref).then((downloadedURL) => {
-                setUrl(downloadedURL);
-            })
+            const url = await getDownloadURL(response.ref)
+            return url
         } catch (err) {
             setError(err);
         }
         setIsLoading(false);
     }
 
-    return { url, error, uploadFile, isLoading };
+    return { error, uploadFile, isLoading };
 
 };
