@@ -48,3 +48,11 @@ code {
 .filepond--credits {
   display: none;
 }
+
+.filepond--root {
+  cursor: pointer;
+}
+
+.filepond--list-scroller {
+  cursor: default;
+}

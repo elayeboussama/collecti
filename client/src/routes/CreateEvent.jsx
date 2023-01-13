@@ -8,13 +8,21 @@ import { useStorage } from '../hooks/useStorage'
 const AddEvent = () => {
     const [tags, setTags] = useState([])
     const [images, setImages] = useState([])
-    // console.log(images[0].file)
     const { uploadFile } = useStorage()
     const tagInputRef = useRef(null)
 
+    const checkImages = (images) => {
+        setImages(images)
+        if (images.length > 0) {
+            setFieldValue("images", images)
+        } else {
+            setFieldValue("images", [])
+        }
+    }
+
     const uploadImages = async (images) => {
         const promises = images.map(image => {
-            return uploadFile(image.file)
+            return uploadFile(image)
         })
         const urls = await Promise.all(promises)
         return urls
@@ -25,14 +33,19 @@ const AddEvent = () => {
             title: "",
             slogan: "",
             keywords: [],
+            images: [],
             price: "",
-            coverPhoto: "",
             date: "",
             description: "",
         },
         validationSchema: CreateEventSchema,
-        onSubmit: (values) => {
-            uploadImages(images)
+        onSubmit: async (values) => {
+            const urls = await uploadImages(images)
+            const event = {
+                ...values,
+                images: urls
+            }
+            console.log(event)
         }
     })
 
@@ -58,8 +71,6 @@ const AddEvent = () => {
                 <h2 className="mb-4 text-2xl font-bold">Create a Fundraising Event 🎉</h2>
                 <p className="mb-8 text-gray-700">Use this form to create a new fundraising event for your organization. 📝 Be sure to provide all of the necessary details, including the event name, catchphrase, categories, cover photo, and description. 🔍 This information will be used to promote your event and attract potential donors. 💰</p>
             </div>
-
-
 
             <form onSubmit={handleSubmit} className='flex flex-col space-y-3'>
                 <div className="form-control">
@@ -119,7 +130,8 @@ const AddEvent = () => {
                     <label className="label">
                         <span className="label-text">Event Images</span>
                     </label>
-                    <ImageUpload images={images} setImages={setImages} />
+                    <ImageUpload images={images} setImages={checkImages} handleChange={handleChange} setFieldValue={setFieldValue} />
+                    {errors.images && touched.images && <p className="mt-2 text-xs text-red-500">{errors.images}</p>}
                 </div>
                 <div className="form-control">
                     <label className="label">
