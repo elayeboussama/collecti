@@ -1,4 +1,4 @@
-import { apiSlice } from "../features/apiSlice";
+import { apiSlice, apiSliceWithToken } from "../features/apiSlice";
 
 export const authEndpoints = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -32,9 +32,26 @@ export const authEndpoints = apiSlice.injectEndpoints({
   }),
 });
 
+export const authEndpointsWithToken = apiSliceWithToken.injectEndpoints({
+  endpoints: (builder) => ({
+    createEvent: builder.mutation({
+      query: (credentials) => ({
+        url: "/api/event/create",
+        method: "POST",
+        body: { ...credentials },
+      }),
+    }),
+  }),
+});
+
+
 export const {
   useCredentialsQuery,
   useRegisterMutation,
   useLoginMutation,
   useOrgDetailsQuery,
 } = authEndpoints;
+
+export const {
+  useCreateEventMutation,
+} = authEndpointsWithToken;

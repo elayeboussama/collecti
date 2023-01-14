@@ -1,15 +1,21 @@
 import { PlusSmallIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import { useRef, useState } from 'react'
 import { useFormik } from 'formik'
-import { CreateEventSchema } from '../schemas'
+import { useRef, useState } from 'react'
+import { useSelector } from 'react-redux'
 import ImageUpload from '../components/ImageUpload'
+import Button from '../components/shared/Button'
+import { useCreateEventMutation } from '../endpoints/AuthEndpoints'
 import { useStorage } from '../hooks/useStorage'
+import { CreateEventSchema } from '../schemas'
 
-const AddEvent = () => {
+const CreateEvent = () => {
     const [tags, setTags] = useState([])
     const [images, setImages] = useState([])
-    const { uploadFile } = useStorage()
+    const { uploadFile, isLoading } = useStorage()
     const tagInputRef = useRef(null)
+
+    const user = useSelector(state => state.auth)
+    const [createEvent] = useCreateEventMutation()
 
     const checkImages = (images) => {
         setImages(images)
@@ -42,13 +48,24 @@ const AddEvent = () => {
         onSubmit: async (values) => {
             const urls = await uploadImages(images)
             const event = {
-                ...values,
-                images: urls
+                name: values.title,
+                description: values.description,
+                category: values.keywords,
+                date: values.date,
+                requirementFunds: values.price,
+                organization_id: user.userId,
+                catchPhrase: values.slogan,
+                image: urls
             }
-            console.log(event)
+            try {
+                const response = await createEvent({ ...event }).unwrap()
+                console.log(response)
+            } catch (error) {
+                console.log(error)
+            }
+
         }
     })
-
 
     const handleAddTag = () => {
         const tag = tagInputRef.current.value
@@ -161,7 +178,7 @@ const AddEvent = () => {
                     Please note: By submitting this form, you agree to make the event's data publicly available. This includes money collected and number of donors. This information will be visible to anyone visiting the event page. 🌍
                 </p>
                 <div className='text-right'>
-                    <button className="border-none btn animated-gradient" type="submit">Create Event</button>
+                    <Button loading={isLoading} className="border-none btn animated-gradient" type="submit">Create Event</Button>
                 </div>
 
             </form>
@@ -169,6 +186,4 @@ const AddEvent = () => {
     )
 }
 
-export default AddEvent
-
-// Todo: change how images are being handled (uplading and previewing)
+export default CreateEvent
