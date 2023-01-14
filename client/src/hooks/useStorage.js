@@ -14,11 +14,12 @@ export const useStorage = () => {
             const storageRef = ref(storage, file.name + v4());
             const response = await uploadBytes(storageRef, file)
             const url = await getDownloadURL(response.ref)
+            setIsLoading(false);
             return url
         } catch (err) {
+            setIsLoading(false);
             setError(err);
         }
-        setIsLoading(false);
     }
 
     return { error, uploadFile, isLoading };
