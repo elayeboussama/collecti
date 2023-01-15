@@ -1,12 +1,13 @@
 import { PlusSmallIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { useFormik } from 'formik'
 import { useRef, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import ImageUpload from '../components/ImageUpload'
 import Button from '../components/shared/Button'
 import { useCreateEventMutation } from '../endpoints/AuthEndpoints'
 import { useStorage } from '../hooks/useStorage'
 import { CreateEventSchema } from '../schemas'
+import { setVisible } from '../features/conffetiSlice'
 
 const CreateEvent = () => {
     const [tags, setTags] = useState([])
@@ -15,7 +16,8 @@ const CreateEvent = () => {
     const tagInputRef = useRef(null)
 
     const user = useSelector(state => state.auth)
-    const [createEvent] = useCreateEventMutation()
+    const dispatch = useDispatch()
+    const [createEvent, { isLoading: requestLoading }] = useCreateEventMutation()
 
     const checkImages = (images) => {
         setImages(images)
@@ -60,8 +62,12 @@ const CreateEvent = () => {
             try {
                 const response = await createEvent({ ...event }).unwrap()
                 console.log(response)
+                dispatch(setVisible(true))
+                setTimeout(() => {
+                    dispatch(setVisible(false))
+                }, 6000)
             } catch (error) {
-                console.log(error)
+                console.error(error)
             }
 
         }
@@ -178,7 +184,7 @@ const CreateEvent = () => {
                     Please note: By submitting this form, you agree to make the event's data publicly available. This includes money collected and number of donors. This information will be visible to anyone visiting the event page. 🌍
                 </p>
                 <div className='text-right'>
-                    <Button loading={isLoading} className="border-none btn animated-gradient" type="submit">Create Event</Button>
+                    <Button loading={isLoading || requestLoading} className="border-none btn animated-gradient" type="submit">Create Event</Button>
                 </div>
 
             </form>
