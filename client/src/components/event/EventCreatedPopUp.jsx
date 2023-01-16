@@ -1,15 +1,12 @@
 import { CheckCircleIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useRef } from 'react';
 import QRCode from "react-qr-code";
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { closeModal } from '../../features/modalSlice';
 
 const EventCreatedPopUp = ({ url, id }) => {
 
     const urlRef = useRef()
     const navigate = useNavigate();
-    const dispatch = useDispatch()
 
     const copyToClipboard = () => {
         navigator.clipboard.writeText(urlRef.current.value)
@@ -17,8 +14,6 @@ const EventCreatedPopUp = ({ url, id }) => {
 
     const visitEventPage = () => {
         navigate(`/events/${id}`)
-        dispatch(closeModal())
-
     }
 
     return (
@@ -45,7 +40,7 @@ const EventCreatedPopUp = ({ url, id }) => {
                             <p className='text-2xl font-semibold text-black'>Live and Ready!</p>
                             <p className='text-sm text-gray-600'>Share the event and let's make it a success!💰</p>
                         </div>
-                        <button onClick={visitEventPage} className='w-full mt-2 text-white lg:mt-0 btn btn-success'>Visit my event page</button>
+                        <label htmlFor="my-modal-4" onClick={visitEventPage} className='w-full mt-2 text-white lg:mt-0 btn btn-success'>Visit my event page</label>
                     </div>
                 </div>
             </div>
