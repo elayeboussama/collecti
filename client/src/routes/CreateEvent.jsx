@@ -8,6 +8,8 @@ import { useCreateEventMutation } from '../endpoints/AuthEndpoints'
 import { useStorage } from '../hooks/useStorage'
 import { CreateEventSchema } from '../schemas'
 import { setVisible } from '../features/conffetiSlice'
+import { openModal, setContent } from '../features/modalSlice'
+import EventCreatedPopUp from '../components/event/EventCreatedPopUp'
 
 const CreateEvent = () => {
     const [tags, setTags] = useState([])
@@ -62,6 +64,8 @@ const CreateEvent = () => {
             try {
                 const response = await createEvent({ ...event }).unwrap()
                 console.log(response)
+                dispatch(setContent(<EventCreatedPopUp url={`http://localhost:3000/events/${response.id}`} id={response.id} />))
+                dispatch(openModal())
                 dispatch(setVisible(true))
                 setTimeout(() => {
                     dispatch(setVisible(false))
