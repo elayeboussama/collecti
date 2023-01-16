@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 import { selectCurrentToken } from "../../redux/slicers/AuthSlice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
+import ProfileStack from "./ProfileStack";
 // drawer navigation options
 // const RootDrawerNavigator = createDrawerNavigator({
 //   Home: {
@@ -28,14 +29,17 @@ const Drawer = createDrawerNavigator();
 const RootDrawerNavigator = () => {
   const storedToken = useSelector(selectCurrentToken);
   const [token, setToken] = useState();
+  const [user, setUser] = useState();
   const handleChangeToken = async () => {
     setToken(await AsyncStorage.getItem("token"));
+    setUser(await AsyncStorage.getItem("user"));
   };
   useEffect(() => {
     handleChangeToken();
   }, []);
   useEffect(() => {
     console.log("drawer token =>", token);
+    console.log("drawer user =>", user);
   }, [token]);
 
   return (
@@ -54,6 +58,8 @@ const RootDrawerNavigator = () => {
           },
         }}
       >
+        
+        
         <Drawer.Screen
           name="Home"
           component={HomeStack}
@@ -63,6 +69,16 @@ const RootDrawerNavigator = () => {
             ),
           }}
         />
+        {token && (
+        <Drawer.Screen
+            name="Profile"
+            component={ProfileStack}
+            options={{
+              drawerIcon: ({ color }) => (
+                <Ionicons name="face-man-profile" size={22} color={color} />
+              ),
+            }}
+          />)}
         <Drawer.Screen
           name="About"
           component={AboutStack}

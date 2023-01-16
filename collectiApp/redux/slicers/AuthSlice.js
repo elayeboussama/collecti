@@ -13,6 +13,7 @@ const authSlice = createSlice({
             state.token = token;
             console.log("slice", state.token);
             console.log("slice user id", state.user_id);
+            console.log("slice user ", user);
             await AsyncStorage.setItem("token", token);
             await AsyncStorage.setItem("user", user);
         },
