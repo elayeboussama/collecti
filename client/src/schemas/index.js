@@ -3,7 +3,7 @@ import * as yup from 'yup';
 export const CreateEventSchema = yup.object().shape({
     title: yup.string().required("Your event needs a title. Please add one. 📝"),
     slogan: yup.string().required("Don't forget to add a catchy slogan for your event. 🎉"),
-    images: yup.array().required("Hold on! You forgot to include an image for your event. 📷"),
+    images: yup.array().min(1, "Hold on! You forgot to include an image for your event. 📷"),
     price: yup.number().required("Please enter a goal for the amount of money you hope to raise with this event. 💰"),
     date: yup.date().required("Don't forget to select a date for your event. 📅"),
     description: yup.string().min(200, "Please enter a description for your event that is at least 200 characters. 📝").required("A description is required for your event. Please add one. 📝"),

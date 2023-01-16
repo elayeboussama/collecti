@@ -77,6 +77,8 @@ const CreateEvent = () => {
         }
     })
 
+    console.log(values)
+
     const handleAddTag = () => {
         const tag = tagInputRef.current.value
         if (tag && !tags.includes(tag)) {
