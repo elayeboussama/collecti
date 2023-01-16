@@ -6,7 +6,12 @@ const passwordComplexity = require("joi-password-complexity");
 
 const organizationSchema = new mongoose.Schema({
     name: { type: String, required: true },
+    creationDate: { type: Date, required: false },
+    sector: { type: String, required: false },
+    socialMedia: { type: Object, required: false },
     description: { type: String, required: false },
+    planActions: { type: String, required: false },
+    Vision: { type: String, required: false },
     events: { type: Array, required: false },
     directorName: { type: String, required: false },
     logo: { type: String, required: false },
@@ -15,6 +20,8 @@ const organizationSchema = new mongoose.Schema({
     phone: { type: String, required: false },
     email: { type: String, required: true },
     password: { type: String, required: true },
+    loation: { type: String, required: false },
+    firstConnection: { type: Boolean, required: true },
 
 });
 

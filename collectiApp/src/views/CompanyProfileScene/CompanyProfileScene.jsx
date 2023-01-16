@@ -9,7 +9,7 @@ import {
   useTheme,
 } from "@rneui/themed";
 import { StatusBar } from "expo-status-bar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { Text, View, TouchableOpacity, Image } from "react-native";
 import { styles } from "./styles";
@@ -19,7 +19,29 @@ import { ScrollView } from "react-native";
 import CompanyCard from "../../components/CompanyCard/CompanyCard";
 
 const CompanyProfileScene = () => {
-  const org = navigation.state.params.org
+  const [org, setOrg] = useState()
+  const handleChangeOrg = async () => {
+    setOrg(await AsyncStorage.getItem("user"));
+    
+  };
+  useEffect(() => {
+    handleChangeOrg();
+  }, []);
+
+  useEffect(() => {
+    console.log("org Data: ",org);
+  }, [org]);
+  
+  //const  data = await JSON.parse(AsyncStorage.getItem("organization_data"))
+  // console.log("data: ", await AsyncStorage.getItem("user"))
+
+  // useEffect(async()=>{
+  //   setOrg(data)
+  //   console.log("aaaaaaa",data)
+  // },[data])
+  // useEffect(()=>{
+  //     console.log("ddddd",org)
+  // },[org])
   const [isVisible, setIsVisible] = useState(false);
   const { theme } = useTheme();
 
@@ -55,7 +77,7 @@ const CompanyProfileScene = () => {
           <Text
             style={{ alignSelf: "center", fontSize: 25, fontWeight: "bold" }}
           >
-            {org.name}
+            {/* {org.name} */}
             {/* Organisation Name */}
           </Text>
           <View style={styles.chips}>

@@ -88,7 +88,7 @@ router.post("/create", async (req, res) => {
       await new Organization({ ...req.body, password: hashPassword }).save();
       res.status(201).send({ message: "Organization created successfully" });
     } else {
-      res.status(420).send({ message: "Email already exists!" });
+      res.status(409).send({ message: "Email already exists!" });
     }
   } catch (error) {
     res.status(500).send({ message: "Internal Server Error", error: error });
