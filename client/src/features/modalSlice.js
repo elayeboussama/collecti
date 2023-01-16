@@ -13,11 +13,14 @@ export const modalSlice = createSlice({
     },
     closeModal: (state) => {
       document.getElementById('my-modal-4').checked = false;
+    },
+    openModal: (state) => {
+      document.getElementById('my-modal-4').checked = true;
     }
 
   }
 })
 
-export const { setContent, closeModal } = modalSlice.actions;
+export const { setContent, closeModal, openModal } = modalSlice.actions;
 
 export default modalSlice.reducer;
