@@ -49,6 +49,8 @@ const SignUpScene = ({setIndex}) => {
           email: "",
           password: "",
           confirm_password: "",
+          firstConnection: true,
+
         }}
         onSubmit={(values, {resetForm}) => {
           signupOrganization(values)
