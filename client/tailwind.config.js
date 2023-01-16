@@ -11,8 +11,18 @@ module.exports = {
         d_green: '#003E1C',
 
       },
-   
+
     },
+  },
+  daisyui: {
+    themes: [
+      {
+        light: {
+          ...require("daisyui/src/colors/themes")["[data-theme=light]"],
+          success: "#10b981",
+        },
+      },
+    ],
   },
   plugins: [require("daisyui")],
 }
