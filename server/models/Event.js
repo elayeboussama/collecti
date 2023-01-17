@@ -12,16 +12,9 @@ const eventSchema = new mongoose.Schema({
     organization_id: { type: String, required: false },
     catchPhrase: { type: String, required: false },
     image: { type: Array, required: false },
-<<<<<<< Updated upstream
     category: { type: [String], required: false },
-    donators: { type: Number, required: false },
-    raisedMoney: { type: Number, required: false }
-=======
-    category: { type: String, required: false },
     donators: { type: Number, required: false, default: 0 },
     raisedMoney: { type: Number, required: false, default: 0 }
->>>>>>> Stashed changes
-
 });
 
 eventSchema.methods.generateAuthToken = function () {
