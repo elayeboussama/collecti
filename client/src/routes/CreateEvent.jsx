@@ -77,8 +77,6 @@ const CreateEvent = () => {
         }
     })
 
-    console.log(values)
-
     const handleAddTag = () => {
         const tag = tagInputRef.current.value
         if (tag && !tags.includes(tag)) {
@@ -164,12 +162,13 @@ const CreateEvent = () => {
                 </div>
                 <div className="form-control">
                     <label className="label">
-                        <span className="label-text">Event date</span>
+                        <span className="label-text">Event due date</span>
                     </label>
                     <input type="date" name='date'
                         onChange={handleChange}
                         value={values.date}
                         onBlur={handleBlur}
+                        min={new Date().toISOString().split('T')[0]}
                         className={`input input-bordered ${errors.date && touched.date && 'input-error'}`} />
                     {errors.date && touched.date && <p className="mt-2 text-xs text-red-500">{errors.date}</p>}
 

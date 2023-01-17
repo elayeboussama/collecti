@@ -8,6 +8,12 @@ export const authEndpoints = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    getEvent: builder.query({
+      query: (id) => ({
+        url: `/api/event/event/${id}`,
+        method: "GET",
+      }),
+    }),
     register: builder.mutation({
       query: (credentials) => ({
         url: "/api/organization/create",
@@ -50,6 +56,7 @@ export const {
   useRegisterMutation,
   useLoginMutation,
   useOrgDetailsQuery,
+  useGetEventQuery,
 } = authEndpoints;
 
 export const {
