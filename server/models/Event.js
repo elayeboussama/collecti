@@ -15,10 +15,9 @@ const eventSchema = new mongoose.Schema({
     category: { type: Array, required: false },
     donators: { type: Number, required: false, default: 0 },
     raisedMoney: { type: Number, required: false, default: 0 }
-
 });
 
-eventSchema.methods.generateAuthToken = function() {
+eventSchema.methods.generateAuthToken = function () {
     const token = jwt.sign({ _id: this._id }, process.env.ACCESS_TOKEN_SECRET, {
         expiresIn: "7d",
     });
