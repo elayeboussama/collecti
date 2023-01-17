@@ -12,12 +12,19 @@ const eventSchema = new mongoose.Schema({
     organization_id: { type: String, required: false },
     catchPhrase: { type: String, required: false },
     image: { type: Array, required: false },
+<<<<<<< Updated upstream
     category: { type: [String], required: false },
     donators: { type: Number, required: false, default: 0 },
     raisedMoney: { type: Number, required: false, default: 0 }
+=======
+    category: { type: Array, required: false },
+    donators: { type: Number, required: false, default: 0 },
+    raisedMoney: { type: Number, required: false, default: 0 }
+
+>>>>>>> Stashed changes
 });
 
-eventSchema.methods.generateAuthToken = function () {
+eventSchema.methods.generateAuthToken = function() {
     const token = jwt.sign({ _id: this._id }, process.env.ACCESS_TOKEN_SECRET, {
         expiresIn: "7d",
     });
