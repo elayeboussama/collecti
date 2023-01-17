@@ -5,6 +5,7 @@ import ImageSlider from '../components/shared/ImageSlider'
 import { useGetEventQuery } from '../endpoints/AuthEndpoints'
 import { differenceInDays } from 'date-fns'
 import Avatar from '../components/shared/Avatar';
+import UserInfo from '../components/shared/UserInfo';
 
 const Event = () => {
     let { eventId } = useParams();
@@ -27,13 +28,7 @@ const Event = () => {
                         {data?.event?.name}
                     </h2>
                     <p className=''>{data?.event?.catchPhrase}</p>
-                    <div className="flex flex-row items-center w-full py-4 menu border-y text-base-content xl:hidden">
-                        <Avatar />
-                        <div className="ml-4 leading-5">
-                            <h2 className="font-bold leading-4">John Doe</h2>
-                            <p className="text-sm text-gray-500">john@gmail.com</p>
-                        </div>
-                    </div>
+                    <UserInfo className={"xl:hidden"} />
                     <progress className="w-full my-1 progress progress-success" value={((data?.event.raisedMoney / data?.event.requirementFunds) * 100).toFixed(0)} max="100"></progress>
                     <div className='flex gap-10 xl:flex-col xl:gap-3'>
                         <div className='flex flex-col xl:flex-row xl:justify-between xl:items-baseline'>
@@ -64,17 +59,7 @@ const Event = () => {
                 </div>
 
             </div>
-            <div className="flex-row items-center hidden w-full py-4 menu xl:flex border-y xl:border-0 text-base-content">
-                <div className="avatar">
-                    <div className="w-14 rounded-3xl">
-                        <img src="https://placeimg.com/192/192/people" alt="" />
-                    </div>
-                </div>
-                <div className="ml-4 leading-5">
-                    <h2 className="font-bold leading-4">John Doe</h2>
-                    <p className="text-sm text-gray-500">john@gmail.com</p>
-                </div>
-            </div>
+            <UserInfo className={"hidden xl:flex xl:border-0"} />
             <div className='hidden xl:block'>
                 <h2 className='text-2xl font-bold'>About us</h2>
                 <p className='mt-2'>{data?.event.description}</p>
