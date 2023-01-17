@@ -21,7 +21,7 @@ const organizationSchema = new mongoose.Schema({
     email: { type: String, required: true },
     password: { type: String, required: true },
     loation: { type: String, required: false },
-    firstConnection: { type: Boolean, required: true },
+    firstConnection: { type: Boolean, required: true, default: true },
 
 });
 
