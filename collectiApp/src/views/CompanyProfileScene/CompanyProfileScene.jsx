@@ -17,31 +17,22 @@ import { MaterialIcons } from "@expo/vector-icons";
 import EventCard from "../../components/EventCard/EventCard";
 import { ScrollView } from "react-native";
 import CompanyCard from "../../components/CompanyCard/CompanyCard";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const CompanyProfileScene = () => {
-  const [org, setOrg] = useState()
-  const handleChangeOrg = async () => {
-    setOrg(await AsyncStorage.getItem("user"));
-    
+  const [token, setToken] = useState();
+  const [user, setUser] = useState();
+  const handleChange = async () => {
+    setToken(await AsyncStorage.getItem("token"));
+    const userVar = await AsyncStorage.getItem("user")
+    setUser(JSON.parse(userVar));
   };
   useEffect(() => {
-    handleChangeOrg();
+    handleChange();
   }, []);
-
   useEffect(() => {
-    console.log("org Data: ",org);
-  }, [org]);
-  
-  //const  data = await JSON.parse(AsyncStorage.getItem("organization_data"))
-  // console.log("data: ", await AsyncStorage.getItem("user"))
-
-  // useEffect(async()=>{
-  //   setOrg(data)
-  //   console.log("aaaaaaa",data)
-  // },[data])
-  // useEffect(()=>{
-  //     console.log("ddddd",org)
-  // },[org])
+    console.log("scene token =>", token);
+    console.log("scene user =>", user.name);
+  }, [user]);
   const [isVisible, setIsVisible] = useState(false);
   const { theme } = useTheme();
 
@@ -77,7 +68,11 @@ const CompanyProfileScene = () => {
           <Text
             style={{ alignSelf: "center", fontSize: 25, fontWeight: "bold" }}
           >
-            {/* {org.name} */}
+            {user ?
+                user.name
+            :""
+          }
+            {/* {user.name} */}
             {/* Organisation Name */}
           </Text>
           <View style={styles.chips}>
@@ -126,10 +121,10 @@ const CompanyProfileScene = () => {
         <View style={styles.descSection}>
           <Text style={styles.desc}> Organisation Description </Text>
           <Text>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Reprehenderit, error consectetur dolore sint natus quibusdam ab
-            aliquid, aut libero neque qui eaque dignissimos eligendi deserunt.
-            Corporis voluptatem ratione quia temporibus!
+          {/* {user ?
+                user.description
+            :""
+          } */}
           </Text>
         </View>
         <EventCard />
