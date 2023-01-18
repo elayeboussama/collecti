@@ -12,12 +12,13 @@ const eventSchema = new mongoose.Schema({
     organization_id: { type: String, required: false },
     catchPhrase: { type: String, required: false },
     image: { type: Array, required: false },
-    category: { type: Array, required: false },
+    keyWords: { type: Array, required: false },
+    category: { type: String, required: true },
     donators: { type: Number, required: false, default: 0 },
     raisedMoney: { type: Number, required: false, default: 0 }
 });
 
-eventSchema.methods.generateAuthToken = function () {
+eventSchema.methods.generateAuthToken = function() {
     const token = jwt.sign({ _id: this._id }, process.env.ACCESS_TOKEN_SECRET, {
         expiresIn: "7d",
     });
