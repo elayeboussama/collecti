@@ -119,7 +119,9 @@ router.post("/update", authenticateToken, async (req, res) => {
       { _id: req.body._id },
       { $set: req.body }
     );
-    res.status(200).send({ message: "Organization updated" });
+
+    const organizationUpdated = await Organization.findOne({ _id: req.body._id });
+    res.status(200).send({organizationUpdated:organizationUpdated, message: "Organization updated" });
   } catch (error) {
     res.status(500).send({ message: "Internal Server Error", error: error });
     console.log(error);

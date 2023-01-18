@@ -18,7 +18,7 @@ import EventCard from "../../components/EventCard/EventCard";
 import { ScrollView } from "react-native";
 import CompanyCard from "../../components/CompanyCard/CompanyCard";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-const CompanyProfileScene = () => {
+const CompleteInfosScene = () => {
   const [token, setToken] = useState();
   const [user, setUser] = useState();
   const handleChange = async () => {
@@ -103,4 +103,4 @@ const CompanyProfileScene = () => {
     </View>
   );
 };
-export default CompanyProfileScene;
+export default CompleteInfosScene;
