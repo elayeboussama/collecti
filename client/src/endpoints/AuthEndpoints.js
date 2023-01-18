@@ -62,3 +62,23 @@ export const {
 export const {
   useCreateEventMutation,
 } = authEndpointsWithToken;
+
+
+
+
+
+
+
+
+
+
+
+
+
+// updateOrganization: builder.mutation({
+//   query: (credentials) => ({
+//     url: "/api/organization/update",
+//     method: "POST",
+//     body: { ...credentials },
+//   }),
+// }),  useUpdateOrganizationMutation,
