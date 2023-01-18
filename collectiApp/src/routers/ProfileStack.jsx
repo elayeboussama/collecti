@@ -59,7 +59,7 @@ const ProfileStack = () => {
       })}
     >
       {/* <Stack.Screen name="AddEvent" component={views.DonateScene} /> */}
-      {org && org.firstConnection == true ?
+      {org && org.firstConnection  ?
         <Stack.Screen name="CompleteInfos" component={views.CompleteInfosScene} />
          :
         <Stack.Screen name="Profile" component={views.CompanyProfileScene} />
