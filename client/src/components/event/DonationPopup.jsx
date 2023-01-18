@@ -3,6 +3,7 @@ import { useFormik } from 'formik'
 import { DonateSchema } from '../../schemas';
 
 import image from './donation.png';
+import PayButton from './PayButton';
 
 const DonationPopup = ({isOpen, onClose}) =>{
 
@@ -31,16 +32,15 @@ const DonationPopup = ({isOpen, onClose}) =>{
     return(
         <div id="container"
         onClick={handleOnClose} 
-        className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm
-        flex flex-col justify-center items-center">
-            <div className="top-icon bg-white w-28 rounded-full absolute top-32 drop-shadow-xl">
+        className="fixed inset-0 flex flex-col items-center justify-center bg-black bg-opacity-30 backdrop-blur-sm">
+            <div className="absolute bg-white rounded-full top-icon w-28 top-32 drop-shadow-xl">
                 <img src={image} alt="Shoes" />
             </div>
       
           
-           <div className=" p-2 rounded-3xl w-1/4  p-14 bg-white bg-opacity-80 flex flex-col items-center">
+           <div className="flex flex-col items-center w-1/4 p-2 bg-white rounded-3xl p-14 bg-opacity-80">
 
-           <form onSubmit={handleSubmit} className='flex flex-col space-y-3 w-11/12'>
+           <form onSubmit={handleSubmit} className='flex flex-col w-11/12 space-y-3'>
                 <div className="form-control">
                     <label className="label">
                         <span className="label-text">Name</span>
@@ -76,7 +76,7 @@ const DonationPopup = ({isOpen, onClose}) =>{
                         className={`input input-bordered ${errors.amount && touched.amount && 'input-error'}`} />
                     {errors.amount && touched.amount && <p className="mt-2 text-xs text-red-500">{errors.amount}</p>}
                 </div>
-              <div className="radio-groupe flex flex-col pl-4">
+              <div className="flex flex-col pl-4 radio-groupe">
               <label>
                     <input type="radio" name="paymentMethod" value="paypal" /> Paypal
                 </label>
@@ -92,8 +92,8 @@ const DonationPopup = ({isOpen, onClose}) =>{
               
             </form>
       
-   
-                <button className="btn btn-primary w-1/2 mt-6" onClick={onClose}>Donate</button>
+                <PayButton onClose={onClose} informations={values}/>
+                {/* <button className="w-1/2 mt-6 btn btn-primary" onClick={onClose}>Donate</button> */}
             </div>
        
         </div>
