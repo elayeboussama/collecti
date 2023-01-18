@@ -169,7 +169,7 @@ router.post("/organizations", async (req, res) => {
 router.get("/:id", authenticateToken, async (req, res) => {
   try {
     const organization = await Organization.findOne({ _id: req.params["id"] });
-
+    organization.password = undefined;
     if (organization) {
       res
         .status(201)

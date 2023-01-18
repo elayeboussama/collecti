@@ -68,10 +68,10 @@ const CompanyProfileScene = () => {
           <Text
             style={{ alignSelf: "center", fontSize: 25, fontWeight: "bold" }}
           >
-            {user ?
+            {/* {user ?
                 user.name
             :""
-          }
+          } */}
             {/* {user.name} */}
             {/* Organisation Name */}
           </Text>
