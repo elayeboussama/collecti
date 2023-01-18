@@ -15,7 +15,7 @@ const authSlice = createSlice({
             console.log("slice user id", state.user_id);
             console.log("slice user ", user);
             await AsyncStorage.setItem("token", token);
-            await AsyncStorage.setItem("user", user);
+            await AsyncStorage.setItem("user", JSON.stringify(user));
         },
         getCredentials: (state, action) => {
             const user = action.payload.organization;
