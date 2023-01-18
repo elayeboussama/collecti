@@ -10,6 +10,8 @@ const eventRoutes = require("./routes/EventController");
 const organizationRoutes = require("./routes/OrganizationController");
 const donatorRoutes = require("./routes/DonatorController");
 
+const stripe = require("./routes/stripe");
+
 
 
 
@@ -52,6 +54,7 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/event", eventRoutes);
 app.use("/api/organization", organizationRoutes);
 app.use("/api/donator", donatorRoutes);
+app.use("/api/stripe", stripe);
 
 
 
