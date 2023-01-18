@@ -1,4 +1,14 @@
-import * as yup from 'yup';
+import * as yup from 'yup'
+
+const phoneNumberRegex = /^\d{8,}$/;
+
+export const EditOrganizationSchema = yup.object().shape({
+    name: yup.string().required("Your organization needs a name. Please add one. 📝"),
+    avatar: yup.array().min(1, "Hold on! You forgot to include a logo for your organization. 📷").max(1),
+    coverPhoto: yup.array().min(1, "Hold on! You forgot to include a cover photo for your organization. 📷").max(1),
+    phone: yup.string().matches(phoneNumberRegex, "Please enter a valid phone number. 📞"),
+    description: yup.string().min(200, "Please enter a description for your organization that is at least 200 characters. 📝").required("A description is required for your organization. Please add one. 📝"),
+})
 
 export const CreateEventSchema = yup.object().shape({
     title: yup.string().required("Your event needs a title. Please add one. 📝"),
