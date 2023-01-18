@@ -10,7 +10,8 @@ import { color } from "react-native-reanimated";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { useSignUpMutation } from "../../../redux/endpoints/AuthEndpoints";
-const SignUpScene = ({setIndex}) => {
+import CustomInput from "../../components/CustomInput/CustomInput";
+const SignUpScene = ({ setIndex }) => {
   const [signUp, { isLoading }] = useSignUpMutation();
 
   const signupOrganization = async (values) => {
@@ -20,8 +21,8 @@ const SignUpScene = ({setIndex}) => {
         ...values,
       }).unwrap();
       console.log(organization_data);
-      setIndex(0)
-      
+      setIndex(0);
+
       // navigate("/", { replace: true });
     } catch (err) {
       console.log(err);
@@ -42,7 +43,6 @@ const SignUpScene = ({setIndex}) => {
       </ImageBackground>
       <Text style={{ fontSize: 30, marginLeft: 12 }}>Sign Up</Text>
       <Formik
-        
         validationSchema={signUpValidationSchema}
         initialValues={{
           name: "",
@@ -50,12 +50,10 @@ const SignUpScene = ({setIndex}) => {
           password: "",
           confirm_password: "",
         }}
-        onSubmit={(values, {resetForm}) => {
-          signupOrganization(values)
-          resetForm({values:""})
+        onSubmit={(values, { resetForm }) => {
+          signupOrganization(values);
+          resetForm({ values: "" });
         }}
-
-
       >
         {({
           handleChange,
@@ -67,8 +65,7 @@ const SignUpScene = ({setIndex}) => {
           isValid,
         }) => (
           <>
-            <View style={styles.flexContainer}>
-              <Input
+            {/* <Input
                 placeholder="Organization name"
                 name="name"
                 onChangeText={handleChange("name")}
@@ -81,10 +78,18 @@ const SignUpScene = ({setIndex}) => {
                   name: "user",
                   color: "#5F9DF7",
                 }}
-              />
-            </View>
+              /> */}
+            <CustomInput
+              onChangeText={handleChange("name")}
+              // onFocus={() => handleError(null, "last_name")}
+              iconName="office-building-cog"
+              label="Organization name"
+              placeholder="Enter your organization name..."
+              error={errors.name}
+              value={values.name}
+            />
 
-            <Input
+            {/* <Input
               placeholder="Email"
               errorStyle={{ color: "red" }}
               name="email"
@@ -97,9 +102,18 @@ const SignUpScene = ({setIndex}) => {
               }}
               errorMessage={errors.email ? errors.email : ""}
               renderErrorMessage={errors.email ? true : false}
+            /> */}
+            <CustomInput
+              onChangeText={handleChange("email")}
+              // onFocus={() => handleError(null, "last_name")}
+              iconName="email"
+              label="Email"
+              placeholder="Enter your email..."
+              error={errors.email}
+              value={values.email}
             />
 
-            <Input
+            {/* <Input
               placeholder="Password"
               errorStyle={{ color: "red" }}
               leftIcon={{
@@ -112,8 +126,19 @@ const SignUpScene = ({setIndex}) => {
               value={values.password}
               errorMessage={errors.password ? errors.password : ""}
               renderErrorMessage={errors.password ? true : false}
+            /> */}
+            <CustomInput
+              onChangeText={handleChange("password")}
+              // onFocus={() => handleError(null, "last_name")}
+              iconName="lock"
+              label="Password"
+              placeholder="Enter your Password..."
+              error={errors.password}
+              value={values.password}
+              password
             />
-            <Input
+
+            {/* <Input
               placeholder="Confim Password"
               leftIcon={{
                 type: "MaterialIcons",
@@ -128,6 +153,16 @@ const SignUpScene = ({setIndex}) => {
                 errors.confirm_password ? errors.confirm_password : ""
               }
               renderErrorMessage={errors.confirm_password ? true : false}
+            /> */}
+            <CustomInput
+              onChangeText={handleChange("confirm_password")}
+              // onFocus={() => handleError(null, "last_name")}
+              iconName="lock"
+              label="Confirm password"
+              placeholder="cofirm your password..."
+              error={errors.confirm_password}
+              value={values.confirm_password}
+              password
             />
 
             <Button

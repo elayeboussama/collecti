@@ -1,6 +1,11 @@
-import { apiSlice } from "../api/apiSlice";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { apiSlice, apiSliceWithToken } from "../api/apiSlice";
 
-export const authEndpoints = apiSlice.injectEndpoints({
+const getToken = async () => {
+  return await AsyncStorage.getItem("token");
+};
+
+const authEndpoints = apiSliceWithToken.injectEndpoints({
   endpoints: (builder) => ({
     credentials: builder.query({
       query: () => ({

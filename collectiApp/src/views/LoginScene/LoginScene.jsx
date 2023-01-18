@@ -15,6 +15,7 @@ import { setCredentials } from "../../../redux/slicers/AuthSlice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { NativeModules } from "react-native";
+import CustomInput from "../../components/CustomInput/CustomInput";
 
 const LoginScene = () => {
   const [login, { isLoading }] = useLoginMutation();
@@ -75,7 +76,7 @@ const LoginScene = () => {
           isValid,
         }) => (
           <>
-            <Input
+            {/* <Input
               placeholder="Email"
               errorStyle={{ color: "red" }}
               name="email"
@@ -88,9 +89,9 @@ const LoginScene = () => {
               }}
               errorMessage={errors.email ? errors.email : ""}
               renderErrorMessage={errors.email ? true : false}
-            />
+            /> */}
 
-            <Input
+            {/* <Input
               placeholder="Password"
               errorStyle={{ color: "red" }}
               leftIcon={{
@@ -104,8 +105,26 @@ const LoginScene = () => {
               errorMessage={errors.password ? errors.password : ""}
               renderErrorMessage={errors.password ? true : false}
               secureTextEntry={true}
+            /> */}
+            <CustomInput
+              onChangeText={handleChange("email")}
+              // onFocus={() => handleError(null, "last_name")}
+              iconName="email"
+              label="Email"
+              placeholder="Enter your Email..."
+              error={errors.email}
+              value={values.email}
             />
-
+            <CustomInput
+              onChangeText={handleChange("password")}
+              // onFocus={() => handleError(null, "last_name")}
+              iconName="lock"
+              label="Password"
+              placeholder="Enter your Password..."
+              error={errors.password}
+              value={values.password}
+              password
+            />
             <Button
               icon={
                 <Icon

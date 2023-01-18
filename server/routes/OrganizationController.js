@@ -154,8 +154,9 @@ router.get("/:id", authenticateToken, async (req, res) => {
     const organization = await Organization.findOne({ _id: req.params["id"] });
 
     if (organization) {
+      console.log("aaaaaaaa", organization);
       res
-        .status(201)
+        .status(200)
         .send({ organization: organization, message: "Organization found" });
     } else {
       res.status(404).send({ message: "Organization Not Found" });
