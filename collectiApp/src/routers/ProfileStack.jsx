@@ -3,7 +3,8 @@ import React from "react";
 import { Header } from "../components";
 import * as views from "../views";
 import { MaterialIcons } from "@expo/vector-icons";
-
+import { useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const screens = {
   Home: {
     screen: views.CompanyProfileScene,
@@ -20,18 +21,20 @@ const screens = {
 const Stack = createStackNavigator();
 
 const ProfileStack = () => {
-  const [org, setOrg] = useState()
-  const handleChangeOrg = async () => {
-    setOrg(await AsyncStorage.getItem("user"));
-    
-  };
-  useEffect(() => {
-    handleChangeOrg();
-  }, []);
+  
+   const [org, setOrg] = useState()
+   const handleChangeOrg = async () => {
+     const orgVar = await AsyncStorage.getItem("user")
+     setOrg(JSON.parse(orgVar));
+   };
+   useEffect(() => {
+     handleChangeOrg();
+   }, []);
 
-  useEffect(() => {
-    console.log("org Data Stack: ",org);
-  }, [org]);
+   useEffect(() => {
+     console.log("org Data Stack: ",org);
+   }, [org]);
+
   return (
     <Stack.Navigator
       screenOptions={({ navigation, route }) => ({
@@ -56,7 +59,12 @@ const ProfileStack = () => {
       })}
     >
       {/* <Stack.Screen name="AddEvent" component={views.DonateScene} /> */}
-      <Stack.Screen name="Profile" component={views.CompanyProfileScene} />
+      {org && org.firstConnection == true ?
+        <Stack.Screen name="CompleteInfos" component={views.CompleteInfosScene} />
+         :
+        <Stack.Screen name="Profile" component={views.CompanyProfileScene} />
+      }
+            
     </Stack.Navigator>
   );
 };
