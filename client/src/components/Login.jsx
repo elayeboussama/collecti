@@ -27,7 +27,6 @@ const Login = () => {
                 const response = await login({ ...values }).unwrap()
                 dispatch(setCredentials(response))
                 dispatch(closeModal())
-                // add emoji to toast
                 toast.success("Glad to see you again! 🥰")
             } catch (error) {
                 if (error.data.message === "Invalid Password") {
