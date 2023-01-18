@@ -198,3 +198,5 @@ const CreateEvent = () => {
 }
 
 export default CreateEvent
+
+// Todo: add red star to required fields
