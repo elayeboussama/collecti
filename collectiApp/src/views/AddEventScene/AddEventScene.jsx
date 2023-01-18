@@ -14,6 +14,9 @@ import { CustomImagePicker, ImagePicker } from "../../components";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useTheme } from "@rneui/themed";
 import { useState } from "react";
+import { useAddEventMutation } from "../../../redux/endpoints/EventEndpoints";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import CustomInput from "../../components/CustomInput/CustomInput";
 const AddEventScene = () => {
   const { theme } = useTheme();
   const [timePicker, setTimePicker] = useState(false);
@@ -23,20 +26,25 @@ const AddEventScene = () => {
     setDate(value);
     setTimePicker(false);
   }
-  // const [signUp, { isLoading }] = useSignUpMutation();
+  const [AddEvent, { isLoading }] = useAddEventMutation();
 
-  // const signupOrganization = async (values) => {
-  //   try {
-  //     console.log(values);
-  //     const organization_data = await signUp({
-  //       ...values,
-  //     }).unwrap();
-  //     console.log(organization_data);
-  //     // navigate("/", { replace: true });
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
+  const addEventHandler = async (values) => {
+    try {
+      console.log(values);
+      const user_id = await AsyncStorage.getItem("user_id");
+      const organization_name = await AsyncStorage.getItem("name");
+      const event_data = await AddEvent({
+        ...values,
+        organization_id: user_id,
+        organization_name: organization_name,
+        date: date,
+      }).unwrap();
+      console.log(event_data);
+      // navigate("/", { replace: true });
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <ScrollView style={styles.container}>
       <CustomImagePicker type="event" image={image} setImage={setImage} />
@@ -44,10 +52,11 @@ const AddEventScene = () => {
         validationSchema={signUpValidationSchema}
         initialValues={{
           name: "",
-          email: "",
-          password: "",
+          description: "",
+          category: "",
+          requirementFunds: "",
         }}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={(values) => addEventHandler(values)}
       >
         {({
           handleChange,
@@ -59,7 +68,7 @@ const AddEventScene = () => {
         }) => (
           <View style={styles.form}>
             <Text style={styles.desc}> Event Name </Text>
-            <Input
+            {/* <Input
               placeholder="Enter your event name..."
               name="name"
               onChangeText={handleChange("name")}
@@ -72,25 +81,40 @@ const AddEventScene = () => {
               //   name: "user",
               //   color: theme.colors.primary,
               // }}
+            /> */}
+            <CustomInput
+              onChangeText={handleChange("name")}
+              // onFocus={() => handleError(null, "last_name")}
+              placeholder="Enter your Event name..."
+              error={errors.name}
+              value={values.name}
             />
             <Text style={styles.desc}> Event Description </Text>
-            <Input
+            {/* <Input
               placeholder="Enter event description..."
               errorStyle={{ color: "red" }}
-              name="email"
-              onChangeText={handleChange("email")}
-              value={values.email}
+              name="description"
+              onChangeText={handleChange("description")}
+              value={values.description}
               // leftIcon={{
               //   type: "MaterialIcons",
               //   name: "email",
               //   color: theme.colors.primary,
               // }}
               multiline={true}
-              errorMessage={errors.email ? errors.email : ""}
-              renderErrorMessage={errors.email ? true : false}
+              errorMessage={errors.description ? errors.description : ""}
+              renderErrorMessage={errors.description ? true : false}
+            /> */}
+            <CustomInput
+              onChangeText={handleChange("description")}
+              // onFocus={() => handleError(null, "last_name")}
+              placeholder="Enter your Event description..."
+              error={errors.description}
+              value={values.description}
+              multiline
             />
             <Text style={styles.desc}> Event Category </Text>
-            <Input
+            {/* <Input
               placeholder="Enter event category..."
               errorStyle={{ color: "red" }}
               // leftIcon={{
@@ -98,11 +122,18 @@ const AddEventScene = () => {
               //   name: "lock",
               //   color: theme.colors.primary,
               // }}
-              name="password"
-              onChangeText={handleChange("password")}
-              value={values.password}
-              errorMessage={errors.password ? errors.password : ""}
-              renderErrorMessage={errors.password ? true : false}
+              name="category"
+              onChangeText={handleChange("category")}
+              value={values.category}
+              errorMessage={errors.category ? errors.category : ""}
+              renderErrorMessage={errors.category ? true : false}
+            /> */}
+            <CustomInput
+              onChangeText={handleChange("category")}
+              // onFocus={() => handleError(null, "last_name")}
+              placeholder="Enter your Event category..."
+              error={errors.category}
+              value={values.category}
             />
             <Text style={styles.desc}> Event Date </Text>
             <View
@@ -129,19 +160,28 @@ const AddEventScene = () => {
             )}
             <Text style={styles.desc}> Requirement Fund </Text>
             <Input
-              placeholder="Enter event description..."
+              placeholder="Enter event required fund..."
               errorStyle={{ color: "red" }}
-              name="email"
-              onChangeText={handleChange("email")}
-              value={values.email}
+              name="requirementFunds"
+              onChangeText={handleChange("requirementFunds")}
+              value={values.requirementFunds}
               // leftIcon={{
               //   type: "MaterialIcons",
               //   name: "email",
               //   color: theme.colors.primary,
               // }}
               multiline={true}
-              errorMessage={errors.email ? errors.email : ""}
-              renderErrorMessage={errors.email ? true : false}
+              errorMessage={
+                errors.requirementFunds ? errors.requirementFunds : ""
+              }
+              renderErrorMessage={errors.requirementFunds ? true : false}
+            />
+            <CustomInput
+              onChangeText={handleChange("requirementFunds")}
+              // onFocus={() => handleError(null, "last_name")}
+              placeholder="Enter your Event fund..."
+              error={errors.requirementFunds}
+              value={values.requirementFunds}
             />
             <Button
               icon={
@@ -165,28 +205,9 @@ const AddEventScene = () => {
   );
 };
 const signUpValidationSchema = yup.object().shape({
-  name: yup
-    .string()
-    .matches(/^[a-z]+$/, "You can not use number or special chars")
-    .required("First name is required"),
-  email: yup
-    .string()
-    .email("Please enter valid email")
-    .required("Email is required"),
-  password: yup
-    .string()
-    .matches(/\w*[a-z]\w*/, "Password must have a small letter")
-    .matches(/\w*[A-Z]\w*/, "Password must have a capital letter")
-    .matches(/\d/, "Password must have a number")
-    .matches(
-      /[!@#$%^&*()\-_"=+{}; :,<.>]/,
-      "Password must have a special character"
-    )
-    .min(8, ({ min }) => `Password must be at least ${min} characters`)
-    .required("Password is required"),
-  confirm_password: yup
-    .string()
-    .oneOf([yup.ref("password")], "Passwords do not match")
-    .required("Confirm password is required"),
+  name: yup.string().required("event name is required"),
+  description: yup.string().required("event description is required"),
+  category: yup.string().required("event category is required"),
+  requirementFunds: yup.string().required("event fund is required"),
 });
 export default AddEventScene;

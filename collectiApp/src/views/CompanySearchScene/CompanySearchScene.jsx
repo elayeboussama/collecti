@@ -1,6 +1,6 @@
 import { BottomSheet, Button, Input, ListItem, useTheme } from "@rneui/themed";
 import { StatusBar } from "expo-status-bar";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import { Text, View, TouchableOpacity } from "react-native";
 import { styles } from "./styles";
@@ -12,38 +12,43 @@ import { useGetAllOrgsQuery } from "../../../redux/endpoints/OrganizationEndpoin
 // import { useDispatch } from "react-redux";
 // import { setCredentials } from "../../../redux/slicers/AuthSlice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import CustomInput from "../../components/CustomInput/CustomInput";
 // import { useNavigation } from "@react-navigation/native";
-// import { useSelector } from 'react-redux'; 
+// import { useSelector } from 'react-redux';
 // import { selectOrganizations, setOrganizations } from '../../../redux/slicers/OrganizationSlice';
-
 
 const CompanySearchScene = ({ navigation }) => {
   const [isVisible, setIsVisible] = useState(false);
   const { theme } = useTheme();
 
+  const { data, error, isLoading, isSuccess } = useGetAllOrgsQuery();
 
-  const {data, error, isLoading, isSuccess}= useGetAllOrgsQuery()
-  
-  useEffect(()=>{
-    console.log("-------------------------------------------------------------------------------------------------------------------------------------------------")
-    console.log("data: ",data)
-    console.log("-------------------------------------------------------------------------------------------------------------------------------------------------")
-    console.log("error: ",error)
-    console.log("-------------------------------------------------------------------------------------------------------------------------------------------------")
-    console.log("isLoading: ",isLoading)
-    console.log("-------------------------------------------------------------------------------------------------------------------------------------------------")
-    console.log("isSuccess: ",isSuccess)
-    console.log("-------------------------------------------------------------------------------------------------------------------------------------------------")
-
-  },[])
+  useEffect(() => {
+    console.log(
+      "-------------------------------------------------------------------------------------------------------------------------------------------------"
+    );
+    console.log("data: ", data);
+    console.log(
+      "-------------------------------------------------------------------------------------------------------------------------------------------------"
+    );
+    console.log("error: ", error);
+    console.log(
+      "-------------------------------------------------------------------------------------------------------------------------------------------------"
+    );
+    console.log("isLoading: ", isLoading);
+    console.log(
+      "-------------------------------------------------------------------------------------------------------------------------------------------------"
+    );
+    console.log("isSuccess: ", isSuccess);
+    console.log(
+      "-------------------------------------------------------------------------------------------------------------------------------------------------"
+    );
+  }, []);
 
   // const storedOrgs = useSelector(selectOrganizations)
 
   // console.log(orgns)
   // const dispatch = useDispatch();
-
-
-
 
   return (
     <View style={styles.container}>
@@ -54,14 +59,13 @@ const CompanySearchScene = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       <ScrollView>
-        {data!=undefined ?
-            data.organization.map(org=>{
-              return (<CompanyCard org={org} navigation={navigation} />)
-            })
-        :  <Text>no companies</Text>
-        }
-        
-        
+        {data != undefined ? (
+          data.organization.map((org) => {
+            return <CompanyCard org={org} navigation={navigation} />;
+          })
+        ) : (
+          <Text>no companies</Text>
+        )}
       </ScrollView>
 
       <BottomSheet modalProps={{}} isVisible={isVisible}>
@@ -74,49 +78,23 @@ const CompanySearchScene = ({ navigation }) => {
               style={styles.closeButton}
             />
           </TouchableOpacity>
-          <Input
-            placeholder="Company name"
-            errorStyle={{ color: "red" }}
-            leftIcon={{
-              type: "font-awesome",
-              name: "user",
-              color: theme.colors.primary,
-            }}
-            errorMessage=""
-            renderErrorMessage={false}
+
+          <CustomInput
+            placeholder="Organization name..."
+            iconName="office-building-cog"
           />
-          <Input
-            placeholder="Company Sector"
-            leftIcon={{
-              type: "MaterialIcons",
-              name: "engineering",
-              color: theme.colors.primary,
-            }}
-            errorStyle={{ color: "red" }}
-            errorMessage=""
-            renderErrorMessage={false}
+          <CustomInput
+            placeholder="Organization sector..."
+            iconName="office-building-cog"
           />
-          <Input
-            placeholder="Event Name"
-            leftIcon={{
-              type: "AntDesign",
-              name: "edit",
-              color: theme.colors.primary,
-            }}
-            errorStyle={{ color: "red" }}
-            errorMessage=""
-            renderErrorMessage={false}
+
+          <CustomInput
+            placeholder="Event name..."
+            iconName="office-building-cog"
           />
-          <Input
-            placeholder="Location"
-            leftIcon={{
-              type: "MaterialIcons",
-              name: "edit-location",
-              color: theme.colors.primary,
-            }}
-            errorStyle={{ color: "red" }}
-            errorMessage=""
-            renderErrorMessage={false}
+          <CustomInput
+            placeholder="Event location..."
+            iconName="office-building-cog"
           />
           <Button
             title="Search"

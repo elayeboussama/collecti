@@ -8,7 +8,7 @@ import { Divider } from "@rneui/themed";
 import { MaterialIcons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
 
-const EventCard = ({ title }) => {
+const EventCard = ({ title, item }) => {
   return (
     <View style={styles.cardContainer}>
       <View style={styles.headerSection}>
@@ -17,7 +17,12 @@ const EventCard = ({ title }) => {
           rounded
           source={{ uri: "https://i.ibb.co/wg9Qvtp/logo2.png" }}
         />
-        <Text> Organisation Name </Text>
+        <Text>
+          {" "}
+          {item.organization_name
+            ? item.organization_name
+            : "Organization name"}{" "}
+        </Text>
       </View>
       <View style={styles.leftSection}>
         <View
@@ -38,26 +43,22 @@ const EventCard = ({ title }) => {
         </View>
       </View>
       <View style={styles.rightSection}>
-        <Text style={styles.eventName}>Event Name</Text>
-        <Text>
-          {" "}
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Minima
-          quisquam quaerat assumenda minus. Harum animi minima sapiente
-        </Text>
+        <Text style={styles.eventName}>{item.name}</Text>
+        <Text> {item.description}</Text>
 
         <View style={styles.chips}>
           <Chip
-            title="Sector"
+            title={item.category}
             containerStyle={{ width: 80, marginLeft: 8 }}
             titleStyle={{ fontSize: 8 }}
           />
           <Chip
-            title="Location"
+            title={item.requirementFunds}
             containerStyle={{ width: 80, marginLeft: 8 }}
             titleStyle={{ fontSize: 8 }}
           />
           <Chip
-            title="Start Date"
+            title={item.date}
             containerStyle={{ width: 80, marginLeft: 8 }}
             titleStyle={{ fontSize: 8 }}
           />
