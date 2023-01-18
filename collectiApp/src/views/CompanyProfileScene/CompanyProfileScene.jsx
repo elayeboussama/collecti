@@ -31,7 +31,7 @@ const CompanyProfileScene = () => {
   }, []);
   useEffect(() => {
     console.log("scene token =>", token);
-    console.log("scene user =>", user.name);
+    console.log("scene user =>", user);
   }, [user]);
   const [isVisible, setIsVisible] = useState(false);
   const { theme } = useTheme();
