@@ -30,17 +30,18 @@ const RootDrawerNavigator = () => {
   const storedToken = useSelector(selectCurrentToken);
   const [token, setToken] = useState();
   const [user, setUser] = useState();
-  const handleChangeToken = async () => {
+  const handleChange = async () => {
     setToken(await AsyncStorage.getItem("token"));
-    setUser(await AsyncStorage.getItem("user"));
+    const userVar = await AsyncStorage.getItem("user")
+    setUser(JSON.parse(userVar));
   };
   useEffect(() => {
-    handleChangeToken();
+    handleChange();
   }, []);
   useEffect(() => {
     console.log("drawer token =>", token);
     console.log("drawer user =>", user);
-  }, [token]);
+  }, [user]);
 
   return (
     <NavigationContainer>
