@@ -82,7 +82,7 @@ router.post("/update", authenticateToken, async (req, res) => {
 
 router.get("/events", async (req, res) => {
     try {
-        const events = await Event.find(); é
+        const events = await Event.find(); 
 
 
         if (events) {
