@@ -37,11 +37,11 @@ export const authEndpoints = apiSlice.injectEndpoints({
     }),
     getAllEvents: builder.query({
       query: () => ({
-          url: "/api/event/events",
-          method: "GET",
+        url: "/api/event/events",
+        method: "GET",
       }),
       // providesTags: ['orgs']
-  }),
+    }),
   }),
 });
 
@@ -50,6 +50,13 @@ export const authEndpointsWithToken = apiSliceWithToken.injectEndpoints({
     createEvent: builder.mutation({
       query: (credentials) => ({
         url: "/api/event/create",
+        method: "POST",
+        body: { ...credentials },
+      }),
+    }),
+    updateOrganization: builder.mutation({
+      query: (credentials) => ({
+        url: "/api/organization/update",
         method: "POST",
         body: { ...credentials },
       }),
@@ -68,6 +75,7 @@ export const {
 } = authEndpoints;
 
 export const {
+  useUpdateOrganizationMutation,
   useCreateEventMutation,
 } = authEndpointsWithToken;
 
@@ -83,10 +91,3 @@ export const {
 
 
 
-// updateOrganization: builder.mutation({
-//   query: (credentials) => ({
-//     url: "/api/organization/update",
-//     method: "POST",
-//     body: { ...credentials },
-//   }),
-// }),  useUpdateOrganizationMutation,
