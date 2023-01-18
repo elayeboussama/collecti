@@ -4,31 +4,21 @@ import { useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import AvatarUpload from '../components/AvatarUpload'
 import CoverUpload from '../components/CoverUpload'
-import EventCreatedPopUp from '../components/event/EventCreatedPopUp'
 import Button from '../components/shared/Button'
-import { useCreateEventMutation } from '../endpoints/AuthEndpoints'
-import { setVisible } from '../features/conffetiSlice'
-import { openModal, setContent } from '../features/modalSlice'
+import { useUpdateOrganizationMutation } from '../endpoints/AuthEndpoints'
+import { updateCredentials } from '../features/authSlice'
 import { useStorage } from '../hooks/useStorage'
 import { EditOrganizationSchema } from '../schemas'
 
 const EditOrganization = () => {
     const [tags, setTags] = useState([])
-    const [images, setImages] = useState([])
     const { uploadFile, isLoading } = useStorage()
     const tagInputRef = useRef(null)
 
     const user = useSelector(state => state.auth)
-    const dispatch = useDispatch()
-    const [createEvent, { isLoading: requestLoading }] = useCreateEventMutation()
+    const [updateOrganization] = useUpdateOrganizationMutation()
 
-    const uploadImages = async (images) => {
-        const promises = images.map(image => {
-            return uploadFile(image)
-        })
-        const urls = await Promise.all(promises)
-        return urls
-    }
+    const dispatch = useDispatch()
 
     const { values, handleChange, handleBlur, errors, touched, setFieldValue, handleSubmit } = useFormik({
         initialValues: {
@@ -41,29 +31,30 @@ const EditOrganization = () => {
         },
         validationSchema: EditOrganizationSchema,
         onSubmit: async (values) => {
-            const avatar = await uploadImages(values.avatar)
-            const coverPhoto = await uploadImages(values.coverPhoto)
+            const [avatar, coverPhoto] = await Promise.all([
+                uploadFile(values.avatar[0]),
+                uploadFile(values.coverPhoto[0])
+            ]);
             const requestObject = {
                 ...values,
-                avatar,
-                coverPhoto,
+                _id: user.userId,
+                logo: avatar,
+                cover: coverPhoto,
+                firstConnection: false,
             }
             try {
                 console.log(requestObject)
-                const response = await createEvent({ ...requestObject }).unwrap()
+                const response = await updateOrganization({ ...requestObject }).unwrap()
                 console.log(response)
-                dispatch(setContent(<EventCreatedPopUp url={`http://localhost:3000/events/${response.id}`} id={response.id} />))
-                dispatch(openModal())
-                dispatch(setVisible(true))
-                setTimeout(() => {
-                    dispatch(setVisible(false))
-                }, 6000)
+                dispatch(updateCredentials(response.organizationUpdated))
             } catch (error) {
                 console.error(error)
             }
 
         }
     })
+
+    console.log(values)
 
     const handleAddTag = () => {
         const tag = tagInputRef.current.value
@@ -169,7 +160,7 @@ const EditOrganization = () => {
                     {errors.description && touched.description && <p className="mt-2 ml-1 text-xs text-red-500">{errors.description}</p>}
                 </div>
                 <div className='text-right'>
-                    <Button loading={isLoading || requestLoading} className="border-none btn btn-primary" type="submit">Save profile</Button>
+                    <Button loading={isLoading} className="border-none btn btn-primary" type="submit">Save profile</Button>
                 </div>
 
             </form>
