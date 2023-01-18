@@ -28,7 +28,7 @@ const AvatarUpload = ({ setFieldValue, handleChange }) => {
             onupdatefiles={fileItems => {
                 setFieldValue("avatar", fileItems.map(fileItem => fileItem.file))
             }}
-            maxFiles={11}
+            maxFiles={1}
             instantUpload={false}
             name="files"
             imagePreviewHeight={170}
