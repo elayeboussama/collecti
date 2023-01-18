@@ -10,14 +10,12 @@ import { CreateEventSchema } from '../schemas'
 import { setVisible } from '../features/conffetiSlice'
 import { openModal, setContent } from '../features/modalSlice'
 import EventCreatedPopUp from '../components/event/EventCreatedPopUp'
-import { useEffect } from 'react'
 
 const CreateEvent = () => {
     const [tags, setTags] = useState([])
     const [images, setImages] = useState([])
     const { uploadFile, isLoading } = useStorage()
     const tagInputRef = useRef(null)
-    const [categorySelec,setCategorySelec]=useState("")
 
     const user = useSelector(state => state.auth)
     const dispatch = useDispatch()
@@ -32,11 +30,6 @@ const CreateEvent = () => {
         }
     }
 
-    useEffect(()=>{
-        setFieldValue("category",categorySelec)
-        console.log(categorySelec)
-    },[categorySelec])
-
     const uploadImages = async (images) => {
         const promises = images.map(image => {
             return uploadFile(image)
@@ -49,7 +42,6 @@ const CreateEvent = () => {
         initialValues: {
             title: "",
             slogan: "",
-            category: "",
             keywords: [],
             images: [],
             price: "",
@@ -58,13 +50,11 @@ const CreateEvent = () => {
         },
         validationSchema: CreateEventSchema,
         onSubmit: async (values) => {
-          
             const urls = await uploadImages(images)
             const event = {
                 name: values.title,
                 description: values.description,
-                category: values.category,
-                keywords: values.keywords,
+                category: values.keywords,
                 date: values.date,
                 requirementFunds: values.price,
                 organization_id: user.userId,
@@ -101,13 +91,6 @@ const CreateEvent = () => {
         setFieldValue("keywords", tags.filter(badge => badge !== tag))
     }
 
-    const handleSelectedCategory=()=>{
-        setCategorySelec(document.querySelector('#selectedCategory').value);
-        console.log("dddd",categorySelec)
-       
-    }
-  
-
 
     return (
         <div className="w-full max-w-3xl p-4 mx-auto">
@@ -139,20 +122,6 @@ const CreateEvent = () => {
                         onBlur={handleBlur}
                         className={`input input-bordered ${errors.slogan && touched.slogan && 'input-error'}`} />
                     {errors.slogan && touched.slogan && <p className="mt-2 text-xs text-red-500">{errors.slogan}</p>}
-                </div>
-                <div className=" form-control">
-                    <label className="label">
-                        <span className="label-text">Category</span>
-                      
-                    </label>
-                    <select id="selectedCategory" name="category" onChange={handleSelectedCategory}className="w-full select select-bordered">
-                        {/* <option disabled selected value="pick">Pick one</option> */}
-                        <option value="Computer science">Computer science</option>
-                        <option value="Robotics">Robotics</option>
-                        <option value="Cultural">Cultural</option>
-                        
-                    </select>
-                   
                 </div>
                 <div className="form-control">
                     <label className="label">
