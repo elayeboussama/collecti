@@ -35,6 +35,13 @@ export const authEndpoints = apiSlice.injectEndpoints({
         params: { id: id },
       }),
     }),
+    getAllEvents: builder.query({
+      query: () => ({
+          url: "/api/event/events",
+          method: "GET",
+      }),
+      // providesTags: ['orgs']
+  }),
   }),
 });
 
@@ -57,6 +64,7 @@ export const {
   useLoginMutation,
   useOrgDetailsQuery,
   useGetEventQuery,
+  useGetAllEventsQuery,
 } = authEndpoints;
 
 export const {
