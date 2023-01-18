@@ -11,14 +11,18 @@ import {
 import { StatusBar } from "expo-status-bar";
 import { useState, useEffect } from "react";
 
-import { Text, View, TouchableOpacity, Image } from "react-native";
+import { Text, View, TouchableOpacity, Image, TouchableHiglight } from "react-native";
 import { styles } from "./styles";
 import { MaterialIcons } from "@expo/vector-icons";
 import EventCard from "../../components/EventCard/EventCard";
 import { ScrollView } from "react-native";
 import CompanyCard from "../../components/CompanyCard/CompanyCard";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
+
 const CompleteInfosScene = () => {
+
+
   const [token, setToken] = useState();
   const [user, setUser] = useState();
   const handleChange = async () => {
@@ -102,5 +106,7 @@ const CompleteInfosScene = () => {
       </ScrollView>
     </View>
   );
+
 };
+
 export default CompleteInfosScene;
