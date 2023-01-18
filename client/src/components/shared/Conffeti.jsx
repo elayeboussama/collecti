@@ -12,7 +12,7 @@ const Conffeti = () => {
     useEffect(() => {
         setTimeout(() => {
             setShowClassName(false)
-        }, 5000)
+        }, 6000)
     }, [])
 
 
