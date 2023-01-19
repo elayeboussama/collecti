@@ -1,7 +1,8 @@
 import { PlusSmallIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { useFormik } from 'formik'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
 import AvatarUpload from '../components/AvatarUpload'
 import CoverUpload from '../components/CoverUpload'
 import Button from '../components/shared/Button'
@@ -11,18 +12,28 @@ import { useStorage } from '../hooks/useStorage'
 import { EditOrganizationSchema } from '../schemas'
 
 const EditOrganization = () => {
-    const [tags, setTags] = useState([])
-    const { uploadFile, isLoading } = useStorage()
     const tagInputRef = useRef(null)
+    const [tags, setTags] = useState([])
+    const [loading, setIsLoading] = useState(false)
 
-    const user = useSelector(state => state.auth)
+    const { uploadFile } = useStorage()
     const [updateOrganization] = useUpdateOrganizationMutation()
-
+    const user = useSelector(state => state.auth)
     const dispatch = useDispatch()
+
+    useEffect(() => {
+        setFieldValue("name", user.user.name || "")
+        setFieldValue("email", user.user.email || "")
+        setFieldValue("keywords", user.user.keywords || [])
+        if (user.user.keywords) setTags(user.user.keywords)
+        setFieldValue("phone", user.user.phone || "")
+        setFieldValue("description", user.user.description || "")
+    }, [user])
 
     const { values, handleChange, handleBlur, errors, touched, setFieldValue, handleSubmit } = useFormik({
         initialValues: {
             name: "",
+            email: "",
             avatar: [],
             coverPhoto: [],
             keywords: [],
@@ -31,6 +42,7 @@ const EditOrganization = () => {
         },
         validationSchema: EditOrganizationSchema,
         onSubmit: async (values) => {
+            setIsLoading(true)
             const [avatar, coverPhoto] = await Promise.all([
                 uploadFile(values.avatar[0]),
                 uploadFile(values.coverPhoto[0])
@@ -45,16 +57,15 @@ const EditOrganization = () => {
             try {
                 console.log(requestObject)
                 const response = await updateOrganization({ ...requestObject }).unwrap()
-                console.log(response)
                 dispatch(updateCredentials(response.organizationUpdated))
+                toast.success("Profile updated! You're all set. 🙌")
             } catch (error) {
                 console.error(error)
             }
-
+            setIsLoading(false)
         }
     })
 
-    console.log(values)
 
     const handleAddTag = () => {
         const tag = tagInputRef.current.value
@@ -74,15 +85,15 @@ const EditOrganization = () => {
     return (
         <div className="w-full max-w-3xl p-4 mx-auto">
             <div className="mt-10">
-                <h2 className="mb-4 text-2xl font-bold">{/* "Edit profile 🎉" */ "Complete your organization's profile 📝"}</h2>
+                <h2 className="mb-4 text-2xl font-bold">{user.user.firstConnection ? "Complete your organization's profile 📝" : "Edit profile 📝"}</h2>
                 <p className="mb-8 text-gray-700">Update your organization's information with us! 📑 Let's make sure all the details are accurate and up-to-date. 🔍 Share with us more about your organization, and let's get ready to promote your cause.</p>
             </div>
-            <div className=" alert alert-warning">
+            {user.user.firstConnection && <div className=" alert alert-warning">
                 <div>
                     <svg xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0 w-6 h-6 stroke-current" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
                     <span>Complete your profile before creating an event. It will help us promote your cause.</span>
                 </div>
-            </div>
+            </div>}
             <form onSubmit={handleSubmit} className='flex flex-col space-y-3'>
                 <div className='flex flex-col items-center space-x-3 md:flex-row'>
                     <div className="w-full max-w-[14rem] mt-10">
@@ -106,7 +117,7 @@ const EditOrganization = () => {
                             <label className="label">
                                 <span className="label-text">Email <span className='text-error'>*</span></span>
                             </label>
-                            <input type="text" name='slogan' placeholder="abc@example.com"
+                            <input value={""} onChange={handleChange} type="text" name='slogan' placeholder={values.email}
                                 disabled
                                 className={`input input-bordered ${errors.slogan && touched.slogan && 'input-error'}`} />
                         </div>
@@ -160,7 +171,7 @@ const EditOrganization = () => {
                     {errors.description && touched.description && <p className="mt-2 ml-1 text-xs text-red-500">{errors.description}</p>}
                 </div>
                 <div className='text-right'>
-                    <Button loading={isLoading} className="border-none btn btn-primary" type="submit">Save profile</Button>
+                    <Button loading={loading} className="border-none btn btn-primary" type="submit">Save profile</Button>
                 </div>
 
             </form>
