@@ -4,9 +4,7 @@ import Avatar from './Avatar'
 
 const UserInfo = ({ id, className }) => {
 
-    const { data, isLoading } = useOrgDetailsQuery(id)
-
-    console.log(data)
+    const { data } = useOrgDetailsQuery(id)
 
     const userInfoClassName = cn(
         'flex-row items-center w-full py-4 menu border-y text-base-content',
@@ -15,7 +13,7 @@ const UserInfo = ({ id, className }) => {
 
     return (
         <div className={userInfoClassName}>
-            <Avatar src={data?.organization.logo} />
+            <Avatar src={data?.organization.logo} id={id} />
             <div className="ml-4 leading-5">
                 <h2 className="font-bold leading-4">{data?.organization.name}</h2>
                 <p className="text-sm text-gray-500">{data?.organization.email}
