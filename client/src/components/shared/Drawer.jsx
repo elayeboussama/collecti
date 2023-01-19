@@ -11,6 +11,11 @@ const Drawer = ({ children }) => {
     const dispatch = useDispatch()
     const user = useSelector((state) => state.auth)
 
+    const ProtectedRoutes = <>
+        <li><NavLink end to={"/events/add"} className={({ isActive }) => cn({ "bg-primary text-white": isActive })}><PlusCircleIcon className="w-6 h-6" />Create Event</NavLink></li>
+        <li><NavLink end to={"/organization/edit"} className={({ isActive }) => cn({ "bg-primary text-white": isActive })}><Cog6ToothIcon className="w-6 h-6" />Settings</NavLink></li>
+    </>
+
     return (
         <>
             <div className="drawer drawer-mobile">
@@ -31,8 +36,7 @@ const Drawer = ({ children }) => {
                             </label>
                             <li><NavLink end to={"/organizations"} className={({ isActive }) => cn({ "bg-primary text-white": isActive })}><GlobeAltIcon className="w-6 h-6" />Organizations</NavLink></li>
                             <li><NavLink end to={"/events"} className={({ isActive }) => cn({ "bg-primary text-white": isActive })}><CalendarIcon className="w-6 h-6" />Events</NavLink></li>
-                            <li><NavLink end to={"/events/add"} className={({ isActive }) => cn({ "bg-primary text-white": isActive })}><PlusCircleIcon className="w-6 h-6" />Create Event</NavLink></li>
-                            <li><NavLink end to={"/organization/edit"} className={({ isActive }) => cn({ "bg-primary text-white": isActive })}><Cog6ToothIcon className="w-6 h-6" />Settings</NavLink></li>
+                            {user.token && ProtectedRoutes}
                         </ul>
                         <div className={cn({ "hidden": user.token, "flex": !user.token, "flex-row items-center w-full mt-auto border-t text-base-content": true })}>
                             <ul className="p-4 menu w-80 text-base-content">
