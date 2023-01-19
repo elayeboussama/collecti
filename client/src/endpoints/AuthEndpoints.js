@@ -41,7 +41,16 @@ export const authEndpoints = apiSlice.injectEndpoints({
         method: "GET",
       }),
       // providesTags: ['orgs']
+  }),
+
+  payment: builder.mutation({
+    query: (credentials) => ({
+      url: "/api/stripe/create-checkout-session",
+      method: "POST",
+      body: { ...credentials },
     }),
+  }),
+
   }),
 });
 
@@ -69,6 +78,7 @@ export const {
   useCredentialsQuery,
   useRegisterMutation,
   useLoginMutation,
+  usePaymentMutation,
   useOrgDetailsQuery,
   useGetEventQuery,
   useGetAllEventsQuery,

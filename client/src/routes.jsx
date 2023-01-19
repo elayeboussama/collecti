@@ -9,6 +9,7 @@ import Index from './routes/Index';
 import OrganizationDetails from './components/organization/OrganizationDetails';
 import Organizations from './routes/Organizations';
 import CreateEvent from './routes/CreateEvent';
+import CheckoutSuccess from './components/event/CheckoutSuccess';
 
 const router = createBrowserRouter([
     {
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
                     {
                         path: 'organization/edit',
                         element: <EditOrganization />,
+                    },
+                    {
+                        path: '/checkout-success',
+                        element: <CheckoutSuccess/>,
                     }
                 ]
             }
