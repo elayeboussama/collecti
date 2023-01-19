@@ -21,13 +21,12 @@ const organizationSchema = new mongoose.Schema({
     email: { type: String, required: true },
     password: { type: String, required: true },
     location: { type: String, required: false },
-    keyWords: { type: Array, required: false },
-    category: { type: String, required: true },
+    keywords: { type: Array, required: false },
     firstConnection: { type: Boolean, required: true, default: true },
 
 });
 
-organizationSchema.methods.generateAuthToken = function() {
+organizationSchema.methods.generateAuthToken = function () {
     const token = jwt.sign({ _id: this._id }, process.env.ACCESS_TOKEN_SECRET, {
         expiresIn: "7d",
     });
