@@ -5,6 +5,11 @@ const OrganizationCard = ({ organization }) => {
         <div className="shadow-xl card w-96 bg-base-100">
             <figure><img src={organization.cover} alt="cover" /></figure>
             <div className="card-body">
+                <div className="absolute avatar top-36">
+                    <div className="w-24 rounded-full ring ring-white">
+                        <img src={organization.logo} alt="logo" />
+                    </div>
+                </div>
                 <h2 className="justify-between card-title">
                     <div>{organization.name}</div>
                     <div className="badge badge-secondary">{organization.events.length}</div>

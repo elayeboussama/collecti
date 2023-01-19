@@ -9,7 +9,7 @@ import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview, FilePondPluginFileValidateType);
 
 
-const ImageUpload = ({ images, setImages, handleChange }) => {
+const ImageUpload = ({ images, setImages, handleChange, disabled }) => {
 
     return (
         <FilePond
@@ -21,6 +21,7 @@ const ImageUpload = ({ images, setImages, handleChange }) => {
             maxFiles={10}
             instantUpload={false}
             name="files"
+            disabled={disabled}
             acceptedFileTypes={['image/*']}
             onprocessfiles={handleChange}
             labelIdle='Got some great images to share? 📸 drag & drop them or <span class="filepond--label-action">Browse</span>'
