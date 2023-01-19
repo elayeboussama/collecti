@@ -10,6 +10,7 @@ import OrganizationDetails from './components/organization/OrganizationDetails';
 import Organizations from './routes/Organizations';
 import CreateEvent from './routes/CreateEvent';
 import CheckoutSuccess from './components/event/CheckoutSuccess';
+import ProtectedRoutes from './components/ProtectedRoutes';
 
 const router = createBrowserRouter([
     {
@@ -34,11 +35,11 @@ const router = createBrowserRouter([
                     },
                     {
                         path: 'events/add',
-                        element: <CreateEvent />,
+                        element: <ProtectedRoutes><CreateEvent /></ProtectedRoutes>,
                     },
                     {
                         path: 'events/:eventId/edit',
-                        element: <EditEvent />,
+                        element: <ProtectedRoutes><EditEvent /></ProtectedRoutes>,
                     },
                     {
                         path: 'organizations',
@@ -50,11 +51,11 @@ const router = createBrowserRouter([
                     },
                     {
                         path: 'organization/edit',
-                        element: <EditOrganization />,
+                        element: <ProtectedRoutes><EditOrganization /></ProtectedRoutes>,
                     },
                     {
                         path: '/checkout-success',
-                        element: <CheckoutSuccess/>,
+                        element: <CheckoutSuccess />,
                     }
                 ]
             }
