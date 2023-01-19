@@ -34,6 +34,12 @@ export const authEndpoints = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    getOrgnizations: builder.query({
+      query: () => ({
+        url: "/api/organization/organizations",
+        method: "GET",
+      })
+    }),
     getAllEvents: builder.query({
       query: () => ({
         url: "/api/event/events",
@@ -81,6 +87,7 @@ export const {
   useOrgDetailsQuery,
   useGetEventQuery,
   useGetAllEventsQuery,
+  useGetOrgnizationsQuery,
 } = authEndpoints;
 
 export const {
