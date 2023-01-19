@@ -13,15 +13,16 @@ import EventCreatedPopUp from '../components/event/EventCreatedPopUp'
 import { useEffect } from 'react'
 
 const CreateEvent = () => {
+    const tagInputRef = useRef(null)
     const [tags, setTags] = useState([])
     const [images, setImages] = useState([])
-    const { uploadFile, isLoading } = useStorage()
-    const tagInputRef = useRef(null)
-    const [categorySelec,setCategorySelec]=useState("")
+    const [categorySelec, setCategorySelec] = useState("")
+    const [loading, setIsLoading] = useState(false)
 
+    const { uploadFile } = useStorage()
     const user = useSelector(state => state.auth)
     const dispatch = useDispatch()
-    const [createEvent, { isLoading: requestLoading }] = useCreateEventMutation()
+    const [createEvent] = useCreateEventMutation()
 
     const checkImages = (images) => {
         setImages(images)
@@ -32,10 +33,9 @@ const CreateEvent = () => {
         }
     }
 
-    useEffect(()=>{
-        setFieldValue("category",categorySelec)
-        console.log(categorySelec)
-    },[categorySelec])
+    useEffect(() => {
+        setFieldValue("category", categorySelec)
+    }, [categorySelec])
 
     const uploadImages = async (images) => {
         const promises = images.map(image => {
@@ -58,7 +58,7 @@ const CreateEvent = () => {
         },
         validationSchema: CreateEventSchema,
         onSubmit: async (values) => {
-          
+            setIsLoading(true)
             const urls = await uploadImages(images)
             const event = {
                 name: values.title,
@@ -83,7 +83,7 @@ const CreateEvent = () => {
             } catch (error) {
                 console.error(error)
             }
-
+            setIsLoading(false)
         }
     })
 
@@ -101,12 +101,9 @@ const CreateEvent = () => {
         setFieldValue("keywords", tags.filter(badge => badge !== tag))
     }
 
-    const handleSelectedCategory=()=>{
+    const handleSelectedCategory = () => {
         setCategorySelec(document.querySelector('#selectedCategory').value);
-        console.log("dddd",categorySelec)
-       
     }
-  
 
 
     return (
@@ -143,16 +140,16 @@ const CreateEvent = () => {
                 <div className=" form-control">
                     <label className="label">
                         <span className="label-text">Category</span>
-                      
+
                     </label>
-                    <select id="selectedCategory" name="category" onChange={handleSelectedCategory}className="w-full select select-bordered">
+                    <select id="selectedCategory" name="category" onChange={handleSelectedCategory} className="w-full select select-bordered">
                         {/* <option disabled selected value="pick">Pick one</option> */}
                         <option value="Computer science">Computer science</option>
                         <option value="Robotics">Robotics</option>
                         <option value="Cultural">Cultural</option>
-                        
+
                     </select>
-                   
+
                 </div>
                 <div className="form-control">
                     <label className="label">
@@ -220,7 +217,7 @@ const CreateEvent = () => {
                     Please note: By submitting this form, you agree to make the event's data publicly available. This includes money collected and number of donors. This information will be visible to anyone visiting the event page. 🌍
                 </p>
                 <div className='text-right'>
-                    <Button loading={isLoading || requestLoading} className="border-none btn animated-gradient" type="submit">Create Event</Button>
+                    <Button loading={loading} className="border-none btn animated-gradient" type="submit">Create Event</Button>
                 </div>
 
             </form>
