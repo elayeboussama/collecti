@@ -4,8 +4,10 @@ import {
 import { useEffect, useState } from "react";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { ScrollView, View, TouchableHiglight, Text } from "react-native";
+import { ScrollView, View, Text } from "react-native";
 import { styles } from "./styles";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import ImagePicker  from "react-native-image-picker";
 
 
 const CompleteInfosScene = () => {
@@ -33,45 +35,34 @@ const CompleteInfosScene = () => {
     const uploadImageHandler = () =>{
       var options = {
         title: 'Select Image',
+        customButtons: [
+          {
+            name: 'customOptionKey',
+            title: 'Choose Photo from Custom Option'
+          },
+        ],
         storageOptions: {
           skipBackup: true,
-          path: 'images'
-        }
-      }
-      ImagePicker.showImagePicker(options, (response) => {
-        console.log('Response = ', response);
-        if (response.didCancel) {
-          console.log('User cancelled image picker');
-        }else if (response.error) {
-          console.log('ImagePicker Error: ', response.error);
-        }else if (response.customButton) {
-          console.log('User tapped custom button: ', response.customButton);
-        }else {
-          console.log('User selected a file form camera or gallery', response); 
-          const data = new FormData();
-          data.append('name', 'avatar');
-          data.append('fileData', {
-            uri : response.uri,
-            type: response.type,
-            name: response.fileName
-          });
-          const config = {
-            method: 'POST',
-            headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'multipart/form-data',
-            },
-            body: data,
-          };
-          fetch("http://localhost:8080/api/organization/upload", config)
-            .then((checkStatusAndGetJSONResponse)=>{       
-              console.log(checkStatusAndGetJSONResponse);
-            })
-            .catch((err)=>{console.log(err)});
-        }
-      })
+          path: 'images',
+        },
+        };
+        ImagePicker.showImagePicker(options, response => {
+          console.log('Response = ', response);
+          if (response.didCancel) {
+            console.log('User cancelled image picker');
+          } else if (response.error) {
+            console.log('ImagePicker Error: ', response.error);
+          } else if (response.customButton) {
+            console.log(
+              'User tapped custom button: ',
+              response.customButton
+            );
+            alert(response.customButton);
+          } else {
+            setFilePath(response);
+          }
+      });
     }
-
 
 
 
@@ -88,8 +79,9 @@ const CompleteInfosScene = () => {
               borderBottomRightRadius: 12,
             }}
           >
-            <TouchableHiglight >dddddd</TouchableHiglight>
-            <Text>hghghgh</Text>
+            <TouchableOpacity onPress={uploadImageHandler}>
+              <Text> hello </Text>  
+            </TouchableOpacity>
           </View>
         </View>
       </ScrollView>
