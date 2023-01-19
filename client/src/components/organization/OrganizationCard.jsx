@@ -3,9 +3,9 @@ import { Link } from "react-router-dom"
 const OrganizationCard = ({ organization }) => {
     return (
         <div className="shadow-xl card w-96 bg-base-100">
-            <figure><img src={organization.cover} alt="cover" /></figure>
+            <figure><img className="h-56" src={organization.cover} alt="cover" /></figure>
             <div className="card-body">
-                <div className="absolute avatar top-36">
+                <div className="absolute avatar top-40">
                     <div className="w-24 rounded-full ring ring-white">
                         <img src={organization.logo} alt="logo" />
                     </div>
