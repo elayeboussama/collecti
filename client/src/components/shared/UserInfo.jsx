@@ -1,7 +1,12 @@
 import cn from 'classnames'
+import { useOrgDetailsQuery } from '../../endpoints/AuthEndpoints'
 import Avatar from './Avatar'
 
-const UserInfo = ({ className }) => {
+const UserInfo = ({ id, className }) => {
+
+    const { data, isLoading } = useOrgDetailsQuery(id)
+
+    console.log(data)
 
     const userInfoClassName = cn(
         'flex-row items-center w-full py-4 menu border-y text-base-content',
@@ -10,10 +15,11 @@ const UserInfo = ({ className }) => {
 
     return (
         <div className={userInfoClassName}>
-            <Avatar />
+            <Avatar src={data?.organization.logo} />
             <div className="ml-4 leading-5">
-                <h2 className="font-bold leading-4">John Doe</h2>
-                <p className="text-sm text-gray-500">john@gmail.com</p>
+                <h2 className="font-bold leading-4">{data?.organization.name}</h2>
+                <p className="text-sm text-gray-500">{data?.organization.email}
+                </p>
             </div>
         </div>
     )

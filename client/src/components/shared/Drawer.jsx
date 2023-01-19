@@ -45,9 +45,9 @@ const Drawer = ({ children }) => {
                                     <img src={user.user.logo || "https://placeimg.com/192/192/people"} alt="Organization logo" />
                                 </div>
                             </div>
-                            <div className="ml-4 leading-5 ">
+                            <div className="ml-4 leading-5 max-w-[168px]">
                                 <h2 className="font-bold leading-4">{user.user.name}</h2>
-                                <p className="text-sm text-gray-500">{user.user.email}</p>
+                                <p className="text-sm text-gray-500 break-words ">{user.user.email}</p>
                             </div>
                             <button onClick={() => dispatch(logout())} className="ml-auto btn btn-square btn-ghost drawer-button"><ArrowRightOnRectangleIcon className="w-6 h-6" /></button>
                         </div>
