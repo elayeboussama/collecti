@@ -1,4 +1,6 @@
 import  {BsFacebook, BsLinkedin} from 'react-icons/bs';
+import { useParams } from 'react-router-dom';
+import { useOrgDetailsQuery } from '../../endpoints/AuthEndpoints';
 import GmailIcon from '../shared/GmailIcon';
 import SlackIcon from '../shared/SlackIcon';
 
@@ -10,6 +12,9 @@ import TeamCard from './TeamCard';
 
 
 const OrganizationDetails = () => {
+  let { organizationId } = useParams();
+   const { data, isLoading } = useOrgDetailsQuery(organizationId)
+  console.log("rrrrrrrrrr",organizationId)
   const tabsTitle=["Description", "Plan d'action", "Vision"]
   const eventsList=[
     {id:1,
@@ -21,43 +26,43 @@ const OrganizationDetails = () => {
   ]
     return (
       <div className="flex flex-row justify-center gap-10 px-10">
-      <div className='left-container flex w-2/3 flex-col  gap-10'>
-        <div className="card flex-initial w-full glass place-content-center max-h-max">
+      <div className='flex flex-col w-2/3 gap-10 left-container'>
+        <div className="flex-initial w-full card glass place-content-center max-h-max">
         <figure>
-          <div className="avatar-group w-full -space-y-28 flex-col ">
-            <img className='max-w-10xl h-72 w-full' src="https://placeimg.com/400/225/arch" alt="car!" />
-          <div className="avatar border-0 pl-10">
-            <div className="w-48 rounded-full border-4 border-inherit">
+          <div className="flex-col w-full avatar-group -space-y-28 ">
+            <img className='w-full max-w-10xl h-72' src="https://placeimg.com/400/225/arch" alt="car!" />
+          <div className="pl-10 border-0 avatar">
+            <div className="w-48 border-4 rounded-full border-inherit">
               <img src="https://placeimg.com/192/192/people" />
             </div>
           </div>
         </div>
         </figure>
-        <div className="card-body ml-56 -mt-24 ">
+        <div className="ml-56 -mt-24 card-body ">
   
-          <h2 className="card-title text-3xl">Organization name</h2>
+          <h2 className="text-3xl card-title">Organization name</h2>
           <p >Creation date </p>
-          <span className="badge rounded-md text-lg h-1/5 mt-2">Oragnization sector</span>
-          <div className="socail-media flex flex-row gap-10">
-            <div className=" grid h-9 w-9  border-2 rounded-md border-slate-300 place-content-evenly mt-5">
+          <span className="mt-2 text-lg rounded-md badge h-1/5">Oragnization sector</span>
+          <div className="flex flex-row gap-10 socail-media">
+            <div className="grid mt-5 border-2 rounded-md h-9 w-9 border-slate-300 place-content-evenly">
             <BsFacebook className="h-7 w-7 " style={{color: "#3b5998" }}/>
             </div>
-            <div className=" grid h-9 w-9  border-2 rounded-md border-slate-300 place-content-evenly mt-5">
+            <div className="grid mt-5 border-2 rounded-md h-9 w-9 border-slate-300 place-content-evenly">
             
             <GmailIcon/>
             </div>
            
-            <div className=" grid h-9 w-9  border-2 rounded-md border-slate-300 place-content-evenly mt-5">
+            <div className="grid mt-5 border-2 rounded-md h-9 w-9 border-slate-300 place-content-evenly">
             <BsLinkedin className="h-7 w-7" style={{color: "#3b5998" }}/>
             </div>
             
-            <div className=" grid h-9 w-9  border-2 rounded-md border-slate-300 place-content-evenly mt-5">
+            <div className="grid mt-5 border-2 rounded-md h-9 w-9 border-slate-300 place-content-evenly">
         
               <SlackIcon/>
             </div>
            
           </div>
-          <div className="card-actions justify-end">
+          <div className="justify-end card-actions">
             <button className="btn btn-primary">Learn more!</button>
           </div>
         </div>
@@ -65,7 +70,7 @@ const OrganizationDetails = () => {
       
       </div>
 
-      <div className="body-container w-full glass rounded-2xl ">
+      <div className="w-full body-container glass rounded-2xl ">
       <Tabs 
       tabsTitle={tabsTitle}
       content1="La description a été codifiée dès la rhétorique ancienne sous le nom grec d'ekphrasis (qu'on pourrait traduire comme morceau discursif détaché). À l'origine, elle relève surtout du discours d'apparat (genre épidictique) qui appelle la description élogieuse de personnes, de lieux ou de moments privilégiés. Et nous pouvons nous faire une idée de ce qu'elle a été si nous songeons à des pratiques rhétoriques encore vivantes aujourd'hui comme l'éloge funèbre, les discours d'inauguration ou les messages d'amitiés diplomatiquement échangés lors de visites de chefs d'état.
@@ -84,18 +89,18 @@ const OrganizationDetails = () => {
       </div>  
 
       </div>
-        <div className="right-container flex w-1/3 flex-col  gap-10">
-          <div className="card  bg-base-100 glass h-auto ">
+        <div className="flex flex-col w-1/3 gap-10 right-container">
+          <div className="h-auto card bg-base-100 glass ">
             <div className="card-body">
               <h2 className="card-title">Team</h2>
-              <div className="avatar-group -space-y-6 flex-col">
+              <div className="flex-col -space-y-6 avatar-group">
                 <TeamCard/>
                 <TeamCard/>
                 <TeamCard/>
                 <TeamCard/>
           
               </div>
-              <div className="card-actions justify-end">
+              <div className="justify-end card-actions">
                 {/* <button className="btn btn-primary">Buy Now</button> */}
                 <div className="avatar placeholder">
                   <div className="w-12 bg-neutral-focus text-neutral-content btn btn-primary">
@@ -105,14 +110,14 @@ const OrganizationDetails = () => {
               </div>
             </div>
           </div>
-          <div className="card  bg-base-100 glass h-2/5 ">
-            <div className="card-body gap-4 ">
+          <div className="card bg-base-100 glass h-2/5 ">
+            <div className="gap-4 card-body ">
             <h2 className="card-title">Events</h2>
                 {eventsList.map((event) =>
                 <SmallEventCard event={event}/>
                 )}
 
-                <div className="card-actions justify-end">
+                <div className="justify-end card-actions">
                 {/* <button className="btn btn-primary">Buy Now</button> */}
                 <div className="avatar placeholder">
                   <div className="w-12 bg-neutral-focus text-neutral-content btn btn-primary">

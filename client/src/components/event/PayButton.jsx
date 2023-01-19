@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux"
 import { usePaymentMutation } from "../../endpoints/AuthEndpoints"
+import Button from "../shared/Button"
 
 
 const PayButton = ({onClose, informations}) =>{
@@ -25,7 +26,12 @@ const PayButton = ({onClose, informations}) =>{
 
     }
     return(
-        <button className="w-1/2 mt-6 btn btn-primary" onClick={()=>handleCheckOut()}>Check out</button>
+        <Button 
+        loading={ requestLoading} 
+        className="mt-6 border-none btn animated-gradient" 
+        onClick={()=>handleCheckOut()}
+         >Check out</Button>
+        // <button className="w-1/2 mt-6 btn btn-primary" onClick={()=>handleCheckOut()}>Check out</button>
     )
 }
 
