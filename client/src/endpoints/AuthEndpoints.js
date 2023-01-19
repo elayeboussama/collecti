@@ -32,7 +32,6 @@ export const authEndpoints = apiSlice.injectEndpoints({
       query: (id) => ({
         url: `/api/organization/${id}`,
         method: "GET",
-        params: { id: id },
       }),
     }),
     getAllEvents: builder.query({
@@ -41,15 +40,15 @@ export const authEndpoints = apiSlice.injectEndpoints({
         method: "GET",
       }),
       // providesTags: ['orgs']
-  }),
-
-  payment: builder.mutation({
-    query: (credentials) => ({
-      url: "/api/stripe/create-checkout-session",
-      method: "POST",
-      body: { ...credentials },
     }),
-  }),
+
+    payment: builder.mutation({
+      query: (credentials) => ({
+        url: "/api/stripe/create-checkout-session",
+        method: "POST",
+        body: { ...credentials },
+      }),
+    }),
 
   }),
 });

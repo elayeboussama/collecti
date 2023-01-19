@@ -17,8 +17,6 @@ const Events = () => {
         error
     }=useGetAllEventsQuery()
 
-    
-
 
     const handleVisible = num =>{ setShowModal(!showModal);
      
@@ -44,16 +42,12 @@ const Events = () => {
           
            <Tabs 
            tabsTitle={tabsTitle}
-           
            content1={<div className="flex items-center justify-center h-full py-4 sm:p-4">
           
                 {isSuccess?  <div className="grid h-full grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-7">
-                    {events.event.map((allevent,i)=>
-                    allevent.category ==="Computer science"? 
-                    <EventCard eventTitle={allevent.name} handleClick={handleClick}
-                    /> :""
-                          
-                    )}
+                    {events.event.map((csevent,i)=>
+                            <EventCard eventTitle={csevent.name} handleClick={handleClick}
+                           />)}
                   
                 </div>: <p>error</p>}
                        
@@ -63,34 +57,10 @@ const Events = () => {
                         
                     
             content2={
-                <div className="flex items-center justify-center h-full py-4 sm:p-4">
-          
-                {isSuccess?  <div className="grid h-full grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-7">
-                    {events.event.map((allevent,i)=>
-                    allevent.category ==="Robotics"? 
-                    <EventCard eventTitle={allevent.name} handleClick={handleClick}
-                    /> :""
-                          
-                    )}
-                  
-                </div>: <p>error</p>}
-                       
-                    </div>
+                <EventCard eventTitle="robot event"/>
                     }
             content3={
-                <div className="flex items-center justify-center h-full py-4 sm:p-4">
-          
-                {isSuccess?  <div className="grid h-full grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-7">
-                    {events.event.map((allevent,i)=>
-                    allevent.category ==="Cultural"? 
-                    <EventCard eventTitle={allevent.name} handleClick={handleClick}
-                    /> :""
-                          
-                    )}
-                  
-                </div>: <p>error</p>}
-                       
-                    </div>
+                <EventCard eventTitle="cultural event"/>
                     }
            />
 
