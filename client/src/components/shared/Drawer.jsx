@@ -1,4 +1,4 @@
-import { ArrowLeftOnRectangleIcon, ArrowRightOnRectangleIcon, CalendarIcon, GlobeAltIcon, HomeIcon, UserIcon } from "@heroicons/react/24/outline";
+import { ArrowLeftOnRectangleIcon, ArrowRightOnRectangleIcon, CalendarIcon, Cog6ToothIcon, GlobeAltIcon, HomeIcon, PlusCircleIcon, UserIcon } from "@heroicons/react/24/outline";
 import cn from "classnames";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
@@ -31,7 +31,8 @@ const Drawer = ({ children }) => {
                             </label>
                             <li><NavLink end to={"/organizations"} className={({ isActive }) => cn({ "bg-primary text-white": isActive })}><GlobeAltIcon className="w-6 h-6" />Organizations</NavLink></li>
                             <li><NavLink end to={"/events"} className={({ isActive }) => cn({ "bg-primary text-white": isActive })}><CalendarIcon className="w-6 h-6" />Events</NavLink></li>
-                            <li><NavLink end to={"/events/add"} className={({ isActive }) => cn({ "bg-primary text-white": isActive })}><CalendarIcon className="w-6 h-6" />Add Event</NavLink></li>
+                            <li><NavLink end to={"/events/add"} className={({ isActive }) => cn({ "bg-primary text-white": isActive })}><PlusCircleIcon className="w-6 h-6" />Create Event</NavLink></li>
+                            <li><NavLink end to={"/organization/edit"} className={({ isActive }) => cn({ "bg-primary text-white": isActive })}><Cog6ToothIcon className="w-6 h-6" />Settings</NavLink></li>
                         </ul>
                         <div className={cn({ "hidden": user.token, "flex": !user.token, "flex-row items-center w-full mt-auto border-t text-base-content": true })}>
                             <ul className="p-4 menu w-80 text-base-content">
@@ -40,11 +41,11 @@ const Drawer = ({ children }) => {
                             </ul>
                         </div>
                         <div className={cn({ "hidden": !user.token, "flex": user.token, "flex-row items-center w-full p-4 mt-auto border-t menu text-base-content": true })}>
-                            <div className="avatar">
+                            <Link to={`/organizations/${user.userId}`} className="avatar">
                                 <div className="w-14 rounded-3xl">
                                     <img src={user.user.logo || "https://placeimg.com/192/192/people"} alt="Organization logo" />
                                 </div>
-                            </div>
+                            </Link>
                             <div className="ml-4 leading-5 max-w-[168px]">
                                 <h2 className="font-bold leading-4">{user.user.name}</h2>
                                 <p className="text-sm text-gray-500 break-words ">{user.user.email}</p>
