@@ -20,7 +20,9 @@ const organizationSchema = new mongoose.Schema({
     phone: { type: String, required: false },
     email: { type: String, required: true },
     password: { type: String, required: true },
-    loation: { type: String, required: false },
+    location: { type: String, required: false },
+    keyWords: { type: Array, required: false },
+    category: { type: String, required: true },
     firstConnection: { type: Boolean, required: true, default: true },
 
 });
