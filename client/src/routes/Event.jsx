@@ -28,7 +28,7 @@ const Event = () => {
                         {data?.event?.name}
                     </h2>
                     <p className=''>{data?.event?.catchPhrase}</p>
-                    <UserInfo className={"xl:hidden"} />
+                    <UserInfo id={data.event.organization_id} className={"xl:hidden"} />
                     <progress className="w-full my-1 progress progress-success" value={((data?.event.raisedMoney / data?.event.requirementFunds) * 100).toFixed(0)} max="100"></progress>
                     <div className='flex gap-10 xl:flex-col xl:gap-3'>
                         <div className='flex flex-col xl:flex-row xl:justify-between xl:items-baseline'>
@@ -59,7 +59,7 @@ const Event = () => {
                 </div>
 
             </div>
-            <UserInfo className={"hidden xl:flex xl:border-0"} />
+            <UserInfo id={data.event.organization_id} className={"hidden xl:flex xl:border-0"} />
             <div className='hidden xl:block'>
                 <h2 className='text-2xl font-bold'>About us</h2>
                 <p className='mt-2'>{data?.event.description}</p>
