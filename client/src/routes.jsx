@@ -1,16 +1,16 @@
 import { createBrowserRouter } from 'react-router-dom';
 import App from './App';
+import CheckoutSuccess from './components/event/CheckoutSuccess';
+import OrganizationDetails from './components/organization/OrganizationDetails';
+import ProtectedRoutes from './components/ProtectedRoutes';
+import CreateEvent from './routes/CreateEvent';
 import EditEvent from './routes/EditEvent';
 import EditOrganization from './routes/EditOrganization';
 import ErrorPage from './routes/ErrorPage';
 import Event from './routes/Event';
 import Events from './routes/Events';
 import Index from './routes/Index';
-import OrganizationDetails from './components/organization/OrganizationDetails';
 import Organizations from './routes/Organizations';
-import CreateEvent from './routes/CreateEvent';
-import CheckoutSuccess from './components/event/CheckoutSuccess';
-import ProtectedRoutes from './components/ProtectedRoutes';
 
 const router = createBrowserRouter([
     {

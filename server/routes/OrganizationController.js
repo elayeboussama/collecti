@@ -167,6 +167,8 @@ router.post("/organizations", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
+  console.log("sssssss")
+
   try {
     const organization = await Organization.findOne({ _id: req.params["id"] });
     organization.password = undefined;

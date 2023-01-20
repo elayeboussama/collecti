@@ -11,7 +11,7 @@ import Register from "./Register";
 import Button from "./shared/Button";
 
 
-const Login = () => {
+const Login = ({ showCloseButton = true }) => {
     const [login, { isLoading }] = useLoginMutation()
     const dispatch = useDispatch()
     const [showPassword, setShowPassword] = useState(false);
@@ -47,7 +47,7 @@ const Login = () => {
     return (
         <label className="relative max-w-sm p-0 modal-box lg:max-w-2xl bg-base-100">
             <div className="flex-shrink-0 mx-auto card">
-                <label htmlFor="my-modal-4" className="absolute btn btn-circle btn-ghost right-2 top-2"><XMarkIcon className="w-6 h-6" /></label>
+                {showCloseButton && <label htmlFor="my-modal-4" className="absolute btn btn-circle btn-ghost right-2 top-2"><XMarkIcon className="w-6 h-6" /></label>}
                 <form onSubmit={handleSubmit} className="flex flex-row items-center justify-around p-8">
                     <img className="hidden lg:block max-h-80" src="https://cdn.discordapp.com/attachments/311564936004370434/1054638096509042729/undraw_fingerprint_login_re_oqo9_1_2.svg" alt="login" />
                     <div className="flex-grow max-w-sm p-0 px-2 card-body">
