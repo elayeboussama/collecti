@@ -1,4 +1,31 @@
+import { useSubscribeMutation } from "../../endpoints/AuthEndpoints"
+import { useFormik } from "formik";
+import { toast } from "react-toastify";
+
 const Footer = () => {
+
+    const [subscribe, { isLoading }] = useSubscribeMutation()
+
+    const { values, handleChange, handleBlur, errors, touched, handleSubmit, setFieldError } = useFormik({
+        initialValues: {
+            email: "",
+        },
+        onSubmit: async (values) => {
+            try {
+                const response = await subscribe({ ...values }).unwrap()
+                toast.success("Glad to see you again! 🥰")
+            } catch (error) {
+
+                if (error.data.message === "User alredy exist") {
+                    setFieldError("email", "Whoops, the email you entered is already exist. 😔")
+                } else {
+                    console.log(error)
+                }
+            }
+        }
+    })
+
+
     return (
         <footer className="flex flex-col-reverse flex-wrap items-center justify-around p-4 mt-auto border-t footer xl:flex-row text-base-content">
             <div className="items-center grid-flow-col">
@@ -15,8 +42,21 @@ const Footer = () => {
                         <span className="label-text">Subscribe to our Newsletter</span>
                     </label>
                     <div className="relative">
-                        <input type="text" placeholder="username@site.com" className="w-full pr-16 input input-bordered" />
-                        <button className="absolute top-0 right-0 rounded-l-none btn btn-primary">Subscribe</button>
+                        <form onSubmit={handleSubmit} >
+                            <div className="form-control">
+
+                                <input type="text" placeholder="username@site.com" name="email"
+                                    onChange={handleChange}
+                                    value={values.email}
+                                    onBlur={handleBlur}
+                                    className="w-full pr-16 input input-bordered"
+                                />
+                                {errors.email && touched.email && <p className="mt-2 text-xs text-red-500">{errors.email}</p>}
+                            </div>
+                            <button type="submit" className="absolute top-0 right-0 rounded-l-none btn btn-primary">Subscribe</button>
+                        </form>
+
+
                     </div>
                 </div>
             </div>
