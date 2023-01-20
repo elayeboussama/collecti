@@ -7,6 +7,7 @@ const passwordComplexity = require("joi-password-complexity");
 const eventSchema = new mongoose.Schema({
     name: { type: String, required: true },
     description: { type: String, required: true },
+    creationDate: { type: Date, required: true, default: Date.now },
     date: { type: Date, required: true },
     requirementFunds: { type: Number, required: true },
     organization_id: { type: String, required: false },
@@ -18,7 +19,7 @@ const eventSchema = new mongoose.Schema({
     raisedMoney: { type: Number, required: false, default: 0 }
 });
 
-eventSchema.methods.generateAuthToken = function() {
+eventSchema.methods.generateAuthToken = function () {
     const token = jwt.sign({ _id: this._id }, process.env.ACCESS_TOKEN_SECRET, {
         expiresIn: "7d",
     });

@@ -9,6 +9,7 @@ const adminRoutes = require("./routes/AdminController");
 const eventRoutes = require("./routes/EventController");
 const organizationRoutes = require("./routes/OrganizationController");
 const donatorRoutes = require("./routes/DonatorController");
+const newsRoutes = require("./routes/NewsController");
 
 const stripe = require("./routes/stripe");
 
@@ -23,10 +24,10 @@ app.use(express.json());
 app.use(bodyParser.json());
 
 ////process.env.CLIENT
-app.use(cors({ origin: process.env.CLIENT , "preflightContinue": true, "optionsSuccessStatus": 204, credentials: true, }))
+app.use(cors({ origin: process.env.CLIENT, "preflightContinue": true, "optionsSuccessStatus": 204, credentials: true, }))
 
 // Add headers before the routes are defined
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
 
     // Website you wish to allow to connect
     res.setHeader('Access-Control-Allow-Origin', process.env.CLIENT);
@@ -54,6 +55,7 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/event", eventRoutes);
 app.use("/api/organization", organizationRoutes);
 app.use("/api/donator", donatorRoutes);
+app.use("/api/news", newsRoutes);
 app.use("/api/stripe", stripe);
 
 

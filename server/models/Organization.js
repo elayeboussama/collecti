@@ -6,7 +6,7 @@ const passwordComplexity = require("joi-password-complexity");
 
 const organizationSchema = new mongoose.Schema({
     name: { type: String, required: true },
-    creationDate: { type: Date, required: false },
+    creationDate: { type: Date, required: true, default: Date.now },
     sector: { type: String, required: false },
     socialMedia: { type: Object, required: false },
     description: { type: String, required: false },

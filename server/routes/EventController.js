@@ -1,6 +1,7 @@
 require("dotenv").config();
 const router = require("express").Router();
 const { Event, validateEvent } = require("../models/Event");
+const { Organization } = require("../models/Organization");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt")
 const Joi = require("joi");
@@ -41,9 +42,9 @@ router.post("/create", authenticateToken, async (req, res) => {
             res.status(400).send({ message: validationError.details[0].message });
         }
 
-        const event = new Event(req.body);
+        let event = new Event(req.body);
         await event.save();
-
+        await Organization.updateOne({ _id: req.user }, { $push: { events: event._id } });
         res.status(201).send({ message: "Event created successfully", id: event._id });
 
     } catch (error) {

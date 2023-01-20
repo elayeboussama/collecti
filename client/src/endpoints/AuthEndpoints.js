@@ -56,6 +56,13 @@ export const authEndpoints = apiSlice.injectEndpoints({
       }),
     }),
 
+    subscribe: builder.mutation({
+      query: (credentials) => ({
+        url: "/api/news",
+        method: "POST",
+        body: { ...credentials },
+      })
+    })
   }),
 });
 
@@ -88,6 +95,7 @@ export const {
   useGetEventQuery,
   useGetAllEventsQuery,
   useGetOrgnizationsQuery,
+  useSubscribeMutation,
 } = authEndpoints;
 
 export const {
