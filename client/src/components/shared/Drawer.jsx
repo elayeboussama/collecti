@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import { logout } from "../../features/authSlice";
 import { setContent } from "../../features/modalSlice";
+import getInitials from "../../utils/getInitials";
 import Login from "../Login";
 import Register from "../Register";
 
@@ -45,10 +46,13 @@ const Drawer = ({ children }) => {
                             </ul>
                         </div>
                         <div className={cn({ "hidden": !user.token, "flex": user.token, "flex-row items-center w-full p-4 mt-auto border-t menu text-base-content": true })}>
-                            <Link to={`/organizations/${user.userId}`} className="avatar">
-                                <div className="w-14 rounded-3xl">
-                                    <img src={user.user.logo || "https://placeimg.com/192/192/people"} alt="Organization logo" />
-                                </div>
+                            <Link to={`/organizations/${user.userId}`} className="avatar placeholder">
+                                {user.user.logo ? <div className="w-14 rounded-3xl">
+                                    <img src={user.user.logo} alt="Organization logo" />
+                                </div> : <div className="rounded-full w-14 bg-neutral-focus text-neutral-content">
+                                    <span className="text-lg">{getInitials(user.user.name || "")}</span>
+                                </div>}
+
                             </Link>
                             <div className="ml-4 leading-5 max-w-[168px]">
                                 <h2 className="font-bold leading-4">{user.user.name}</h2>
