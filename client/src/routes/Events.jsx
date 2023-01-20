@@ -38,7 +38,7 @@ const Events = () => {
     
   
     return (
-        <div>
+        <div className="flex justify-center">
           
            <Tabs 
            tabsTitle={tabsTitle}

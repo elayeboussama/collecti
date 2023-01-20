@@ -38,7 +38,7 @@ const DonationPopup = ({isOpen, onClose}) =>{
             </div>
       
           
-           <div className="flex flex-col items-center w-1/4 p-2 bg-white rounded-3xl p-14 bg-opacity-80">
+           <div className="flex flex-col items-center p-2 bg-white lg:w-1/4 md:w-1/2 sm:w-2/3 rounded-3xl p-14 bg-opacity-80">
 
            <form onSubmit={handleSubmit} className='flex flex-col w-11/12 space-y-3'>
                 <div className="form-control">
@@ -76,7 +76,7 @@ const DonationPopup = ({isOpen, onClose}) =>{
                         className={`input input-bordered ${errors.amount && touched.amount && 'input-error'}`} />
                     {errors.amount && touched.amount && <p className="mt-2 text-xs text-red-500">{errors.amount}</p>}
                 </div>
-              <div className="flex flex-col pl-4 radio-groupe">
+              {/* <div className="flex flex-col pl-4 radio-groupe">
               <label>
                     <input type="radio" name="paymentMethod" value="paypal" /> Paypal
                 </label>
@@ -88,7 +88,7 @@ const DonationPopup = ({isOpen, onClose}) =>{
                 
                 {errors.paymentMethod && touched.paymentMethod && <div className="error">{errors.paymentMethod}</div>}
                 
-              </div>
+              </div> */}
               
             </form>
       
