@@ -3,10 +3,12 @@ import { Navigate } from "react-router"
 
 const ProtectedRoutes = ({ children }) => {
 
-    const user = useSelector(state => state.auth)
+    const user = localStorage.getItem('user')
+    const userState = useSelector(state => state.auth)
+    console.log(userState.userId)
 
     return (
-        !user.userId ? <Navigate to="/" replace /> : children
+        userState.userId || user ? children : <Navigate to="/" replace />
 
     )
 }
