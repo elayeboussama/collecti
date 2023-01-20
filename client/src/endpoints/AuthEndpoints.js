@@ -28,18 +28,21 @@ export const authEndpoints = apiSlice.injectEndpoints({
         body: { ...credentials },
       }),
     }),
+
     orgDetails: builder.query({
       query: (id) => ({
         url: `/api/organization/${id}`,
         method: "GET",
       }),
     }),
+
     getOrgnizations: builder.query({
       query: () => ({
         url: "/api/organization/organizations",
         method: "GET",
-      })
+      }),
     }),
+
     getAllEvents: builder.query({
       query: () => ({
         url: "/api/event/events",
