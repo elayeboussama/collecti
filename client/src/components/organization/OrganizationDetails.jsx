@@ -22,7 +22,7 @@ const OrganizationDetails = () => {
     <div>
 
       {isSuccess ? <div className="flex flex-col justify-center gap-10 px-10 md:flex-row">
-        <div className='flex flex-col w-full gap-10 left-container'>
+        <div className='flex flex-col w-full gap-10 mb-3 left-container'>
           <div className="flex-initial w-full card glass place-content-center max-h-max">
             <figure>
               <div className="flex-col w-full -space-y-28 avatar-group ">
@@ -109,18 +109,24 @@ const OrganizationDetails = () => {
                   </div> */}
             </div>
           </div>
-          <div className="card bg-base-100 glass h-2/5 ">
+          <div className="mb-3 card bg-base-100 glass h-fit ">
             <div className="gap-4 card-body ">
               <h2 className="card-title">Events</h2>
-              {eventsList.map((event) =>
+              {eventsList.length>3 ?
+              eventsList.slice(0, 3).map((event,i) =>
+              <SmallEventCard event={event} />
+            ):
+            eventsList.map((event,i) =>
                 <SmallEventCard event={event} />
-              )}
+              )
+              }
+              
 
               <div className="justify-end card-actions">
                 {/* <button className="btn btn-primary">Buy Now</button> */}
                 <div className="avatar placeholder">
                   <div className="w-12 bg-neutral-focus text-neutral-content btn btn-primary">
-                    <span>{eventsList.length}</span>
+                    <span>{eventsList.length>3 ? "+"+eventsList.length : eventsList.length}</span>
                   </div>
                 </div>
               </div>
