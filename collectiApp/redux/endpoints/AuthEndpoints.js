@@ -1,19 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { apiSlice, apiSliceWithToken } from "../api/apiSlice";
 
-<<<<<<< Updated upstream
-const getToken = async () => {
-  return await AsyncStorage.getItem("token");
-};
-
-const authEndpoints = apiSliceWithToken.injectEndpoints({
-  endpoints: (builder) => ({
-    credentials: builder.query({
-      query: () => ({
-        url: "/products",
-        method: "GET",
-      }),
-=======
 export const authEndpoints = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         credentials: builder.query({
@@ -44,7 +31,6 @@ export const authEndpoints = apiSlice.injectEndpoints({
                 params: { id: id },
             }),
         }),
->>>>>>> Stashed changes
     }),
 });
 

@@ -110,6 +110,9 @@ router.get("/events", async (req, res) => {
         res.status(500).send({ message: "Internal Server Error", error: error });
         console.log(error)
 
+    }
+  })
+
 router.post("/update", authenticateToken, async (req, res) => {
   try {
     console.log(req.body);
@@ -133,6 +136,11 @@ router.get("/getAll", async (req, res) => {
     } else {
       res.status(404).send({ message: "Events Not Found" });
     }
+
+  }catch (error) {
+    res.status(500).send({ message: "Internal Server Error", error: error });
+    console.log(error);
+  }
 })
 
 router.post("/events", async (req, res) => {
@@ -178,17 +186,7 @@ router.get("/event/:id", async (req, res) => {
 
         res.status(500).send({ message: "Internal Server Error", error: error });
         console.log(error)
-
-
-    if (events) {
-      res.status(201).send({ event: events, message: "Events found" });
-    } else {
-      res.status(404).send({ message: "Events Not Found" });
     }
-  } catch (error) {
-    res.status(500).send({ message: "Internal Server Error", error: error });
-    console.log(error);
-  }
 });
 
 router.get("/event/:id", async (req, res) => {
