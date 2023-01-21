@@ -1,4 +1,4 @@
-import { CalendarIcon, GlobeAltIcon, HomeIcon, Squares2X2Icon } from "@heroicons/react/24/outline";
+import { CalendarIcon, GlobeAltIcon, Squares2X2Icon } from "@heroicons/react/24/outline";
 import cn from "classnames";
 import { Link, NavLink } from "react-router-dom";
 
