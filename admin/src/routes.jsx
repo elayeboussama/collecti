@@ -3,6 +3,7 @@ import App from './App';
 import ErrorPage from './routes/ErrorPage';
 import Events from './routes/Events';
 import Index from './routes/Index';
+import Organization from './routes/Organization';
 import Organizations from './routes/Organizations';
 
 const router = createBrowserRouter([
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
                     {
                         path: 'organizations',
                         element: <Organizations />,
+                    },
+                    {
+                        path: 'organization/:organizationId',
+                        element: <Organization />,
                     },
                     // {
                     //     path: 'events/:eventId',
