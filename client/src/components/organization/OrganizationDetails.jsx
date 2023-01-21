@@ -3,7 +3,7 @@ import { BsFacebook, BsLinkedin } from 'react-icons/bs';
 import { useParams } from 'react-router-dom';
 import { useOrgDetailsQuery } from '../../endpoints/AuthEndpoints';
 import GmailIcon from '../shared/GmailIcon';
-import SlackIcon from '../shared/SlackIcon';
+import InstagramIcon from '../shared/InstagramIcon';
 
 
 import Tabs from '../shared/Tab/Tab';
@@ -15,9 +15,7 @@ import TeamCard from './TeamCard';
 const OrganizationDetails = () => {
   const { organizationId } = useParams();
   const { data, isLoading, isSuccess } = useOrgDetailsQuery(organizationId)
-  console.log(isSuccess)
-  console.log(data)
-  console.log("rrsrrrrrrrr", data)
+
   const tabsTitle = ["Description", "Plan d'action", "Vision"]
   const eventsList = data?.organization.events;
   return (
@@ -37,29 +35,43 @@ const OrganizationDetails = () => {
               </div>
             </figure>
             <div className="ml-56 -mt-24 card-body ">
+              <div className='flex items-end '>
 
-              <h2 className="text-3xl card-title">{data.organization.name}</h2>
-              <p >{format(new Date(data.organization.creationDate), "PPP") ?? "Not specified"}</p>
+              <h2 className="text-3xl card-title">{data.organization.name},
+              </h2>
+              <p className=''>{format(new Date(data.organization.creationDate), "PPP") ?? "Not specified"}</p>
+              </div>
+              <p>{data?.organization.email?? "email not specified"}</p>
               <span className="mt-2 text-lg rounded-md badge h-1/5">{data.organization.sector ?? "Not specified"}</span>
               <div className="flex flex-row gap-10 socail-media">
-                {/* <div className="grid mt-5 border-2 rounded-md h-9 w-9 border-slate-300 place-content-evenly">
+                <div className="grid mt-5 border-2 rounded-md h-9 w-9 border-slate-300 place-content-evenly">
+                  <a href={data?.organization.socialMedia?.facebook?? ""} target="_blank">
                   <BsFacebook className="h-7 w-7 " style={{ color: "#3b5998" }} />
+                  </a>
                 </div>
+                {/* <a href={data?.organization.email?? ""} target="_blank">
                 <div className="grid mt-5 border-2 rounded-md h-9 w-9 border-slate-300 place-content-evenly">
 
                   <GmailIcon />
                 </div>
-
+                </a> */}
+                <a href={data?.organization.socialMedia?.linkedIn?? ""} target="_blank">
                 <div className="grid mt-5 border-2 rounded-md h-9 w-9 border-slate-300 place-content-evenly">
                   <BsLinkedin className="h-7 w-7" style={{ color: "#3b5998" }} />
                 </div>
-
+                </a>
+                <a href={data?.organization.socialMedia?.instagram?? ""} target="_blank">
                 <div className="grid mt-5 border-2 rounded-md h-9 w-9 border-slate-300 place-content-evenly">
 
-                  <SlackIcon />
-                </div> */}
+                  <InstagramIcon className="w-5 h-5" style={{ color: "#3b5998" }}/>
+                </div>
+                </a>
 
               </div>
+            </div>
+            <div className='flex justify-end pb-5 pr-5 '>
+             <p className='italic font-bold text-teal-500 '>
+              {data.organization.catchPhrase?? ""}</p> 
             </div>
 
 
@@ -76,7 +88,7 @@ const OrganizationDetails = () => {
           </div>
 
         </div>
-        <div className="flex flex-col gap-10 right-container">
+        <div className="flex flex-col w-5/12 gap-10 right-container">
           <div className="h-auto card bg-base-100 glass ">
             <div className="card-body">
               <h2 className="card-title">Team</h2>

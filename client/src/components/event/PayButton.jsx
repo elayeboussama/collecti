@@ -1,17 +1,25 @@
 import { useDispatch } from "react-redux"
-import { usePaymentMutation } from "../../endpoints/AuthEndpoints"
+import { toast } from "react-toastify"
+import { usePaymentMutation, useUpdateEventMutation } from "../../endpoints/AuthEndpoints"
 import Button from "../shared/Button"
 
 
-const PayButton = ({onClose, informations}) =>{
-    const dispatch = useDispatch()
+const PayButton = ({onClose, informations, eventId, prevRaisedMoney, prevDonators }) =>{
+  
     const [payment, { isLoading: requestLoading }] = usePaymentMutation()
+   
+   
     const handleCheckOut = async () =>{
         console.log(informations)
         try {
             const response = await payment({ informations }).unwrap()
-            console.log(response)
+          
             if(response.url){
+             
+                localStorage.setItem('amount', prevRaisedMoney+informations.amount);
+                localStorage.setItem('donators', prevDonators+1);
+                localStorage.setItem('eventId', eventId);
+
                 window.location.href=response.url;
             }
             // dispatch(setContent(<EventCreatedPopUp url={`http://localhost:3000/events/${response.id}`} id={response.id} />))
