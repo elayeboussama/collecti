@@ -1,9 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-// const baseQuery = fetchBaseQuery({
-//     baseUrl: "http://localhost:8080",
-// })
-
 const baseQuery = fetchBaseQuery({
     baseUrl: "http://localhost:8080",
     prepareHeaders: async (headers, { getState, endpoint }) => {
@@ -22,10 +18,3 @@ export const apiSlice = createApi({
     tagTypes: ["events", "orgs"],
     endpoints: (builder) => ({})
 })
-
-// export const apiSliceWithToken = createApi({
-//     reducerPath: "apiWithToken",
-//     baseQuery: baseQueryWithToken,
-//     tagTypes: ["events", "orgs"],
-//     endpoints: (builder) => ({})
-// })
