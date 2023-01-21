@@ -9,7 +9,7 @@ import OrganizationIcon from "./global.png"
 import CalenderIcon from "./calendrier.png"
 
 const SecondDrawer = ({ children }) => {
-    const dispatch = useDispatch()
+    
     const[open,setOpen]=useState(true)
 
     return (
@@ -19,7 +19,7 @@ const SecondDrawer = ({ children }) => {
                 ${!open && "rotate-180"} bg-l_blue rounded-full border-4 border-l_blue`}
                 onClick={()=> setOpen(!open)}
                 />
-                 <Link to={"/"} className="flex gap-x-4 items-center w-52">
+                 <Link to={"/"} className="flex items-center gap-x-4 w-52">
                     <img className="duration-300" src={logo}alt="logo" />
             
                 <h1 className={`text-d_green origin-left text-5xl font-serif font-extrabold duration-300
@@ -29,13 +29,13 @@ const SecondDrawer = ({ children }) => {
 
                 <ul className="pt-6 pl-6">
                    
-                        <li className="hover:bg-slate-300 rounded-md pb-3 border-b-2 border-d_blue">
+                        <li className="pb-3 border-b-2 rounded-md hover:bg-slate-300 border-d_blue">
                             <NavLink end to={"/"}   className={`flex items-center gap-x-4 p-2` }>
                             <img src={HomeIcon} className="w-6 h-6" />
                             <span className={`${!open && "hidden"} origin-left duration-200 text-2xl pl-6 font-bold text-d_blue`}>Home</span>
                             </NavLink></li>
            
-                    <li className="hover:bg-slate-300 rounded-md pb-3 border-b-2 border-d_blue">
+                    <li className="pb-3 border-b-2 rounded-md hover:bg-slate-300 border-d_blue">
                         <NavLink end to={"/organizations"} 
                                 className={`flex items-center gap-x-4 p-2` }>
                                 <img src={OrganizationIcon} className="w-6 h-6" />
@@ -43,11 +43,11 @@ const SecondDrawer = ({ children }) => {
                                 
                         </NavLink>
                     </li>
-                    <li className="hover:bg-slate-300 rounded-md pb-3 border-b-2 border-d_blue">
+                    <li className="pb-3 border-b-2 rounded-md hover:bg-slate-300 border-d_blue">
                         <NavLink end to={"/events"}  className={`flex items-center gap-x-4 p-2` }>
                         <img src={CalenderIcon} className="w-6 h-6" />
                         <span className={`${!open && "hidden"} origin-left duration-200 text-2xl pl-6 font-bold text-d_blue `}>Events</span></NavLink></li>
-                    <li className="hover:bg-slate-300 rounded-md pb-3 border-b-2 border-d_blue"><NavLink end to={"/events/add"}   className={`flex items-center gap-x-4 p-2` }>
+                    <li className="pb-3 border-b-2 rounded-md hover:bg-slate-300 border-d_blue"><NavLink end to={"/events/add"}   className={`flex items-center gap-x-4 p-2` }>
                         <img src={CalenderIcon} className="w-6 h-6" />
                         <span className={`${!open && "hidden"} origin-left duration-200 text-2xl pl-6 font-bold text-d_blue `}>Add Event</span></NavLink></li>
                 </ul>
