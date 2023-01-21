@@ -1,14 +1,17 @@
 import { Link } from "react-router-dom";
+import { useGetEventQuery } from "../../endpoints/AuthEndpoints";
 
-const SmallEventCard = ({ event }) => {
+const SmallEventCard = ( event ) => {
+
+const { data, isLoading } = useGetEventQuery(event.event)
   return (
-    <div className=" card card-side glass bg-base-100 hover:shadow-xl h-1/5 ">
-      <figure className="w-2/4"><img src="https://placeimg.com/200/280/arch" alt="Movie" /></figure>
-      <div className="card-body p-0 pl-1 ">
-        <h2 className="card-title">{event.title}</h2>
-        <p>short event description</p>
-        <div className="card-actions justify-end">
-          <Link end to={`/events/1`}>
+    <div className="pr-1 card card-side glass bg-base-100 hover:shadow-xl max-w-96 w-80 h-fit">
+      <figure className="h-full w-28 max-w-28"><img className="object-cover w-full h-full " src={data?.event.image[0]} alt="Movie" /></figure>
+      <div className="p-0 pl-2 card-body ">
+        <h2 className="card-title ">{data?.event.name}</h2>
+        <p>{data?.event.catchPhrase}</p>
+        <div className="justify-end card-actions">
+          <Link end to={`/events/${data?.event._id}`}>
             <button className="link btn-sm hover:text-primary">details</button>
           </Link>
         </div>
