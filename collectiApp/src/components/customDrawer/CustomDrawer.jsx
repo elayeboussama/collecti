@@ -22,8 +22,6 @@ import { useOrgDetailsQuery } from "../../../redux/endpoints/AuthEndpoints";
 
 const CustomDrawer = (props) => {
   const [user_id, setUserId] = useState();
-<<<<<<< Updated upstream
-=======
   const [token, setToken] = useState();
   const [user, setUser] = useState({email:""});
   const handleChange = async () => {
@@ -34,22 +32,13 @@ const CustomDrawer = (props) => {
   useEffect(() => {
     handleChange();
   }, []);
-  var email = ""
   useEffect(() => {
     console.log("scene token =>", token);
     console.log("scene user =>", user);
-    if(user.email!=""){
-      email = user.email
-    }
+    
   }, [user]);
->>>>>>> Stashed changes
 
-  const handleChangeId = async () => {
-    setUserId(await AsyncStorage.getItem("user_id"));
-  };
-  useEffect(() => {
-    handleChangeId();
-  }, []);
+
   useEffect(() => {
     console.log(user_id);
   }, [user_id]);
@@ -59,11 +48,9 @@ const CustomDrawer = (props) => {
     isLoading,
     isSuccess,
   } = useOrgDetailsQuery(user_id);
-  const handleAddName = async () => {
-    await AsyncStorage.setItem("name", organization_data.organization.name);
-  };
+
   useEffect(() => {
-    console.log("aaaaaaaaaaaaaaaaa", organization_data);
+    console.log(organization_data);
   }, [organization_data]);
   return (
     <View style={{ flex: 1 }}>
@@ -71,33 +58,18 @@ const CustomDrawer = (props) => {
         {...props}
         contentContainerStyle={{ backgroundColor: "#8200d6" }}
       >
-<<<<<<< Updated upstream
-        {organization_data && (
-          <ImageBackground
-            source={require("../../../assets/menu-bg.jpeg")}
-            style={{ padding: 20 }}
-          >
-            <Image
-              source={require("../../../assets/user-profile.jpg")}
-              style={{
-                height: 80,
-                width: 80,
-                borderRadius: 40,
-                marginBottom: 10,
-              }}
-            />
-=======
         <ImageBackground
-          source={{  uri: `http://192.168.56.1:8080/${user.cover}`}}
+          source={user ? {  uri: `http://192.168.56.1:8080/${user.cover}`} : require("../../../assets/menu-bg.jpeg")}
           style={{ padding: 20 }}
         >
           <Image
-            source={{  uri: `http://192.168.56.1:8080/${user.logo}`}}
+            source={user ? {  uri: `http://192.168.56.1:8080/${user.logo}`}: {  uri: "file:///C:/Users/ELAYEB/Downloads/collecti%20(1).svg"}}
             style={{
               height: 80,
               width: 80,
               borderRadius: 40,
               marginBottom: 10,
+              elevation:3
             }}
           />
           <Text
@@ -111,32 +83,18 @@ const CustomDrawer = (props) => {
             {user ? user.name :""}
           </Text>
           <View style={{ flexDirection: "row" }}>
->>>>>>> Stashed changes
             <Text
               style={{
                 color: "#fff",
-                fontSize: 18,
-                fontFamily: "Roboto-Medium",
-                marginBottom: 5,
+                fontFamily: "Roboto-Regular",
+                marginRight: 5,
               }}
             >
-              {organization_data.organization.name}
+              280 Coins
             </Text>
-            <View style={{ flexDirection: "row" }}>
-              <Text
-                style={{
-                  color: "#fff",
-                  fontFamily: "Roboto-Regular",
-                  marginRight: 5,
-                }}
-              >
-                280 Coins
-              </Text>
-              <FontAwesome5 name="coins" size={14} color="#fff" />
-            </View>
-          </ImageBackground>
-        )}
-
+            <FontAwesome5 name="coins" size={14} color="#fff" />
+          </View>
+        </ImageBackground>
         <View style={{ flex: 1, backgroundColor: "#fff", paddingTop: 10 }}>
           <DrawerItemList {...props} />
         </View>
@@ -156,32 +114,31 @@ const CustomDrawer = (props) => {
             </Text>
           </View>
         </TouchableOpacity>
-        {organization_data && (
-          <TouchableOpacity
-            onPress={async () => {
-              await AsyncStorage.removeItem("token");
-              props.navigation.reset({
-                index: 0,
-                routes: [{ name: "Home" }],
-              });
-              NativeModules.DevSettings.reload();
-            }}
-            style={{ paddingVertical: 15 }}
-          >
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <Ionicons name="exit-outline" size={22} />
-              <Text
-                style={{
-                  fontSize: 15,
-                  fontFamily: "Roboto-Medium",
-                  marginLeft: 5,
-                }}
-              >
-                Sign Out
-              </Text>
-            </View>
-          </TouchableOpacity>
-        )}
+        <TouchableOpacity
+          onPress={async () => {
+            await AsyncStorage.removeItem("token");
+            await AsyncStorage.removeItem("user");
+            props.navigation.reset({
+              index: 0,
+              routes: [{ name: "Home" }],
+            });
+            NativeModules.DevSettings.reload();
+          }}
+          style={{ paddingVertical: 15 }}
+        >
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <Ionicons name="exit-outline" size={22} />
+            <Text
+              style={{
+                fontSize: 15,
+                fontFamily: "Roboto-Medium",
+                marginLeft: 5,
+              }}
+            >
+              Sign Out
+            </Text>
+          </View>
+        </TouchableOpacity>
       </View>
     </View>
   );
