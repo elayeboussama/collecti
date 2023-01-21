@@ -33,6 +33,7 @@ const CompanyStack = () => {
       <Stack.Screen name="Companies" component={views.CompanySearchScene} />
       <Stack.Screen
         name="CompanyProfile"
+        
         component={views.CompanyProfileScene}
       />
     </Stack.Navigator>

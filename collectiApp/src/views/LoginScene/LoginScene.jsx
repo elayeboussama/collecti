@@ -30,11 +30,21 @@ const LoginScene = () => {
       }).unwrap();
       console.log(organization_data);
       dispatch(setCredentials(organization_data));
-      console.log("zzzzzzz", await AsyncStorage.getItem("token"));
-      navigation.reset({
-        index: 0,
-        routes: [{ name: "Home" }],
-      });
+      await AsyncStorage.setItem("organization_data", JSON.stringify(organization_data))
+      await AsyncStorage.setItem("firstConnection", organization_data.firstConnection)
+      //console.log("zzzzzzz", await AsyncStorage.getItem("token"));
+      if(organization_data.firstConnection == true){
+        navigation.reset({
+          index: 1,
+          routes: [{ name: "Profile" }],
+        });
+      }else{
+        navigation.reset({
+          index: 0,
+          routes: [{ name: "Home" }],
+        });
+      }
+      
 
       // navigate("/", { replace: true });
     } catch (err) {

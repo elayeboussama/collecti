@@ -9,6 +9,13 @@ const bcrypt = require("bcrypt");
 const Joi = require("joi");
 const ObjectId = require("mongodb").ObjectID;
 
+const path = require('path')
+var fs = require('fs');
+var multer = require('multer');
+const { createBrotliCompress } = require("zlib");
+// var upload = multer({ dest: 'uploads/' }); //setting the default folder for multer
+
+
 function authenticateToken(req, res, next) {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
@@ -63,6 +70,8 @@ router.post("/login", async (req, res) => {
         data: { organization, token },
         message: "logged in successfully",
       });
+    } else {
+      return res.status(404).send({ message: "No User Found" });
     }
 
     console.log(organization);
@@ -75,12 +84,19 @@ router.post("/login", async (req, res) => {
 
 router.post("/create", async (req, res) => {
   try {
-    const salt = await bcrypt.genSalt(Number(process.env.SALT));
-    console.log(req.body);
-    const hashPassword = await bcrypt.hash(req.body.password, salt);
 
-    await new Organization({ ...req.body, password: hashPassword }).save();
-    res.status(201).send({ message: "Organization created successfully" });
+    const org = await Organization.findOne({ email: req.body.email })
+    console.log(org)
+    if (org == null) {
+      const salt = await bcrypt.genSalt(Number(process.env.SALT));
+      console.log(req.body);
+      const hashPassword = await bcrypt.hash(req.body.password, salt);
+
+      await new Organization({ ...req.body, password: hashPassword }).save();
+      res.status(201).send({ message: "Organization created successfully" });
+    } else {
+      res.status(409).send({ message: "Email already exists!" });
+    }
   } catch (error) {
     res.status(500).send({ message: "Internal Server Error", error: error });
     console.log(error);
@@ -102,10 +118,13 @@ router.post("/update", authenticateToken, async (req, res) => {
     const organization = await Organization.findOne({ _id: req.body._id });
     console.log("eeeee", organization);
     await Organization.updateOne(
-      { _id: ObjectId(req.body._id) },
+      { _id: req.body._id },
       { $set: req.body }
     );
-    res.status(200).send({ message: "Organization updated" });
+
+    const organizationUpdated = await Organization.findOne({ _id: req.body._id });
+    organizationUpdated.password = undefined;
+    res.status(200).send({ organizationUpdated: organizationUpdated, message: "Organization updated" });
   } catch (error) {
     res.status(500).send({ message: "Internal Server Error", error: error });
     console.log(error);
@@ -149,10 +168,12 @@ router.post("/organizations", async (req, res) => {
   }
 });
 
-router.get("/:id", authenticateToken, async (req, res) => {
+router.get("/:id", async (req, res) => {
+  console.log("sssssss")
+
   try {
     const organization = await Organization.findOne({ _id: req.params["id"] });
-
+    organization.password = undefined;
     if (organization) {
       console.log("aaaaaaaa", organization);
       res
@@ -163,8 +184,57 @@ router.get("/:id", authenticateToken, async (req, res) => {
     }
   } catch (error) {
     res.status(500).send({ message: "Internal Server Error", error: error });
-    console.log(error);
+    console.log(error)
   }
 });
+
+
+
+const fileSizeFormatter = (bytes, decimal) => {
+  if(bytes === 0){
+      return '0 Bytes';
+  }
+  const dm = decimal || 2;
+  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'YB', 'ZB'];
+  const index = Math.floor(Math.log(bytes) / Math.log(1000));
+  return parseFloat((bytes / Math.pow(1000, index)).toFixed(dm)) + ' ' + sizes[index];
+
+}
+
+
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) =>{
+    createBrotliCompress(null, "../uploads")
+  },
+
+  filename: (req, file, cb)=>{
+    console.log(file)
+    cb(null, Date.now()+path.extname(file.originalname))
+  }
+})
+
+const upload = multer({storage: storage})
+
+
+router.post('/upload', upload.single('image'), async(req, res, next) => {
+  console.log("errorddddddddddddddddddddddddddddd")
+    try{
+        const file = {
+            id: uuidv4(),
+            fileName: req.file.originalname,
+            filePath: req.file.path,
+            fileType: req.file.mimetype,
+            fileSize: fileSizeFormatter(req.file.size, 2) // 0.00
+        };
+
+        res.status(201).send('File Uploaded Successfully');
+        console.log("done")
+    }catch(error) {
+        console.log(error)
+        res.status(400).send(error.message);
+    }
+});
+
 
 module.exports = router;

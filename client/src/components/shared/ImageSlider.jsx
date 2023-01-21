@@ -18,7 +18,7 @@ const ImageSlider = ({ images }) => {
         className="mySwiper"
         modules={[Navigation, Pagination]}
       >
-        {images.map((image, idx) => (<SwiperSlide key={idx}><div><img className='object-cover max-h-96 h-full w-full' src={image} alt="" /></div></SwiperSlide>))}
+        {images.map((image, idx) => (<SwiperSlide key={idx}><div><img className='object-cover w-full h-full max-h-96' src={image} alt="" /></div></SwiperSlide>))}
 
       </Swiper>
     </div>
