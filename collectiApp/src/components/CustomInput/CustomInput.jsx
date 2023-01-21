@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, TextInput, StyleSheet } from "react-native";
 import COLORS from "./../../styles/const";
-import Icon from "react-native-vector-icons/MaterialIcons";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 const CustomInput = ({
   label,
@@ -63,7 +63,7 @@ const CustomInput = ({
 
 const style = StyleSheet.create({
   label: {
-    marginVertical: 5,
+    marginVertical: 0.5,
     fontSize: 14,
     color: COLORS.grey,
   },

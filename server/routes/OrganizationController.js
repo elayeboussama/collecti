@@ -175,8 +175,9 @@ router.get("/:id", async (req, res) => {
     const organization = await Organization.findOne({ _id: req.params["id"] });
     organization.password = undefined;
     if (organization) {
+      console.log("aaaaaaaa", organization);
       res
-        .status(201)
+        .status(200)
         .send({ organization: organization, message: "Organization found" });
     } else {
       res.status(404).send({ message: "Organization Not Found" });
@@ -202,32 +203,41 @@ const fileSizeFormatter = (bytes, decimal) => {
 
 
 
+// const storage = multer.diskStorage({
+  
+//   destination: (req, file, cb) =>{
+//     createBrotliCompress(null, "../uploads")
+//   },
+
+//   filename: (req, file, cb)=>{
+//     cb(null, Date.now()+path.extname(file.name))
+//   }
+// })
+
 const storage = multer.diskStorage({
-  destination: (req, file, cb) =>{
-    createBrotliCompress(null, "../uploads")
-  },
+    destination: (req, file, cb) => {
+        cb(null, 'uploads');
+    },
+    filename: (req, file, cb) => {
+        cb(null, new Date().toISOString().replace(/:/g, '-') + '-' + file.originalname);
+    }
+});
+const filefilter = (req, file, cb) => {
+    if (file.mimetype === 'image/png' || file.mimetype === 'image/jpg' 
+        || file.mimetype === 'image/jpeg' || file.mimetype.split("/")[1] === "pdf" || file.mimetype.split("/")[0] === "video"){
+            cb(null, true);
+        }else {
+            cb(null, false);
+        }
+}
 
-  filename: (req, file, cb)=>{
-    console.log(file)
-    cb(null, Date.now()+path.extname(file.originalname))
-  }
-})
-
-const upload = multer({storage: storage})
+const upload = multer({storage: storage, fileFilter: filefilter});
 
 
 router.post('/upload', upload.single('image'), async(req, res, next) => {
-  console.log("errorddddddddddddddddddddddddddddd")
+  console.log(req.file.path)
     try{
-        const file = {
-            id: uuidv4(),
-            fileName: req.file.originalname,
-            filePath: req.file.path,
-            fileType: req.file.mimetype,
-            fileSize: fileSizeFormatter(req.file.size, 2) // 0.00
-        };
-
-        res.status(201).send('File Uploaded Successfully');
+        res.status(201).send({path:req.file.path,message:'File Uploaded Successfully'});
         console.log("done")
     }catch(error) {
         console.log(error)

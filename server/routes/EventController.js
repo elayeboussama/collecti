@@ -3,10 +3,9 @@ const router = require("express").Router();
 const { Event, validateEvent } = require("../models/Event");
 const { Organization } = require("../models/Organization");
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcrypt");
 const Joi = require("joi");
-const ObjectId = require('mongodb').ObjectID;
-
+const ObjectId = require("mongodb").ObjectID;
 
 function authenticateToken(req, res, next) {
     const authHeader = req.headers['authorization']
@@ -17,16 +16,12 @@ function authenticateToken(req, res, next) {
     //console.log(decoded)
     if (token == null) return res.sendStatus(401)
 
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
-        if (err) return res.sendStatus(403)
-        req.user = decoded
-        next()
-    })
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
+    if (err) return res.sendStatus(403);
+    req.user = decoded;
+    next();
+  });
 }
-
-
-
-
 
 /*************************************************************************************** */
 
@@ -115,7 +110,28 @@ router.get("/events", async (req, res) => {
         res.status(500).send({ message: "Internal Server Error", error: error });
         console.log(error)
 
+router.post("/update", authenticateToken, async (req, res) => {
+  try {
+    console.log(req.body);
+    const event = await Event.findOne({ _id: req.body._id });
+    console.log("eeeee", event);
+    await Event.updateOne({ _id: ObjectId(req.body._id) }, { $set: req.body });
+    res.status(200).send({ message: "Event updated" });
+  } catch (error) {
+    res.status(500).send({ message: "Internal Server Error", error: error });
+    console.log(error);
+  }
+});
 
+router.get("/getAll", async (req, res) => {
+  try {
+    const events = await Event.find();
+    console.log("aaaaaaaaaaaaaaaaa");
+    if (events) {
+      res.status(201).send({ event: events, message: "Events found" });
+      console.log(events);
+    } else {
+      res.status(404).send({ message: "Events Not Found" });
     }
 })
 
@@ -164,15 +180,30 @@ router.get("/event/:id", async (req, res) => {
         console.log(error)
 
 
+    if (events) {
+      res.status(201).send({ event: events, message: "Events found" });
+    } else {
+      res.status(404).send({ message: "Events Not Found" });
     }
-})
+  } catch (error) {
+    res.status(500).send({ message: "Internal Server Error", error: error });
+    console.log(error);
+  }
+});
 
+router.get("/event/:id", async (req, res) => {
+  try {
+    const event = await Event.findOne({ _id: req.params["id"] });
 
-
-
-
-
-
-
+    if (event) {
+      res.status(201).send({ event: event, message: "Event found" });
+    } else {
+      res.status(404).send({ message: "Event Not Found" });
+    }
+  } catch (error) {
+    res.status(500).send({ message: "Internal Server Error", error: error });
+    console.log(error);
+  }
+});
 
 module.exports = router;

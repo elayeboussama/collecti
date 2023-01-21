@@ -14,6 +14,7 @@ const organizationSchema = new mongoose.Schema({
     Vision: { type: String, required: false },
     events: { type: Array, required: false },
     directorName: { type: String, required: false },
+    teamMembersNames: { type: Array, required: false },
     logo: { type: String, required: false },
     cover: { type: String, required: false },
     catchPhrase: { type: String, required: false },
@@ -26,7 +27,7 @@ const organizationSchema = new mongoose.Schema({
 
 });
 
-organizationSchema.methods.generateAuthToken = function () {
+organizationSchema.methods.generateAuthToken = function() {
     const token = jwt.sign({ _id: this._id }, process.env.ACCESS_TOKEN_SECRET, {
         expiresIn: "7d",
     });

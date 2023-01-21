@@ -2,28 +2,32 @@ import { BottomSheet, Button, Input, ListItem, useTheme } from "@rneui/themed";
 import { StatusBar } from "expo-status-bar";
 import { useState, useEffect } from "react";
 
-import { Text, View, TouchableOpacity } from "react-native";
+import { Text, View, TouchableOpacity, FlatList } from "react-native";
 import { styles } from "./styles";
 import { MaterialIcons } from "@expo/vector-icons";
 import EventCard from "../../components/EventCard/EventCard";
 import { ScrollView } from "react-native";
 
-import { useSelector } from 'react-redux'; 
-import { selectCurrentToken } from '../../../redux/slicers/AuthSlice';
+import { useSelector } from "react-redux";
+import { selectCurrentToken } from "../../../redux/slicers/AuthSlice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
+import { useGetAllEventsQuery } from "../../../redux/endpoints/EventEndpoints";
+import CustomInput from "../../components/CustomInput/CustomInput";
 
 const HomeScene = () => {
   const [isVisible, setIsVisible] = useState(false);
   const { theme } = useTheme();
-  const storedToken = useSelector(selectCurrentToken)
-  const [token,setToken] = useState()
-  useEffect(()=>{
-      setToken(storedToken) 
-      console.log( "tokendddddd: ",AsyncStorage.getItem("token"))
-      console.log( "tokendddddd2: ",storedToken) 
+  const {
+    data: event_data,
+    error,
+    isLoading,
+    isSuccess,
+  } = useGetAllEventsQuery();
 
-  },[storedToken])
+  useEffect(() => {
+    console.log("bbbbbbbbbbbbbbb", event_data);
+  }, [event_data]);
+
   return (
     <View style={styles.container}>
       <View style={styles.searchCard}>
@@ -33,9 +37,12 @@ const HomeScene = () => {
         </TouchableOpacity>
       </View>
       <ScrollView>
-        <EventCard />
-        <EventCard />
-        <EventCard />
+        {event_data && (
+          <FlatList
+            data={event_data.event}
+            renderItem={({ item }) => <EventCard item={item} />}
+          />
+        )}
       </ScrollView>
 
       <BottomSheet modalProps={{}} isVisible={isVisible}>
@@ -48,49 +55,23 @@ const HomeScene = () => {
               style={styles.closeButton}
             />
           </TouchableOpacity>
-          <Input
-            placeholder="Company name"
-            errorStyle={{ color: "red" }}
-            leftIcon={{
-              type: "font-awesome",
-              name: "user",
-              color: theme.colors.primary,
-            }}
-            errorMessage=""
-            renderErrorMessage={false}
+
+          <CustomInput
+            placeholder="Organization name..."
+            iconName="office-building-cog"
           />
-          <Input
-            placeholder="Company Sector"
-            leftIcon={{
-              type: "MaterialIcons",
-              name: "engineering",
-              color: theme.colors.primary,
-            }}
-            errorStyle={{ color: "red" }}
-            errorMessage=""
-            renderErrorMessage={false}
+          <CustomInput
+            placeholder="Organization sector..."
+            iconName="office-building-cog"
           />
-          <Input
-            placeholder="Event Name"
-            leftIcon={{
-              type: "AntDesign",
-              name: "edit",
-              color: theme.colors.primary,
-            }}
-            errorStyle={{ color: "red" }}
-            errorMessage=""
-            renderErrorMessage={false}
+
+          <CustomInput
+            placeholder="Event name..."
+            iconName="office-building-cog"
           />
-          <Input
-            placeholder="Location"
-            leftIcon={{
-              type: "MaterialIcons",
-              name: "edit-location",
-              color: theme.colors.primary,
-            }}
-            errorStyle={{ color: "red" }}
-            errorMessage=""
-            renderErrorMessage={false}
+          <CustomInput
+            placeholder="Event location..."
+            iconName="office-building-cog"
           />
           <Button
             title="Search"

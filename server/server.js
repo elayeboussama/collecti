@@ -58,6 +58,7 @@ app.use("/api/donator", donatorRoutes);
 app.use("/api/news", newsRoutes);
 app.use("/api/stripe", stripe);
 
+app.use('/uploads', express.static('uploads'));
 
 
 
