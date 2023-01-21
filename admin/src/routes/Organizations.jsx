@@ -1,43 +1,46 @@
 import { useMemo } from "react"
 import Table from "../components/Table"
 import { useGetOrgnizationsQuery } from "../endpoints/apiEndpoints"
+import { format } from "date-fns"
 
 const Organizations = () => {
 
-    const { data: d } = useGetOrgnizationsQuery()
-    console.log(d)
-
-    const data = useMemo(
-        () => [
-            {
-                col1: 'Hello',
-                col2: 'World',
-            },
-            {
-                col1: 'react-table',
-                col2: 'rocks',
-            },
-            {
-                col1: 'whatever',
-                col2: 'you want',
-            },
-        ],
-        []
-    )
+    const { data: receivedData } = useGetOrgnizationsQuery()
+    console.log(receivedData)
 
     const columns = useMemo(
         () => [
             {
-                Header: 'Column 1',
-                accessor: 'col1', // accessor is the "key" in the data
+                Header: 'name',
+                accessor: 'name', // accessor is the "key" in the data
             },
             {
-                Header: 'Column 2',
-                accessor: 'col2',
+                Header: 'email',
+                accessor: 'email',
+            },
+            {
+                Header: 'Creatin date',
+                accessor: 'creationDate',
+                Cell: row => format(new Date(row.value), 'PP')
+
             },
         ],
         []
     )
+
+    const data = useMemo(
+        () => {
+            if (receivedData) {
+                return receivedData.organization
+            } else {
+                return []
+            }
+        }
+        ,
+        [receivedData]
+    )
+
+    if (!receivedData) return <i>Loading...</i>
 
     return <Table columns={columns} data={data} />
 }
