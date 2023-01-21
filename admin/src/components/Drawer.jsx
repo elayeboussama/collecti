@@ -1,4 +1,4 @@
-import { CalendarIcon, GlobeAltIcon, HomeIcon } from "@heroicons/react/24/outline";
+import { CalendarIcon, GlobeAltIcon, HomeIcon, Squares2X2Icon } from "@heroicons/react/24/outline";
 import cn from "classnames";
 import { Link, NavLink } from "react-router-dom";
 
@@ -21,7 +21,7 @@ const Drawer = ({ children }) => {
                         </Link>
                         <ul className="p-4 menu w-80 text-base-content">
                             <label htmlFor="my-drawer-2">
-                                <li><NavLink end to={"/"} className={({ isActive }) => cn({ "bg-primary text-white": isActive })}><HomeIcon className="w-6 h-6" />Home</NavLink></li>
+                                <li><NavLink end to={"/"} className={({ isActive }) => cn({ "bg-primary text-white": isActive })}><Squares2X2Icon className="w-6 h-6" />Dashboard</NavLink></li>
                             </label>
                             <li><NavLink end to={"/organizations"} className={({ isActive }) => cn({ "bg-primary text-white": isActive })}><GlobeAltIcon className="w-6 h-6" />Organizations</NavLink></li>
                             <li><NavLink end to={"/events"} className={({ isActive }) => cn({ "bg-primary text-white": isActive })}><CalendarIcon className="w-6 h-6" />Events</NavLink></li>
