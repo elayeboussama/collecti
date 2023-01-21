@@ -6,11 +6,25 @@ import { useGetEventQuery } from '../endpoints/AuthEndpoints'
 import { differenceInDays } from 'date-fns'
 import Avatar from '../components/shared/Avatar';
 import UserInfo from '../components/shared/UserInfo';
+import DonationPopup from '../components/event/DonationPopup';
+import { useState } from 'react';
 
 const Event = () => {
     let { eventId } = useParams();
     const { data, isLoading } = useGetEventQuery(eventId)
-    console.log(data)
+    const [showModal, setShowModal] = useState(false)
+    // console.log(data)
+    
+    const handleVisible = num => {
+        setShowModal(!showModal);
+
+
+    }
+    const handleClick = num => {
+        // 👇️ take parameter passed from Child component
+        setShowModal(true)
+        // setEventId(num);
+    };
 
     if (isLoading) {
         return <div>Loading...</div>
@@ -48,7 +62,7 @@ const Event = () => {
                         </div>
                     </div>
                     <div className='my-5 xl:mb-auto'>
-                        <Button wide className={'btn-success text-white'}>
+                        <Button wide className={'btn-success text-white'} onClick={() => handleClick(data?.event._id)}>
                             Donate
                         </Button>
                     </div>
@@ -64,6 +78,10 @@ const Event = () => {
                 <h2 className='text-2xl font-bold'>About us</h2>
                 <p className='mt-2'>{data?.event.description}</p>
             </div>
+            <DonationPopup
+                isOpen={showModal}
+                eventId={eventId}
+                onClose={handleVisible} />
         </div>
     )
 }

@@ -86,6 +86,14 @@ export const authEndpoints = apiSlice.injectEndpoints({
         invalidatesTags: ["orgs"],
       }),
     }),
+    donateEvent: builder.mutation({
+      query: (credentials) => ({
+        url: "/api/event/donate",
+        method: "POST",
+        body: { ...credentials },
+        invalidatesTags: ["orgs"],
+      }),
+    }),
   }),
 });
 
@@ -101,6 +109,7 @@ export const {
   useSubscribeMutation,
   useUpdateOrganizationMutation,
   useCreateEventMutation,
+  useDonateEventMutation,
 } = authEndpoints;
 
 

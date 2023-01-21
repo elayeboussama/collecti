@@ -79,6 +79,20 @@ router.post("/update", authenticateToken, async (req, res) => {
     }
 })
 
+router.post("/donate", async (req, res) => {
+    try {
+        console.log(req.body)
+        const event = await Event.findOne({ "_id": req.body._id });
+        console.log("eeeee", event)
+        await Event.updateOne({ "_id": ObjectId(req.body._id) }, { $set: req.body });
+        res.status(200).send({ message: "Event updated" });
+
+    } catch (error) {
+        res.status(500).send({ message: "Internal Server Error", error: error });
+        console.log(error)
+    }
+})
+
 
 
 router.get("/events", async (req, res) => {

@@ -5,7 +5,7 @@ import { DonateSchema } from '../../schemas';
 import image from './donation.png';
 import PayButton from './PayButton';
 
-const DonationPopup = ({ isOpen, onClose }) => {
+const DonationPopup = ({ isOpen, onClose, eventId ,prevRaisedMoney, prevDonators}) => {
 
     const { values, handleChange, handleBlur, errors, touched, setFieldValue, handleSubmit } = useFormik({
         initialValues: {
@@ -32,7 +32,7 @@ const DonationPopup = ({ isOpen, onClose }) => {
     return (
         <div id="container"
             onClick={handleOnClose}
-            className="fixed inset-0 flex flex-col items-center justify-center w-screen bg-black bg-opacity-30 backdrop-blur-sm">
+            className="fixed inset-0 z-10 flex flex-col items-center justify-center w-screen bg-black bg-opacity-30 backdrop-blur-sm">
             <div className="absolute bg-white rounded-full top-icon w-28 top-32 drop-shadow-xl">
                 <img src={image} alt="Shoes" />
             </div>
@@ -92,7 +92,13 @@ const DonationPopup = ({ isOpen, onClose }) => {
 
                 </form>
 
-                <PayButton onClose={onClose} informations={values} />
+                <PayButton 
+                onClose={onClose}
+                 informations={values}
+                  eventId={eventId}
+                  prevDonators={prevDonators}
+                  prevRaisedMoney={prevRaisedMoney}
+                  />
                 {/* <button className="w-1/2 mt-6 btn btn-primary" onClick={onClose}>Donate</button> */}
             </div>
 

@@ -27,7 +27,11 @@ const EditOrganization = () => {
         setFieldValue("keywords", user.user.keywords || [])
         if (user.user.keywords) setTags(user.user.keywords)
         setFieldValue("phone", user.user.phone || "")
+        setFieldValue("catchPhrase",user.user.catchPhrase || "")
         setFieldValue("description", user.user.description || "")
+        setFieldValue("socialMedia.facebook",user.user.socialMedia?.facebook || "")
+        setFieldValue("socialMedia.instagram",user.user.socialMedia?.instagram || "")
+        setFieldValue("socialMedia.likendIn",user.user.socialMedia?.linkedIn || "")
     }, [user])
 
     const { values, handleChange, handleBlur, errors, touched, setFieldValue, handleSubmit } = useFormik({
@@ -39,6 +43,12 @@ const EditOrganization = () => {
             keywords: [],
             phone: "",
             description: "",
+            catchPhrase: "",
+            socialMedia: {
+                facebook:'',
+                instagram:'',
+                linkedIn:'',
+            },
         },
         validationSchema: EditOrganizationSchema,
         onSubmit: async (values) => {
@@ -148,6 +158,18 @@ const EditOrganization = () => {
                 </div>
                 <div className="form-control">
                     <label className="label">
+                        <span className="label-text">Catch phrase</span>
+                    </label>
+                    <input type="text" name='catchPhrase'
+                        placeholder="Write your catch phrase"
+                        onChange={handleChange}
+                        value={values.catchPhrase}
+                        onBlur={handleBlur}
+                        className={`input input-bordered block ${errors.catchPhrase && touched.catchPhrase && 'input-error'}`} />
+                    {errors.catchPhrase && touched.catchPhrase && <p className="mt-2 text-xs text-red-500">{errors.catchPhrase}</p>}
+                </div>
+                <div className="form-control">
+                    <label className="label">
                         <span className="label-text">Phone number</span>
                     </label>
                     <input type="number" name='phone'
@@ -157,6 +179,42 @@ const EditOrganization = () => {
                         onBlur={handleBlur}
                         className={`input input-bordered block ${errors.phone && touched.phone && 'input-error'}`} />
                     {errors.phone && touched.phone && <p className="mt-2 text-xs text-red-500">{errors.phone}</p>}
+                </div>
+                <div className="form-control">
+                    <label className="label">
+                        <span className="label-text">Facebook</span>
+                    </label>
+                    <input type="text" name='socialMedia.facebook'
+                        placeholder="Facebook Link"
+                        onChange={handleChange}
+                        value={values.socialMedia.facebook}
+                        onBlur={handleBlur}
+                        className={`input input-bordered block ${errors.socialMedia?.facebook && touched.socialMedia?.facebook && 'input-error'}`} />
+                    {errors.socialMedia?.facebook && touched.socialMedia?.facebook && <p className="mt-2 text-xs text-red-500">{errors.socialMedia?.facebook}</p>}
+                </div>
+                <div className="form-control">
+                    <label className="label">
+                        <span className="label-text">Instagram</span>
+                    </label>
+                    <input type="text" name='socialMedia.instagram'
+                        placeholder="Instagram Link"
+                        onChange={handleChange}
+                        value={values.socialMedia.instagram}
+                        onBlur={handleBlur}
+                        className={`input input-bordered block ${errors.socialMedia?.instagram && touched.socialMedia?.instagram && 'input-error'}`} />
+                    {errors.socialMedia?.instagram && touched.socialMedia?.instagram && <p className="mt-2 text-xs text-red-500">{errors.socialMedia?.instagram}</p>}
+                </div>
+                <div className="form-control">
+                    <label className="label">
+                        <span className="label-text">Linked in</span>
+                    </label>
+                    <input type="text" name='socialMedia.linkedIn'
+                        placeholder="Linked in Link"
+                        onChange={handleChange}
+                        value={values.socialMedia.linkedIn}
+                        onBlur={handleBlur}
+                        className={`input input-bordered block ${errors.socialMedia?.linkedIn && touched.socialMedia?.linkedIn && 'input-error'}`} />
+                    {errors.socialMedia?.linkedIn && touched.socialMedia?.linkedIn && <p className="mt-2 text-xs text-red-500">{errors.socialMedia?.linkedIn}</p>}
                 </div>
                 <div className="form-control">
                     <label className="label">

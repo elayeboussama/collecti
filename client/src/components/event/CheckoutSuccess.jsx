@@ -1,6 +1,30 @@
+import { useEffect } from "react"
+import { toast } from "react-toastify"
+import { useDonateEventMutation } from "../../endpoints/AuthEndpoints"
 import image from "./check.gif"
 
 const CheckoutSuccess = () => {
+  const [updateEvent] = useDonateEventMutation()
+
+  const handleCheckOut = async () =>{
+  const requestObject = {
+                        
+    _id: localStorage.getItem('eventId'),
+    raisedMoney: localStorage.getItem('amount'),
+    donators: localStorage.getItem('donators'),
+    
+}
+try {
+    console.log(requestObject)
+    const response = await updateEvent({ ...requestObject }).unwrap()
+    //dispatch(updateCredentials(response.EventUpdated))
+    toast.success("Profile updated! You're all set. 🙌")
+} catch (error) {
+    console.error(error)
+}}
+useEffect(()=>{
+  handleCheckOut()
+},[])
   return (
     <div className="min-h-screen mt-0 hero">
       <div className="text-center hero-content">

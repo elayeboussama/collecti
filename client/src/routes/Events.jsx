@@ -1,13 +1,18 @@
+import { useEffect } from "react"
 import { useState } from "react"
 import DonationPopup from "../components/event/DonationPopup"
 import EventCard from "../components/event/EventCard"
 import Tabs from "../components/shared/Tab/Tab"
-import { useGetAllEventsQuery } from "../endpoints/AuthEndpoints"
+import { useGetAllEventsQuery, useOrgDetailsQuery } from "../endpoints/AuthEndpoints"
 
 
 const Events = () => {
     const [eventId, setEventId] = useState();
+    const[raisedMoney, setRaisedMoney]=useState(0)
+    const[donators, setDonators]=useState(0)
     const [showModal, setShowModal] = useState(false)
+
+    
 
     const {
         data: events,
@@ -25,14 +30,16 @@ const Events = () => {
     }
 
     const [eventsList, setEventsList] = useState([])
+const [orgInfo, setOrgInfo]=useState()
 
 
 
-
-    const handleClick = num => {
+    const handleClick = (num, money, donators) => {
         // 👇️ take parameter passed from Child component
         setShowModal(true)
         setEventId(num);
+        setRaisedMoney(money);
+        setDonators(donators);
     };
     // console.log("hhhh",eventId);
     const tabsTitle = ["Computer science", "Robotics", "Cultural"]
@@ -48,7 +55,14 @@ const Events = () => {
                     {isSuccess ? <div className="grid h-full grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-7">
                         {events.event.map((allevent, i) =>
                             allevent.category === "Computer science" ?
-                                <EventCard eventTitle={allevent.name} handleClick={handleClick} id={allevent._id}
+                                <EventCard 
+                                eventTitle={allevent.name}
+                                orgId={allevent.organization_id}
+                                date={allevent.date}
+                                 handleClick={()=>handleClick(allevent._id, allevent.raisedMoney, allevent.donators)}
+                                 location={allevent.location ?? allevent.location}
+                                 donators={allevent.donators}
+                                  id={allevent._id}
                                 /> : ""
 
                         )}
@@ -65,7 +79,15 @@ const Events = () => {
                         {isSuccess ? <div className="grid h-full grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-7">
                             {events.event.map((allevent, i) =>
                                 allevent.category === "Robotics" ?
-                                    <EventCard eventTitle={allevent.name} handleClick={handleClick} id={allevent._id}
+                            
+                                    <EventCard 
+                                    eventTitle={allevent.name} 
+                                    id={allevent._id}
+                                    orgId={allevent.organization_id}
+                                    date={allevent.date}
+                                    location={allevent.location ?? allevent.location}
+                                    donators={allevent.donators}
+                                    handleClick={()=>handleClick(allevent._id,allevent.raisedMoney, allevent.donators)} 
                                     /> : ""
 
                             )}
@@ -80,7 +102,14 @@ const Events = () => {
                         {isSuccess ? <div className="grid h-full grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-7">
                             {events.event.map((allevent, i) =>
                                 allevent.category === "Cultural" ?
-                                    <EventCard eventTitle={allevent.name} handleClick={handleClick} id={allevent._id}
+                                    <EventCard 
+                                    eventTitle={allevent.name} 
+                                    orgId={allevent.organization_id}
+                                    location={allevent.location ?? allevent.location}
+                                    date={allevent.date}
+                                    donators={allevent.donators}
+                                    handleClick={()=>handleClick(allevent._id, allevent.raisedMoney, allevent.donators)} 
+                                    id={allevent._id}
                                     /> : ""
 
                             )}
@@ -93,7 +122,11 @@ const Events = () => {
 
             <DonationPopup
                 isOpen={showModal}
-                onClose={handleVisible} />
+                onClose={handleVisible} 
+                eventId={eventId}
+                prevRaisedMoney={raisedMoney}
+                prevDonators={donators}/>
+               
         </div>
     )
 }
