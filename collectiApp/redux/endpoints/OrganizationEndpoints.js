@@ -1,4 +1,4 @@
-import { apiSlice } from "../api/apiSlice";
+import { apiSlice, apiSliceWithToken } from "../api/apiSlice";
 
 export const orgEndpoints = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
@@ -16,6 +16,8 @@ export const orgEndpoints = apiSlice.injectEndpoints({
                 body: {...credentials },
             }),
         }),
+
+
         getOneOrgs: builder.query({
             query: (credentials) => ({
                 url: "/api/organization/organization/" + credentials.id,
@@ -30,11 +32,48 @@ export const orgEndpoints = apiSlice.injectEndpoints({
             }),
             invalidatesTags: ['orgs']
         }),
+
+        UploadImage: builder.mutation({
+            query: (credentials) => ({
+                url: "/api/organization/upload",
+                method: "POST",
+                body: credentials.body,
+                headers: credentials.headers
+            }),
+        }),
+
+        UpdateOrg: builder.mutation({
+            query: (credentials) => ({
+                url: "/api/organization/update",
+                method: "POST",
+                body: {...credentials },
+            }),
+        }),
+    }),
+});
+
+
+export const orgWithTokenEndpoints = apiSliceWithToken.injectEndpoints({
+    endpoints: (builder) => ({
+        UpdateOrg: builder.mutation({
+            query: (credentials) => ({
+                url: "/api/organization/update",
+                method: "POST",
+                body: {...credentials },
+                invalidatesTags: ['user', 'orgs']
+            }),
+        }),
     }),
 });
 
 export const {
     useGetAllOrgsQuery,
     useGetListOrgsMutation,
+    useUploadImageMutation,
     useGetOneOrgsQuery,
 } = orgEndpoints;
+
+
+export const {
+    useUpdateOrgMutation,
+} = orgWithTokenEndpoints;

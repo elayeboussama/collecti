@@ -22,6 +22,27 @@ import { useOrgDetailsQuery } from "../../../redux/endpoints/AuthEndpoints";
 
 const CustomDrawer = (props) => {
   const [user_id, setUserId] = useState();
+<<<<<<< Updated upstream
+=======
+  const [token, setToken] = useState();
+  const [user, setUser] = useState({email:""});
+  const handleChange = async () => {
+    setToken(await AsyncStorage.getItem("token"));
+    const userVar = await AsyncStorage.getItem("user")
+    setUser(JSON.parse(userVar));
+  };
+  useEffect(() => {
+    handleChange();
+  }, []);
+  var email = ""
+  useEffect(() => {
+    console.log("scene token =>", token);
+    console.log("scene user =>", user);
+    if(user.email!=""){
+      email = user.email
+    }
+  }, [user]);
+>>>>>>> Stashed changes
 
   const handleChangeId = async () => {
     setUserId(await AsyncStorage.getItem("user_id"));
@@ -50,6 +71,7 @@ const CustomDrawer = (props) => {
         {...props}
         contentContainerStyle={{ backgroundColor: "#8200d6" }}
       >
+<<<<<<< Updated upstream
         {organization_data && (
           <ImageBackground
             source={require("../../../assets/menu-bg.jpeg")}
@@ -64,6 +86,32 @@ const CustomDrawer = (props) => {
                 marginBottom: 10,
               }}
             />
+=======
+        <ImageBackground
+          source={{  uri: `http://192.168.56.1:8080/${user.cover}`}}
+          style={{ padding: 20 }}
+        >
+          <Image
+            source={{  uri: `http://192.168.56.1:8080/${user.logo}`}}
+            style={{
+              height: 80,
+              width: 80,
+              borderRadius: 40,
+              marginBottom: 10,
+            }}
+          />
+          <Text
+            style={{
+              color: "#fff",
+              fontSize: 18,
+              fontFamily: "Roboto-Medium",
+              marginBottom: 5,
+            }}
+          >
+            {user ? user.name :""}
+          </Text>
+          <View style={{ flexDirection: "row" }}>
+>>>>>>> Stashed changes
             <Text
               style={{
                 color: "#fff",

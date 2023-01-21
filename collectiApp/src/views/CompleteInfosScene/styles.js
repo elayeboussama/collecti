@@ -69,6 +69,38 @@ const styles = StyleSheet.create({
         marginTop: 60
     },
 
+    dropdown: {
+        height: 50,
+        borderColor: 'gray',
+        borderBottomWidth: 0.5,
+        paddingHorizontal: 8,
+    },
+    icon: {
+        marginRight: 5,
+    },
+    label: {
+        position: 'absolute',
+        backgroundColor: 'white',
+        left: 22,
+        top: 8,
+        zIndex: 999,
+        paddingHorizontal: 8,
+        fontSize: 14,
+    },
+    placeholderStyle: {
+        fontSize: 16,
+    },
+    selectedTextStyle: {
+        fontSize: 16,
+    },
+    iconStyle: {
+        width: 20,
+        height: 20,
+    },
+    inputSearchStyle: {
+        height: 40,
+        fontSize: 16,
+    },
 
     headerSection: {
         marginTop: 12,
@@ -102,6 +134,22 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "center",
     },
+    submitButton: {
+        float: "right",
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        paddingVertical: 12,
+        paddingHorizontal: 32,
+        borderRadius: 4,
+        elevation: 3,
+        backgroundColor: '#581845',
+        width: 100,
+        margin: 10,
+
+
+
+    }
+
 
 
 });
