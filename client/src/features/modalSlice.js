@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   content: <></>,
-  isShowing: false,
 }
 
 export const modalSlice = createSlice({
@@ -11,10 +10,17 @@ export const modalSlice = createSlice({
   reducers: {
     setContent: (state, action) => {
       state.content = action.payload;
+    },
+    closeModal: (state) => {
+      document.getElementById('my-modal-4').checked = false;
+    },
+    openModal: (state) => {
+      document.getElementById('my-modal-4').checked = true;
     }
+
   }
 })
 
-export const { setContent } = modalSlice.actions;
+export const { setContent, closeModal, openModal } = modalSlice.actions;
 
 export default modalSlice.reducer;

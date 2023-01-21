@@ -6,7 +6,12 @@ const passwordComplexity = require("joi-password-complexity");
 
 const organizationSchema = new mongoose.Schema({
     name: { type: String, required: true },
+    creationDate: { type: Date, required: true, default: Date.now },
+    sector: { type: String, required: false },
+    socialMedia: { type: Object, required: false },
     description: { type: String, required: false },
+    planActions: { type: String, required: false },
+    Vision: { type: String, required: false },
     events: { type: Array, required: false },
     directorName: { type: String, required: false },
     logo: { type: String, required: false },
@@ -15,10 +20,13 @@ const organizationSchema = new mongoose.Schema({
     phone: { type: String, required: false },
     email: { type: String, required: true },
     password: { type: String, required: true },
+    location: { type: String, required: false },
+    keywords: { type: Array, required: false },
+    firstConnection: { type: Boolean, required: true, default: true },
 
 });
 
-organizationSchema.methods.generateAuthToken = function() {
+organizationSchema.methods.generateAuthToken = function () {
     const token = jwt.sign({ _id: this._id }, process.env.ACCESS_TOKEN_SECRET, {
         expiresIn: "7d",
     });

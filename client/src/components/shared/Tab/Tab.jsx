@@ -34,7 +34,8 @@ const Tabs = ({tabsTitle,content1,content2,content3}) => {
         <div className='container rounded-2xl'>
             <div className='tabs  flex-nowrap '>
                 {tabs.map((tab, i) =>
-                    <button className=" bg-slate-200 text-slate-500 cursor-pointer p-5 w-full ease-out duration-500
+                    <button className=" font-bold text-lg font-serif hover:text-xl
+                     bg-slate-200 text-slate-500 cursor-pointer p-5 w-full ease-out duration-500
                     hover:text-white hover:bg-slate-500
                     disabled:bg-gradient-to-r from-sky-500 to-indigo-500
                     disabled:text-white"

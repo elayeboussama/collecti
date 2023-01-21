@@ -1,14 +1,16 @@
 import { createBrowserRouter } from 'react-router-dom';
 import App from './App';
+import CheckoutSuccess from './components/event/CheckoutSuccess';
+import OrganizationDetails from './components/organization/OrganizationDetails';
+import ProtectedRoutes from './components/ProtectedRoutes';
+import CreateEvent from './routes/CreateEvent';
 import EditEvent from './routes/EditEvent';
 import EditOrganization from './routes/EditOrganization';
 import ErrorPage from './routes/ErrorPage';
 import Event from './routes/Event';
 import Events from './routes/Events';
 import Index from './routes/Index';
-import OrganizationDetails from './components/organization/OrganizationDetails';
 import Organizations from './routes/Organizations';
-import CreateEvent from './routes/CreateEvent';
 
 const router = createBrowserRouter([
     {
@@ -33,11 +35,11 @@ const router = createBrowserRouter([
                     },
                     {
                         path: 'events/add',
-                        element: <CreateEvent />,
+                        element: <ProtectedRoutes><CreateEvent /></ProtectedRoutes>,
                     },
                     {
                         path: 'events/:eventId/edit',
-                        element: <EditEvent />,
+                        element: <ProtectedRoutes><EditEvent /></ProtectedRoutes>,
                     },
                     {
                         path: 'organizations',
@@ -48,8 +50,12 @@ const router = createBrowserRouter([
                         element: <OrganizationDetails />,
                     },
                     {
-                        path: 'organizations/:organizationId/edit',
-                        element: <EditOrganization />,
+                        path: 'organization/edit',
+                        element: <ProtectedRoutes><EditOrganization /></ProtectedRoutes>,
+                    },
+                    {
+                        path: '/checkout-success',
+                        element: <CheckoutSuccess />,
                     }
                 ]
             }

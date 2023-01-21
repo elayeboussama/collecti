@@ -20,3 +20,39 @@ code {
 :root {
   --swiper-theme-color: #500DF8 !important;
 }
+
+.Toastify__toast {
+  border-radius: 0.5rem !important;
+}
+
+.animated-gradient {
+  background: linear-gradient(-45deg, #FFA63D, #FF3D77, #338AFF, #3CF0C5);
+  background-size: 600%;
+  animation: anime 16s ease infinite;
+}
+
+@keyframes anime {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.filepond--credits {
+  display: none;
+}
+
+.filepond--root {
+  cursor: pointer;
+}
+
+.filepond--list-scroller {
+  cursor: default;
+}

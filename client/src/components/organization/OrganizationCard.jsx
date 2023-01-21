@@ -1,22 +1,28 @@
 import { Link } from "react-router-dom"
 
-const OrganizationCard = () => {
+const OrganizationCard = ({ organization }) => {
     return (
-        <div className="card w-96 bg-base-100 shadow-xl">
-            <figure><img src="https://media.slidesgo.com/storage/24722876/lung-cancer-awareness-month1663157891.jpg" alt="Shoes" /></figure>
+        <div className="shadow-xl card w-96 bg-base-100">
+            <figure><img className="object-cover w-full h-56" src={organization.cover} alt="cover" /></figure>
             <div className="card-body">
-                <h2 className="card-title">
-                    Organization name
-                    <div className="badge badge-secondary">3</div>
+                <div className="absolute avatar top-40">
+                    <div className="w-24 rounded-full ring ring-white">
+                        <img src={organization.logo} alt="logo" />
+                    </div>
+                </div>
+                <h2 className="justify-between card-title">
+                    <div>{organization.name}</div>
+                    <div className="badge badge-secondary">{organization.events.length}</div>
                 </h2>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi ipsam error harum distinctio ducimus esse debitis dignissimos cumque iusto cupiditate.</p>
-                <div className="flex justify-between items-center">
+                <p className="line-clamp-5">{organization.description}</p>
+                <div className="flex items-center justify-between">
                     <div className="card-actions">
-                        <div className="badge badge-outline">Cancer</div>
-                        <div className="badge badge-outline">Health</div>
+                        {organization.keywords.map(keyword => (
+                            <div key={keyword} className="badge badge-outline">{keyword}</div>
+                        ))}
                     </div>
                     <div>
-                        <Link to={`1`}>
+                        <Link to={organization._id}>
                             <button className="link btn-sm hover:text-primary">Details</button>
                         </Link>
                     </div>

@@ -9,7 +9,7 @@ import {
   useTheme,
 } from "@rneui/themed";
 import { StatusBar } from "expo-status-bar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { Text, View, TouchableOpacity, Image } from "react-native";
 import { styles } from "./styles";
@@ -17,8 +17,22 @@ import { MaterialIcons } from "@expo/vector-icons";
 import EventCard from "../../components/EventCard/EventCard";
 import { ScrollView } from "react-native";
 import CompanyCard from "../../components/CompanyCard/CompanyCard";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const CompanyProfileScene = () => {
+  const [token, setToken] = useState();
+  const [user, setUser] = useState();
+  const handleChange = async () => {
+    setToken(await AsyncStorage.getItem("token"));
+    const userVar = await AsyncStorage.getItem("user")
+    setUser(JSON.parse(userVar));
+  };
+  useEffect(() => {
+    handleChange();
+  }, []);
+  useEffect(() => {
+    console.log("scene token =>", token);
+    console.log("scene user =>", user);
+  }, [user]);
   const [isVisible, setIsVisible] = useState(false);
   const { theme } = useTheme();
 
@@ -54,8 +68,12 @@ const CompanyProfileScene = () => {
           <Text
             style={{ alignSelf: "center", fontSize: 25, fontWeight: "bold" }}
           >
-            {" "}
-            Organisation Name
+            {/* {user ?
+                user.name
+            :""
+          } */}
+            {/* {user.name} */}
+            {/* Organisation Name */}
           </Text>
           <View style={styles.chips}>
             <Chip
@@ -103,10 +121,10 @@ const CompanyProfileScene = () => {
         <View style={styles.descSection}>
           <Text style={styles.desc}> Organisation Description </Text>
           <Text>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Reprehenderit, error consectetur dolore sint natus quibusdam ab
-            aliquid, aut libero neque qui eaque dignissimos eligendi deserunt.
-            Corporis voluptatem ratione quia temporibus!
+          {/* {user ?
+                user.description
+            :""
+          } */}
           </Text>
         </View>
         <EventCard />

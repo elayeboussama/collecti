@@ -6,11 +6,16 @@ const passwordComplexity = require("joi-password-complexity");
 const eventSchema = new mongoose.Schema({
   name: { type: String, required: true },
   description: { type: String, required: true },
-  category: { type: String, required: true },
+  creationDate: { type: Date, required: true, default: Date.now },
   date: { type: Date, required: true },
-  requirementFunds: { type: String, required: true },
-  organization_id: { type: String, required: true },
-  organization_name: { type: String, required: false },
+  requirementFunds: { type: Number, required: true },
+  organization_id: { type: String, required: false },
+  catchPhrase: { type: String, required: false },
+  image: { type: Array, required: false },
+  keyWords: { type: Array, required: false },
+  category: { type: String, required: true },
+  donators: { type: Number, required: false, default: 0 },
+  raisedMoney: { type: Number, required: false, default: 0 },
 });
 
 eventSchema.methods.generateAuthToken = function () {
@@ -26,11 +31,10 @@ const validateEvent = (data) => {
   const schema = Joi.object({
     name: Joi.string().required().label("Name"),
     description: Joi.string().required().label("Description"),
-    category: Joi.string().required().label("Category"),
     date: Joi.date().required().label("Date"),
     requirementFunds: Joi.string().required().label("RequirementFunds"),
-    organization_id: Joi.string().required().label("organization_id"),
-    organization_name: Joi.string().label("organization_name"),
+    organization_id: Joi.string().label("organization_id"),
+    catchphrase: Joi.string().label("catchphrase"),
   });
   return schema.validate(data);
 };
