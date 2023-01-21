@@ -80,6 +80,7 @@ import { NativeModules } from "react-native";
 import { Input } from "@rneui/themed";
 import { Button } from "@rneui/themed";
 import { ImageBackground } from "react-native";
+import RNFetchBlob from "rn-fetch-blob"
 
 
 
@@ -118,6 +119,28 @@ const CompleteInfosScene = () => {
         setCover(resultCover.assets[0].uri);
       }
 
+    }
+
+
+    const handleSubmit = ()=>{
+      RNFetchBlob.fetch('POST', 'http://192.168.56.1:8080/api/organization/upload',{
+        otherHeader:"foo",
+        'Content-Type':'multipart/form-data',
+      },[
+        {name: 'video', filename: image.fileName, type: image.type, data: RNFetchBlob.wrap(image.path)},
+        {
+          name: 'info', data: JSON.stringify({
+            videoTitle: 'title',
+            videoDiscription: 'disc',
+            paid: false,
+            gymId: '000000000000'
+          })
+        },
+      ]).then((res)=>{
+        console.log(res)
+      }).catch((err)=>{
+        console.log(err)
+      })
     }
     
 
