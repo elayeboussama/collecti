@@ -1,14 +1,15 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
+// const baseQuery = fetchBaseQuery({
+//     baseUrl: "http://localhost:8080",
+// })
+
 const baseQuery = fetchBaseQuery({
     baseUrl: "http://localhost:8080",
-})
-
-const baseQueryWithToken = fetchBaseQuery({
-    baseUrl: "http://localhost:8080",
-    prepareHeaders: async (headers, { getState }) => {
+    prepareHeaders: async (headers, { getState, endpoint }) => {
         const token = localStorage.getItem("token");
-        if (token) {
+        if (token && (endpoint === "createEvent" || endpoint === "updateOrganization")) {
+            console.log(endpoint)
             headers.set("Authorization", `Bearer ${token}`);
         }
         return headers;
@@ -18,11 +19,13 @@ const baseQueryWithToken = fetchBaseQuery({
 export const apiSlice = createApi({
     reducerPath: "api",
     baseQuery: baseQuery,
+    tagTypes: ["events", "orgs"],
     endpoints: (builder) => ({})
 })
 
-export const apiSliceWithToken = createApi({
-    reducerPath: "apiWithToken",
-    baseQuery: baseQueryWithToken,
-    endpoints: (builder) => ({})
-})
+// export const apiSliceWithToken = createApi({
+//     reducerPath: "apiWithToken",
+//     baseQuery: baseQueryWithToken,
+//     tagTypes: ["events", "orgs"],
+//     endpoints: (builder) => ({})
+// })
