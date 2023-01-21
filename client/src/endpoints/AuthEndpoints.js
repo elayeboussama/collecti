@@ -1,4 +1,4 @@
-import { apiSlice, apiSliceWithToken } from "../features/apiSlice";
+import { apiSlice } from "../features/apiSlice";
 
 export const authEndpoints = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -13,6 +13,7 @@ export const authEndpoints = apiSlice.injectEndpoints({
         url: `/api/event/event/${id}`,
         method: "GET",
       }),
+      providesTags: ["events"],
     }),
     register: builder.mutation({
       query: (credentials) => ({
@@ -34,6 +35,7 @@ export const authEndpoints = apiSlice.injectEndpoints({
         url: `/api/organization/${id}`,
         method: "GET",
       }),
+      providesTags: ["orgs"],
     }),
 
     getOrgnizations: builder.query({
@@ -41,6 +43,7 @@ export const authEndpoints = apiSlice.injectEndpoints({
         url: "/api/organization/organizations",
         method: "GET",
       }),
+      providesTags: ["orgs"],
     }),
 
     getAllEvents: builder.query({
@@ -48,7 +51,7 @@ export const authEndpoints = apiSlice.injectEndpoints({
         url: "/api/event/events",
         method: "GET",
       }),
-      // providesTags: ['orgs']
+      providesTags: ["events"],
     }),
 
     payment: builder.mutation({
@@ -56,6 +59,7 @@ export const authEndpoints = apiSlice.injectEndpoints({
         url: "/api/stripe/create-checkout-session",
         method: "POST",
         body: { ...credentials },
+        invalidatesTags: ["events"],
       }),
     }),
 
@@ -65,29 +69,25 @@ export const authEndpoints = apiSlice.injectEndpoints({
         method: "POST",
         body: { ...credentials },
       })
-    })
-  }),
-});
-
-export const authEndpointsWithToken = apiSliceWithToken.injectEndpoints({
-  endpoints: (builder) => ({
+    }),
     createEvent: builder.mutation({
       query: (credentials) => ({
         url: "/api/event/create",
         method: "POST",
         body: { ...credentials },
       }),
+      invalidatesTags: ["events", "orgs"],
     }),
     updateOrganization: builder.mutation({
       query: (credentials) => ({
         url: "/api/organization/update",
         method: "POST",
         body: { ...credentials },
+        invalidatesTags: ["orgs"],
       }),
     }),
   }),
 });
-
 
 export const {
   useCredentialsQuery,
@@ -99,13 +99,9 @@ export const {
   useGetAllEventsQuery,
   useGetOrgnizationsQuery,
   useSubscribeMutation,
-} = authEndpoints;
-
-export const {
   useUpdateOrganizationMutation,
   useCreateEventMutation,
-} = authEndpointsWithToken;
-
+} = authEndpoints;
 
 
 
