@@ -23,6 +23,7 @@ const organizationSchema = new mongoose.Schema({
     password: { type: String, required: true },
     location: { type: String, required: false },
     keywords: { type: Array, required: false },
+    status: { type: String, required: false, default: "pending" }, //rejected/approved/pending
     firstConnection: { type: Boolean, required: true, default: true },
 
 });
