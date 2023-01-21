@@ -5,7 +5,6 @@ const ProtectedRoutes = ({ children }) => {
 
     const user = localStorage.getItem('user')
     const userState = useSelector(state => state.auth)
-    console.log(userState.userId)
 
     return (
         userState.userId || user ? children : <Navigate to="/" replace />
