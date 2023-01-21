@@ -65,6 +65,10 @@ const styles = StyleSheet.create({
         margin: 0
     },
 
+    form: {
+        marginTop: 60
+    },
+
 
     headerSection: {
         marginTop: 12,
@@ -98,23 +102,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "center",
     },
-    backButton: {
-        height: 50,
-        width: 50,
 
-        borderRadius: 30,
-    },
-    backGroundPic: {
-        width: "100%",
-        height: 300,
-
-    },
-    submitButton: {
-        marginTop: 12,
-        width: "80%",
-        alignSelf: "center",
-        borderRadius: 12,
-    }
 
 });
 
