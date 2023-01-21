@@ -8,7 +8,6 @@ export const store = configureStore({
     reducer: {
         modal: modalReducer,
         [apiSlice.reducerPath]: apiSlice.reducer,
-        // [apiSliceWithToken.reducerPath]: apiSliceWithToken.reducer,
         auth: authReducer,
         conffeti: ConffetiReducer,
     },
