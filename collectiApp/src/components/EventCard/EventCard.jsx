@@ -1,28 +1,54 @@
 import { Avatar, Button, Chip } from "@rneui/themed";
 import React from "react";
-import { Image } from "react-native";
+import { ActivityIndicator, Image } from "react-native";
 import { ImageBackground } from "react-native";
 import { Text, View, StyleSheet } from "react-native";
 import { styles } from "./styles";
 import { Divider } from "@rneui/themed";
 import { MaterialIcons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
+import { useState } from "react";
+import { useGetOneOrgsQuery } from "../../../redux/endpoints/OrganizationEndpoints";
 
-const EventCard = ({ title, item }) => {
+const EventCard = ({item }) => {
+  
+
+  function formatDate(date) {
+    const newDate = new Date(date)
+    const currentMonth = newDate.getMonth();
+    const monthString = currentMonth >= 10 ? currentMonth : `0${currentMonth}`;
+    const currentDate = newDate.getDate();
+    const dateString = currentDate >= 10 ? currentDate : `0${currentDate}`;
+    return `${newDate.getFullYear()}-${Number(monthString)+1}-${currentDate}`;
+}
+  //  const {
+  //    data: organization_data,
+  //    error,
+  //    isLoading,
+  //    isSuccess,
+  //  } = useGetOneOrgsQuery({id:item.organization_id});
+console.log("de74: ",item)
+
+const category = item.category
+const date = item.date
+const requirementFunds = item.requirementFunds
+
   return (
-    <View style={styles.cardContainer}>
+    <View>
+      {category!=undefined && requirementFunds!=undefined && date!=undefined ? 
+        
+      <View style={styles.cardContainer}>
       <View style={styles.headerSection}>
         <Avatar
           size={32}
           rounded
           source={{ uri: "https://i.ibb.co/wg9Qvtp/logo2.png" }}
         />
-        <Text>
-          {" "}
-          {item.organization_name
-            ? item.organization_name
-            : "Organization name"}{" "}
-        </Text>
+        {/* <Text>
+          {organization_data.name
+            ? organization_data.name
+            : "Organization name"} 
+        </Text>*/}
       </View>
       <View style={styles.leftSection}>
         <View
@@ -48,17 +74,17 @@ const EventCard = ({ title, item }) => {
 
         <View style={styles.chips}>
           <Chip
-            title={item.category}
+            title={"category"}
             containerStyle={{ width: 80, marginLeft: 8 }}
             titleStyle={{ fontSize: 8 }}
           />
           <Chip
-            title={item.requirementFunds}
+            title={"requirementFunds"}
             containerStyle={{ width: 80, marginLeft: 8 }}
             titleStyle={{ fontSize: 8 }}
           />
           <Chip
-            title={item.date}
+            title={"date"}
             containerStyle={{ width: 80, marginLeft: 8 }}
             titleStyle={{ fontSize: 8 }}
           />
@@ -79,7 +105,12 @@ const EventCard = ({ title, item }) => {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </View>  
+
+    : <ActivityIndicator/>
+    }
+
+  </View>
   );
 };
 
