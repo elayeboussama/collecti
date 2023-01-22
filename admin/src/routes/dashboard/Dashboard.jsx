@@ -67,7 +67,7 @@ const Dashboard = () => {
             </div>
             {/** ---------------------- Different charts ------------------------- */}
             <div className="grid grid-cols-1 gap-6 mt-4 lg:grid-cols-2">
-                <LineChart />
+                <LineChart approvedevents={approvedevents}/>
                 <BarChart approvedorgs={approvedorgs} pendingorgs={pendingorgs}/>
             </div>
 
@@ -82,7 +82,7 @@ const Dashboard = () => {
         
             <div className="grid grid-cols-1 gap-6 mt-4 lg:grid-cols-2">
                 <UserChannels />
-                <DoughnutChart />
+                <DoughnutChart approvedevents={approvedevents}/>
             </div>
         </div>
     )
