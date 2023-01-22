@@ -1,5 +1,5 @@
 import { Avatar, Button, Chip } from "@rneui/themed";
-import React from "react";
+import React, { useEffect } from "react";
 import { ActivityIndicator, Image } from "react-native";
 import { ImageBackground } from "react-native";
 import { Text, View, StyleSheet } from "react-native";
@@ -8,10 +8,11 @@ import { Divider } from "@rneui/themed";
 import { MaterialIcons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
 import { useState } from "react";
-import { useGetOneOrgsQuery } from "../../../redux/endpoints/OrganizationEndpoints";
+import { useGetAllOrgsQuery } from "../../../redux/endpoints/OrganizationEndpoints";
 
 const EventCard = ({item }) => {
   
+  const [user, setUser]=useState()
 
   function formatDate(date) {
     const newDate = new Date(date)
@@ -21,12 +22,22 @@ const EventCard = ({item }) => {
     const dateString = currentDate >= 10 ? currentDate : `0${currentDate}`;
     return `${newDate.getFullYear()}-${Number(monthString)+1}-${currentDate}`;
 }
-  //  const {
-  //    data: organization_data,
-  //    error,
-  //    isLoading,
-  //    isSuccess,
-  //  } = useGetOneOrgsQuery({id:item.organization_id});
+  const {
+    data: organization,
+    error,
+    isLoading,
+    isSuccess,
+  } = useGetAllOrgsQuery();
+  
+  useEffect(() => {
+    
+    console.log("you are here :",organization)
+    // if(organizations_data){
+    //   setUser(organizations_data.organization.map((e)=>{console.log("zzzzzzzzzzzssssssssssssssssssssssss: ",e._id==item.organization_id)}))
+    // }
+  
+  }, [organization])
+  
 console.log("de74: ",item)
 
 const category = item.category
@@ -42,8 +53,9 @@ const requirementFunds = item.requirementFunds
         <Avatar
           size={32}
           rounded
-          source={{ uri: "https://i.ibb.co/wg9Qvtp/logo2.png" }}
+          source={user? {  uri: `http://192.168.56.1:8080/${user.logo}`}:{ uri: "https://i.ibb.co/wg9Qvtp/logo2.png" }}
         />
+        
         {/* <Text>
           {organization_data.name
             ? organization_data.name

@@ -2,12 +2,11 @@ import { apiSlice, apiSliceWithToken } from "../api/apiSlice";
 
 export const orgEndpoints = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
-        getAllOrgs: builder.query({
+        GetAllOrgs: builder.query({
             query: () => ({
                 url: "/api/organization/organizations",
                 method: "GET",
             }),
-            providesTags: ['orgs']
         }),
         getListOrgs: builder.mutation({
             query: (credentials) => ({
@@ -47,13 +46,7 @@ export const orgEndpoints = apiSlice.injectEndpoints({
             }),
         }),
 
-        UpdateOrg: builder.mutation({
-            query: (credentials) => ({
-                url: "/api/organization/update",
-                method: "POST",
-                body: {...credentials },
-            }),
-        }),
+
     }),
 });
 
@@ -74,8 +67,9 @@ export const orgWithTokenEndpoints = apiSliceWithToken.injectEndpoints({
 export const {
     useGetAllOrgsQuery,
     useGetListOrgsMutation,
-    useUploadImageMutation,
     useGetOneOrgsQuery,
+    useDeleteOneOrgsMutation,
+    useUploadImageMutation,
 } = orgEndpoints;
 
 

@@ -41,10 +41,17 @@ const CompanyProfileScene = () => {
     console.log("scene user =>", user);
     if(user){
       if(user.events){
-        setEvents(getAllEventsByOrg({events: user.events}).unwrap())
+        getAllEventsByOrg({events: user.events}).unwrap().then((payload)=>{
+          console.log("aqwaqwaqwaqw: ",payload.event[0].image)
+          setEvents(payload.event)
+        })
       }
     }
-  }, [user]);
+  }, [user,]);
+
+  useEffect(() => {
+    console.log("zzzzzzzzzssssxxx: ",events)
+  }, [events]);
   const [isVisible, setIsVisible] = useState(false);
   const { theme } = useTheme();
   function formatDate(date) {
@@ -56,10 +63,7 @@ const CompanyProfileScene = () => {
     return `${newDate.getFullYear()}-${Number(monthString)+1}-${currentDate}`;
   }
 
-  useEffect(() => {
-    console.log("scene events =>", events);
-    
-  }, [events]);
+ 
   // const dataEvents= user && 
 
 // const [events, setEvents] =useState([]) 
@@ -77,7 +81,7 @@ const ListEvents = () =>{
   return(
     <FlatList
       data={events}
-      renderItem={({ item }) => <EventCard item={item} /> }
+      renderItem={({ item }) => <EventCard item={item} user={user} /> }
       keyExtractor={item => item._id}
     />
   )
@@ -175,11 +179,11 @@ const ListEvents = () =>{
             }
             </Text>
           </View>
-          {/* <View>
+          <View>
             {events &&
                <ListEvents/>
             }
-          </View> */}
+          </View>
         </ScrollView>
         :""
       }
