@@ -3,6 +3,7 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
     cardContainer: {
         marginTop: 12,
+        marginBottom: 12,
         elevation: 3,
         borderRadius: 12,
         width: "95%",

@@ -31,10 +31,12 @@ const EventCard = ({item }) => {
   
   useEffect(() => {
     
-    console.log("you are here :",organization.organization)
-     if(organization.organization){
-       setUser(organization.organization.filter((e)=>{return e._id==item.organization_id})[0])
-     }
+
+      if(organization){
+        if(organization.organization){
+          setUser(organization.organization.filter((e)=>{return e._id==item.organization_id})[0])
+        }
+      }
   
   }, [organization])
 
@@ -60,11 +62,11 @@ const requirementFunds = item.requirementFunds
           source={user.logo? {  uri: `http://192.168.56.1:8080/${user.logo}`}: require("../../../assets/logo2.png")}
         />
         
-        {/* <Text>
-          {organization_data.name
-            ? organization_data.name
+        <Text style={{marginLeft:10, marginBottom:5, fontSize:20}}>
+          {user.name
+            ? user.name
             : "Organization name"} 
-        </Text>*/}
+        </Text>
       </View>
       <View style={styles.leftSection}>
         <View
@@ -74,7 +76,7 @@ const requirementFunds = item.requirementFunds
           }}
         >
           <Image
-            source={require("../../../assets/event.png")}
+            source={item.image[0] ? {uri : `${item.image[0]}`}: require("../../../assets/event.png")}
             style={{
               padding: 20,
               borderRadius: 12,
