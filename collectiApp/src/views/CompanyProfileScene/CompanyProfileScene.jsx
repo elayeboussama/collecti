@@ -86,7 +86,7 @@ const CompanyProfileScene = ({navigation, route}) => {
   }
 
  
-  // const dataEvents= user && 
+
 
 // const [events, setEvents] =useState([]) 
 // useEffect(async() => {
