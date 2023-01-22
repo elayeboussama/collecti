@@ -25,14 +25,15 @@ const CompanySearchScene =  ({ navigation }) => {
 
 
 
-  const { data, error, isLoading, isSuccess, refresh } = useGetAllOrgsQuery();
+  const { data, error, isLoading, isSuccess } = useGetAllOrgsQuery();
+  console.log(data)
   // const filteredData = data?.organization.filter(organization => organization.firstConnection === false && organization.status==="approved")
   useEffect(() => {
     
     console.log(
       "-------------------------------------------------------------------------------------------------------------------------------------------------"
     );
-    console.log("data: ", data);
+    // console.log("data: ", data);
     console.log(
       "-------------------------------------------------------------------------------------------------------------------------------------------------"
     );
