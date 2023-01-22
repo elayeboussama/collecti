@@ -68,13 +68,13 @@ const Dashboard = () => {
             {/** ---------------------- Different charts ------------------------- */}
             <div className="grid grid-cols-1 gap-6 mt-4 lg:grid-cols-2">
                 <LineChart />
-                <BarChart />
+                <BarChart approvedorgs={approvedorgs} pendingorgs={pendingorgs}/>
             </div>
 
              {/** ---------------------- Different stats content 2 ------------------------- */}
         
              <div className="grid grid-cols-1 gap-6 mt-10 lg:grid-cols-2">
-                <AmountStats donators={donators} raiseMoney={raiseMoney}/>
+                <AmountStats donators={donators} raiseMoney={raiseMoney} />
                 <PageStats />
             </div>
 

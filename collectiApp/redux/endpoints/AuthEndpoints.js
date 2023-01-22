@@ -21,7 +21,7 @@ export const authEndpoints = apiSlice.injectEndpoints({
                 url: "/api/organization/login",
                 method: "POST",
                 body: {...credentials },
-                providesTags: ['user']
+                // providesTags: ['user']
             }),
         }),
         orgDetails: builder.query({

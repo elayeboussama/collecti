@@ -18,9 +18,16 @@ import EventCard from "../../components/EventCard/EventCard";
 import { ScrollView } from "react-native";
 import CompanyCard from "../../components/CompanyCard/CompanyCard";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import {  useGetAllEventsByOrgMutation, useGetAllEventsQuery } from "../../../redux/endpoints/EventEndpoints";
+import { FlatList } from "react-native-gesture-handler";
 const CompanyProfileScene = () => {
   const [token, setToken] = useState();
   const [user, setUser] = useState();
+  const [events, setEvents] = useState();
+
+  const 
+  [ getAllEventsByOrg, { isLoading }] = useGetAllEventsByOrgMutation();
+
   const handleChange = async () => {
     setToken(await AsyncStorage.getItem("token"));
     const userVar = await AsyncStorage.getItem("user")
@@ -32,7 +39,19 @@ const CompanyProfileScene = () => {
   useEffect(() => {
     console.log("scene token =>", token);
     console.log("scene user =>", user);
-  }, [user]);
+    if(user){
+      if(user.events){
+        getAllEventsByOrg({events: user.events}).unwrap().then((payload)=>{
+          console.log("aqwaqwaqwaqw: ",payload.event[0].image)
+          setEvents(payload.event)
+        })
+      }
+    }
+  }, [user,]);
+
+  useEffect(() => {
+    console.log("zzzzzzzzzssssxxx: ",events)
+  }, [events]);
   const [isVisible, setIsVisible] = useState(false);
   const { theme } = useTheme();
   function formatDate(date) {
@@ -42,6 +61,30 @@ const CompanyProfileScene = () => {
     const currentDate = newDate.getDate();
     const dateString = currentDate >= 10 ? currentDate : `0${currentDate}`;
     return `${newDate.getFullYear()}-${Number(monthString)+1}-${currentDate}`;
+  }
+
+ 
+  // const dataEvents= user && 
+
+// const [events, setEvents] =useState([]) 
+// useEffect(async() => {
+//   if(user){
+//     const dataEvents= await getAllEventsByOrg({events:user.events}).unwrap()
+//     setEvents(dataEvents)
+//   }
+// }, [user]);
+// useEffect(() => {
+//   console.log("bbbbbbbbbbbbbbb", events);
+// }, [events]);
+
+const ListEvents = () =>{
+  return(
+    <FlatList
+      data={events}
+      renderItem={({ item }) => <EventCard item={item} user={user} /> }
+      keyExtractor={item => item._id}
+    />
+  )
 }
   return (
    
@@ -136,9 +179,11 @@ const CompanyProfileScene = () => {
             }
             </Text>
           </View>
-          <EventCard />
-          <EventCard />
-          <EventCard />
+          <View>
+            {events &&
+               <ListEvents/>
+            }
+          </View>
         </ScrollView>
         :""
       }
