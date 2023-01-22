@@ -102,6 +102,13 @@ export const apiEndpoints = apiSlice.injectEndpoints({
         invalidatesTags: ["orgs"],
       }),
     }),
+    getDonations: builder.query({
+      query: () => ({
+        url: "/api/donate/gettAll",
+        method: "GET",
+      }),
+      providesTags: ["donations"],
+    }),
   }),
 });
 
@@ -119,4 +126,5 @@ export const {
   useCreateEventMutation,
   useDonateEventMutation,
   useUpdateStatusMutation,
+  useGetDonationsQuery,
 } = apiEndpoints

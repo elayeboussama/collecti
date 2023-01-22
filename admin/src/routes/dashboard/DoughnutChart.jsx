@@ -18,15 +18,15 @@ import {
   const DoughnutChart = ({approvedevents}) => {
     const csEvents = approvedevents?.filter(event => event.category==="Computer science" )
     const csPourcentage=(csEvents?.length/approvedevents?.length)*100
-    console.log("dddd",csPourcentage)
+
 
     const roboticsEvents = approvedevents?.filter(event => event.category==="Robotics" )
     const rPourcentage=(roboticsEvents?.length/approvedevents?.length)*100
-    console.log("dddd",rPourcentage)
+  
 
     const culturalEvents = approvedevents?.filter(event => event.category==="Cultural" )
     const cPourcentage=(culturalEvents?.length/approvedevents?.length)*100
-    console.log("dddd",cPourcentage)
+  
 
   
       const options = {

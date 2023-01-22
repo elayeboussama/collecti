@@ -15,10 +15,11 @@ const PayButton = ({onClose, informations, eventId, prevRaisedMoney, prevDonator
             const response = await payment({ informations }).unwrap()
           
             if(response.url){
-             
+                localStorage.setItem("damount",informations.amount)
                 localStorage.setItem('amount', prevRaisedMoney+informations.amount);
                 localStorage.setItem('donators', prevDonators+1);
                 localStorage.setItem('eventId', eventId);
+                localStorage.setItem('donatorEmail', informations.email);
 
                 window.location.href=response.url;
             }
