@@ -1,26 +1,42 @@
 import { format } from 'date-fns';
 import { BsFacebook, BsLinkedin } from 'react-icons/bs';
 import { useParams } from 'react-router-dom';
-import { useOrgDetailsQuery } from "../endpoints/apiEndpoints"
+import { useOrgDetailsQuery, useUpdateStatusMutation } from "../endpoints/apiEndpoints"
 import InstagramIcon from '../components/InstagramIcon';
 
 
 import Tabs from '../components/Tab';
 import SmallEventCard from '../components/SmallEventCard';
 import TeamCard from '../components/TeamCard';
+import Actions from '../components/Actions';
 // import { SiGmail } from "react-icons/si";
 
 
 const Organization = () => {
     const { organizationId } = useParams();
-    const { data, isLoading, isSuccess } = useOrgDetailsQuery(organizationId)
+    const { data, isLoading } = useOrgDetailsQuery(organizationId)
+    console.log(data)
+
+    const [updateStatus] = useUpdateStatusMutation()
 
     const tabsTitle = ["Description", "Plan d'action", "Vision"]
     const eventsList = data?.organization.events;
+
+    const updateStatusHandler = (status) => {
+        if (status === "approve") {
+            updateStatus({ _id: organizationId, status: "approved" })
+        }
+        else if (status === "reject") {
+            updateStatus({ _id: organizationId, status: "rejected" })
+        } else {
+            return
+        }
+    }
+
     return (
         <div>
 
-            {isSuccess ? <div className="flex flex-col justify-center gap-10 px-10 md:flex-row">
+            {!isLoading ? <div className="flex flex-col justify-center gap-10 px-10 md:flex-row">
                 <div className='flex flex-col w-full gap-10 mb-3 left-container'>
                     <div className="flex-initial w-full card glass place-content-center max-h-max">
                         <figure>
@@ -113,10 +129,10 @@ const Organization = () => {
                             <h2 className="card-title">Events</h2>
                             {eventsList.length > 3 ?
                                 eventsList.slice(0, 3).map((event, i) =>
-                                    <SmallEventCard event={event} />
+                                    <SmallEventCard key={i} event={event} />
                                 ) :
                                 eventsList.map((event, i) =>
-                                    <SmallEventCard event={event} />
+                                    <SmallEventCard key={i} event={event} />
                                 )
                             }
 
@@ -132,6 +148,7 @@ const Organization = () => {
                         </div>
                     </div>
                 </div>
+                <Actions id={data?.organization.id} updateStatus={updateStatusHandler} />
             </div> : <i>Loading...</i>}
         </div>
 
