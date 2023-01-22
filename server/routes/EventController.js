@@ -163,7 +163,9 @@ router.get("/getAll", async (req, res) => {
 router.post("/events", async (req, res) => {
     try {
       console.log("valhala")
-        const events = await Event.find({ _id: { $in: req.body.events } });
+      console.log(req)
+      const events = await Event.find({ _id: { $in: req.body.events } });
+      console.log(events)
 
 
 

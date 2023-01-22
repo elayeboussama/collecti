@@ -21,6 +21,7 @@
         "@rneui/themed": "^4.0.0-rc.7",
         "@stripe/stripe-react-native": "^0.19.0",
         "ansi-styles": "^4.3.0",
+        "axios": "^1.2.3",
         "base64-js": "^1.5.1",
         "buffer": "^5.7.1",
         "core-js-compat": "^3.27.2",
