@@ -5,7 +5,7 @@ const Organizations = () => {
 
     const { data, isLoading, refetch } = useGetOrgnizationsQuery()
 
-    const filteredData = data?.organization.filter(organization => organization.firstConnection === false)
+    const filteredData = data?.organization.filter(organization => organization.firstConnection === false && organization.status==="approved")
 
     return (
         <div className="flex items-center justify-center py-4 sm:p-4">
