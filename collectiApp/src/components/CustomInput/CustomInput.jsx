@@ -13,9 +13,17 @@ const CustomInput = ({
 }) => {
   const [hidePassword, setHidePassword] = React.useState(password);
   const [isFocused, setIsFocused] = React.useState(false);
+  
   return (
-    <View style={{ marginBottom: 20 }}>
-      <Text style={style.label}>{label}</Text>
+    <View style={{ marginBottom: 20, marginHorizontal:20, 
+    //   shadowColor: '#000',
+    // shadowOffset: { width: 10, height: 20 },
+    // shadowOpacity: 1,
+    // shadowRadius: 2,
+    // elevation: 1, 
+    
+    }}>
+      {/* <Text style={style.label}>{label}</Text> */}
       <View
         style={[
           style.inputContainer,
@@ -69,6 +77,7 @@ const style = StyleSheet.create({
   },
   inputContainer: {
     height: 55,
+
     backgroundColor: COLORS.light,
     flexDirection: "row",
     paddingHorizontal: 15,
