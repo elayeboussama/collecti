@@ -23,10 +23,10 @@ export const orgEndpoints = apiSlice.injectEndpoints({
             //     url: "/api/organization/" + credentials.id,
             //     method: "GET",
             // }),
-            query: (id) => ({
+            query: (credentials) => ({
                 url: `/api/organization/${id}`,
                 method: "GET",
-                params: { id: id },
+                params: { id: credentials.id },
             }),
         }),
         deleteOneOrgs: builder.mutation({

@@ -19,19 +19,29 @@ const HomeScene = () => {
   const [isVisible, setIsVisible] = useState(false);
   const { theme } = useTheme();
   const {
-    data: event_data,
+    data: events,
     error,
     isLoading,
     isSuccess,
   } = useGetAllEventsQuery();
 
   useEffect(() => {
-    console.log("bbbbbbbbbbbbbbb", event_data);
-  }, [event_data]);
+    console.log("bbbbbbbbbbbbbbb", events);
+  }, [events]);
+
+  const ListEvents = () =>{
+    return(
+      <FlatList
+        data={events}
+        renderItem={({ item }) => <EventCard item={item} /> }
+        keyExtractor={item => item._id}
+      />
+    )
+  }
 
   return (
     <>
-      {event_data ? 
+      {events ? 
         <View style={styles.container}>
           <View style={styles.searchCard}>
             <Text>Search</Text>
@@ -39,14 +49,11 @@ const HomeScene = () => {
               <MaterialIcons name="search" size={25} color="#333" />
             </TouchableOpacity>
           </View>
-          <ScrollView>
-            {event_data &&
-              <FlatList
-                data={event_data.event}
-                renderItem={({ item }) => <EventCard item={item} />}
-              />
+          <View>
+            {events &&
+               <ListEvents/>
             }
-          </ScrollView>{/*here errrorr<EventCard item={item} />*/}
+          </View>{/*here errrorr<EventCard item={item} />*/}
     
           <BottomSheet modalProps={{}} isVisible={isVisible}>
             <View style={styles.bottomSheet}>
