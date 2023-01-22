@@ -54,7 +54,7 @@ app.options(process.env.CLIENT, cors())
 app.use("/api/admin", adminRoutes);
 app.use("/api/event", eventRoutes);
 app.use("/api/organization", organizationRoutes);
-app.use("/api/donator", donatorRoutes);
+app.use("/api/donate", donatorRoutes);
 app.use("/api/news", newsRoutes);
 app.use("/api/stripe", stripe);
 
