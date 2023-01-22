@@ -9,12 +9,11 @@ const bcrypt = require("bcrypt");
 const Joi = require("joi");
 const ObjectId = require("mongodb").ObjectID;
 
-const path = require('path')
-var fs = require('fs');
-var multer = require('multer');
+const path = require("path");
+var fs = require("fs");
+var multer = require("multer");
 const { createBrotliCompress } = require("zlib");
 // var upload = multer({ dest: 'uploads/' }); //setting the default folder for multer
-
 
 function authenticateToken(req, res, next) {
   const authHeader = req.headers["authorization"];
@@ -84,9 +83,8 @@ router.post("/login", async (req, res) => {
 
 router.post("/create", async (req, res) => {
   try {
-
-    const org = await Organization.findOne({ email: req.body.email })
-    console.log(org)
+    const org = await Organization.findOne({ email: req.body.email });
+    console.log(org);
     if (org == null) {
       const salt = await bcrypt.genSalt(Number(process.env.SALT));
       console.log(req.body);
@@ -117,14 +115,16 @@ router.post("/update", authenticateToken, async (req, res) => {
     console.log(req.body);
     const organization = await Organization.findOne({ _id: req.body._id });
     console.log("eeeee", organization);
-    await Organization.updateOne(
-      { _id: req.body._id },
-      { $set: req.body }
-    );
+    await Organization.updateOne({ _id: req.body._id }, { $set: req.body });
 
-    const organizationUpdated = await Organization.findOne({ _id: req.body._id });
+    const organizationUpdated = await Organization.findOne({
+      _id: req.body._id,
+    });
     organizationUpdated.password = undefined;
-    res.status(200).send({ organizationUpdated: organizationUpdated, message: "Organization updated" });
+    res.status(200).send({
+      organizationUpdated: organizationUpdated,
+      message: "Organization updated",
+    });
   } catch (error) {
     res.status(500).send({ message: "Internal Server Error", error: error });
     console.log(error);
@@ -133,10 +133,9 @@ router.post("/update", authenticateToken, async (req, res) => {
 
 router.get("/organizations", async (req, res) => {
   try {
-    console.log("zzzzzzz");
-    const organizations = await Organization.find({},{ password:0});
-    
-
+    console.log("get all org api");
+    const organizations = await Organization.find({}, { password: 0 });
+    console.log(organizations);
     if (organizations) {
       console.log("zzzzzzz");
       res
@@ -153,9 +152,12 @@ router.get("/organizations", async (req, res) => {
 
 router.post("/organizations", async (req, res) => {
   try {
-    const organizations = await Organization.find({
-      _id: { $in: req.body.organizations },
-    },{ password:0});
+    const organizations = await Organization.find(
+      {
+        _id: { $in: req.body.organizations },
+      },
+      { password: 0 }
+    );
 
     if (organizations) {
       res
@@ -171,10 +173,13 @@ router.post("/organizations", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
-  console.log("sssasssss")
+  console.log("sssasssss");
 
   try {
-    const organization = await Organization.findOne({ _id: req.params["id"] },{ password:0});
+    const organization = await Organization.findOne(
+      { _id: req.params["id"] },
+      { password: 0 }
+    );
     organization.password = undefined;
     if (organization) {
       console.log("aaaaaaaa", organization);
@@ -186,27 +191,24 @@ router.get("/:id", async (req, res) => {
     }
   } catch (error) {
     res.status(500).send({ message: "Internal Server Error", error: error });
-    console.log(error)
+    console.log(error);
   }
 });
 
-
-
 const fileSizeFormatter = (bytes, decimal) => {
-  if(bytes === 0){
-      return '0 Bytes';
+  if (bytes === 0) {
+    return "0 Bytes";
   }
   const dm = decimal || 2;
-  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'YB', 'ZB'];
+  const sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "YB", "ZB"];
   const index = Math.floor(Math.log(bytes) / Math.log(1000));
-  return parseFloat((bytes / Math.pow(1000, index)).toFixed(dm)) + ' ' + sizes[index];
-
-}
-
-
+  return (
+    parseFloat((bytes / Math.pow(1000, index)).toFixed(dm)) + " " + sizes[index]
+  );
+};
 
 // const storage = multer.diskStorage({
-  
+
 //   destination: (req, file, cb) =>{
 //     createBrotliCompress(null, "../uploads")
 //   },
@@ -217,35 +219,43 @@ const fileSizeFormatter = (bytes, decimal) => {
 // })
 
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads');
-    },
-    filename: (req, file, cb) => {
-        cb(null, new Date().toISOString().replace(/:/g, '-') + '-' + file.originalname);
-    }
+  destination: (req, file, cb) => {
+    cb(null, "uploads");
+  },
+  filename: (req, file, cb) => {
+    cb(
+      null,
+      new Date().toISOString().replace(/:/g, "-") + "-" + file.originalname
+    );
+  },
 });
 const filefilter = (req, file, cb) => {
-    if (file.mimetype === 'image/png' || file.mimetype === 'image/jpg' 
-        || file.mimetype === 'image/jpeg' || file.mimetype.split("/")[1] === "pdf" || file.mimetype.split("/")[0] === "video"){
-            cb(null, true);
-        }else {
-            cb(null, false);
-        }
-}
+  if (
+    file.mimetype === "image/png" ||
+    file.mimetype === "image/jpg" ||
+    file.mimetype === "image/jpeg" ||
+    file.mimetype.split("/")[1] === "pdf" ||
+    file.mimetype.split("/")[0] === "video"
+  ) {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
 
-const upload = multer({storage: storage, fileFilter: filefilter});
+const upload = multer({ storage: storage, fileFilter: filefilter });
 
-
-router.post('/upload', upload.single('image'), async(req, res, next) => {
-  console.log(req.file.path)
-    try{
-        res.status(201).send({path:req.file.path,message:'File Uploaded Successfully'});
-        console.log("done")
-    }catch(error) {
-        console.log(error)
-        res.status(400).send(error.message);
-    }
+router.post("/upload", upload.single("image"), async (req, res, next) => {
+  console.log(req.file.path);
+  try {
+    res
+      .status(201)
+      .send({ path: req.file.path, message: "File Uploaded Successfully" });
+    console.log("done");
+  } catch (error) {
+    console.log(error);
+    res.status(400).send(error.message);
+  }
 });
-
 
 module.exports = router;

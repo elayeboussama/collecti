@@ -2,7 +2,7 @@ import { BottomSheet, Button, Input, ListItem, useTheme } from "@rneui/themed";
 import { StatusBar } from "expo-status-bar";
 import { useState, useEffect } from "react";
 
-import { Text, View, TouchableOpacity } from "react-native";
+import { Text, View, TouchableOpacity, FlatList } from "react-native";
 import { styles } from "./styles";
 import { MaterialIcons } from "@expo/vector-icons";
 import EventCard from "../../components/EventCard/EventCard";
@@ -13,26 +13,28 @@ import { useGetAllOrgsQuery } from "../../../redux/endpoints/OrganizationEndpoin
 // import { setCredentials } from "../../../redux/slicers/AuthSlice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import CustomInput from "../../components/CustomInput/CustomInput";
-import axios from "axios" 
+
 // import { useNavigation } from "@react-navigation/native";
 // import { useSelector } from 'react-redux';
 // import { selectOrganizations, setOrganizations } from '../../../redux/slicers/OrganizationSlice';
 
-const CompanySearchScene =  ({ navigation }) => {
+const CompanySearchScene = ({ navigation }) => {
   const [isVisible, setIsVisible] = useState(false);
   const { theme } = useTheme();
 
-
-
-
-  const { data, error, isLoading, isSuccess, refresh } = useGetAllOrgsQuery();
+  const {
+    data: orgs,
+    error,
+    isLoading,
+    isSuccess,
+    refresh,
+  } = useGetAllOrgsQuery();
   // const filteredData = data?.organization.filter(organization => organization.firstConnection === false && organization.status==="approved")
   useEffect(() => {
-    
     console.log(
       "-------------------------------------------------------------------------------------------------------------------------------------------------"
     );
-    console.log("data: ", data);
+    console.log("daaaaaaaaaaaaaattttttttaaaaaaaaaaaaaa", orgs);
     console.log(
       "-------------------------------------------------------------------------------------------------------------------------------------------------"
     );
@@ -48,9 +50,7 @@ const CompanySearchScene =  ({ navigation }) => {
     console.log(
       "-------------------------------------------------------------------------------------------------------------------------------------------------"
     );
-
-
-  }, []);
+  }, [orgs]);
 
   // const storedOrgs = useSelector(selectOrganizations)
 
@@ -66,13 +66,12 @@ const CompanySearchScene =  ({ navigation }) => {
         </TouchableOpacity>
       </View>
       <ScrollView>
-        {data != undefined ? (
-          filteredData && filteredData.length === 0 ? <i>No organizations found</i> :
-          filteredData?.map(organization => (
-              <Text>hello</Text>
-          ))
-        ) : (
-          <Text>no companies</Text>
+        {orgs && (
+          <FlatList
+            data={orgs.organization}
+            renderItem={({ item }) => <CompanyCard org={item} />}
+            keyExtractor={(item) => item._id}
+          />
         )}
       </ScrollView>
 
