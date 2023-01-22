@@ -13,9 +13,10 @@ import { selectCurrentToken } from "../../../redux/slicers/AuthSlice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useGetAllEventsQuery } from "../../../redux/endpoints/EventEndpoints";
 import CustomInput from "../../components/CustomInput/CustomInput";
+import { useRoute } from "@react-navigation/native";
 // import Loading from "../../components/Loading/Loading";
 
-const HomeScene = () => {
+const HomeScene = ({navigation}) => {
   const [isVisible, setIsVisible] = useState(false);
   const [eventsState, setEventsState] = useState()
   const { theme } = useTheme();
@@ -25,7 +26,7 @@ const HomeScene = () => {
     isLoading,
     isSuccess,
   } = useGetAllEventsQuery();
-
+  const route = useRoute();
   useEffect(() => {
     console.log("bbbbbbbbbbbbbbb", events);
     setEventsState(events)
@@ -35,7 +36,7 @@ const HomeScene = () => {
     return(
       <FlatList
         data={eventsState}
-        renderItem={({ item }) => <EventCard item={item} /> }
+        renderItem={({ item }) => <EventCard  stack={route.name} navigation={navigation} item={item}  /> }
         keyExtractor={item => item._id}
       />
     )

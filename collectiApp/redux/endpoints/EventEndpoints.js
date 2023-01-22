@@ -18,6 +18,14 @@ export const eventEndpoints = apiSliceWithToken.injectEndpoints({
                 body: {...credentials },
             }),
         }),
+
+        donate: builder.mutation({
+            query: (credentials) => ({
+                url: "/api/donate/",
+                method: "POST",
+                body: {...credentials },
+            }),
+        }),
     }),
 });
 
@@ -34,5 +42,5 @@ export const eventEndpointsWithNoToken = apiSlice.injectEndpoints({
     }),
 });
 
-export const { useAddEventMutation, useGetAllEventsQuery } = eventEndpoints;
+export const { useAddEventMutation, useGetAllEventsQuery, useDonateMutation } = eventEndpoints;
 export const { useGetAllEventsByOrgMutation } = eventEndpointsWithNoToken;

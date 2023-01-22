@@ -4,6 +4,7 @@ import {
   RootDrawerNavigator,
   RootDrawerNavigatorUser,
 } from "./src/routers/Drawer";
+import {NavigationContainer} from '@react-navigation/native';
 
 import { store } from "./redux/store";
 import { Provider } from "react-redux";
@@ -25,7 +26,9 @@ const App = () => {
   console.log(storedToken);
   return (
     <ThemeProvider theme={theme}>
-      <RootDrawerNavigator />
+    
+        <RootDrawerNavigator />
+      
     </ThemeProvider>
   );
 };

@@ -1,15 +1,16 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 import { Header } from "../components";
-import * as views from "./../views";
+import * as views from "../views";
 import { MaterialIcons } from "@expo/vector-icons";
-
+import { useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const screens = {
   Home: {
-    screen: views.HomeScene,
+    screen: views.CompanyProfileScene,
     navigationOptions: ({ navigation }) => {
       return {
-        headerTitle: () => <Header title="Collecti" navigation={navigation} />,
+        headerTitle: () => <Header title="Profile" navigation={navigation} />,
       };
     },
   },
@@ -19,7 +20,21 @@ const screens = {
 
 const Stack = createStackNavigator();
 
-const HomeStack = () => {
+const EventStack = () => {
+  
+   const [org, setOrg] = useState()
+   const handleChangeOrg = async () => {
+     const orgVar = await AsyncStorage.getItem("user")
+     setOrg(JSON.parse(orgVar));
+   };
+   useEffect(() => {
+     handleChangeOrg();
+   }, []);
+
+   useEffect(() => {
+     console.log("org Data Stack: ",org);
+   }, [org]);
+
   return (
     <Stack.Navigator
       screenOptions={({ navigation, route }) => ({
@@ -31,7 +46,7 @@ const HomeStack = () => {
             style={{ position: "absolute", left: 16, color: "white" }}
           />
         ),
-        title: "Collecti",
+        title: "Event",
         headerStyle: {
           backgroundColor: "#432C7A",
         },
@@ -43,13 +58,15 @@ const HomeStack = () => {
         // Add a placeholder button without the `onPress` to avoid flicker
       })}
     >
-      {/* <Stack.Screen name="AddEvent" component={views.EventProfileScene} /> */}
-      <Stack.Screen name="Home" component={views.HomeScene} />
-      <Stack.Screen name="EventEdit" component={views.EditEventScene} />
-      <Stack.Screen name="EventProfile" component={views.EventProfileScene} />
-      <Stack.Screen name="Donate" component={views.DonateScene} />
+      {/* <Stack.Screen name="AddEvent" component={views.DonateScene} /> */}
+      
+        <Stack.Screen name="EventEdit" component={views.EditEventScene} />
+         
+        <Stack.Screen name="EventProfile" component={views.EventProfileScene} />
+      
+            
     </Stack.Navigator>
   );
 };
 
-export default HomeStack;
+export default EventStack;
