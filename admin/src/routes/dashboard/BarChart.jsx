@@ -226,7 +226,7 @@ import { useGetOrgnizationsQuery } from '../../endpoints/apiEndpoints';
     },[pendingorgs])
   
  
-  console.log("eeeeee",positionn)
+  // console.log("eeeeee",positionn)
   
       const options = {
           responsive: true,
