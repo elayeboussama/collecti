@@ -31,12 +31,16 @@ const EventCard = ({item }) => {
   
   useEffect(() => {
     
-    console.log("you are here :",organization)
-    // if(organizations_data){
-    //   setUser(organizations_data.organization.map((e)=>{console.log("zzzzzzzzzzzssssssssssssssssssssssss: ",e._id==item.organization_id)}))
-    // }
+    console.log("you are here :",organization.organization)
+     if(organization.organization){
+       setUser(organization.organization.filter((e)=>{return e._id==item.organization_id})[0])
+     }
   
   }, [organization])
+
+  useEffect(()=>{
+    console.log("userrrrrrrrrrrrrrrrrr",user)
+  },[user])
   
 console.log("de74: ",item)
 
@@ -46,14 +50,14 @@ const requirementFunds = item.requirementFunds
 
   return (
     <View>
-      {category!=undefined && requirementFunds!=undefined && date!=undefined ? 
+      {category!=undefined && requirementFunds!=undefined && date!=undefined && user? 
         
       <View style={styles.cardContainer}>
       <View style={styles.headerSection}>
         <Avatar
           size={32}
           rounded
-          source={user? {  uri: `http://192.168.56.1:8080/${user.logo}`}:{ uri: "https://i.ibb.co/wg9Qvtp/logo2.png" }}
+          source={user.logo? {  uri: `http://192.168.56.1:8080/${user.logo}`}: require("../../../assets/logo2.png")}
         />
         
         {/* <Text>

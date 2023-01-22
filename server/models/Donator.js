@@ -6,8 +6,9 @@ const passwordComplexity = require("joi-password-complexity");
 
 const donatorSchema = new mongoose.Schema({
     email: { type: String, required: true },
-    password: { type: String, required: true },
-    events : {type: Array, required:true}
+    amount: { type: Number, required: true },
+    date: {type: Date, required: true, default: Date.now},
+    event : {type: String, required:true}
 });
 
 donatorSchema.methods.generateAuthToken = function() {
@@ -24,8 +25,7 @@ const validateDonator = (data) => {
     const schema = Joi.object({
         
         email: Joi.string().email().required().label("Email"),
-        password: passwordComplexity().required().label("Password"),
-        events: Joi.array().required().label("Events"),
+        events: Joi.string().required().label("Event"),
 
     });
     return schema.validate(data);
