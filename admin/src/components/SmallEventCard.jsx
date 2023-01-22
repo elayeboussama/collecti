@@ -12,7 +12,7 @@ const SmallEventCard = (event) => {
         <h2 className="card-title ">{data?.event.name}</h2>
         <p>{data?.event.catchPhrase}</p>
         <div className="justify-end card-actions">
-          <Link end to={`/events/${data?.event._id}`}>
+          <Link to={`/events/${data?.event._id}`}>
             <button className="link btn-sm hover:text-primary">details</button>
           </Link>
         </div>
@@ -23,4 +23,4 @@ const SmallEventCard = (event) => {
   )
 }
 
-export default SmallEventCard;
+export default SmallEventCard
