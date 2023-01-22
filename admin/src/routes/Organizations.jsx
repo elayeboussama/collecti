@@ -7,7 +7,6 @@ import Badge from "../components/Badge"
 const Organizations = () => {
 
     const { data: receivedData } = useGetOrgnizationsQuery()
-    console.log(receivedData)
 
     const columns = useMemo(
         () => [
