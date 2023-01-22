@@ -18,7 +18,7 @@ const CompanyStack = () => {
             style={{ position: "absolute", left: 16, color: "white" }}
           />
         ),
-        title: "Collecti",
+        title: "Organization",
         headerStyle: {
           backgroundColor: "#432C7A",
         },

@@ -11,27 +11,49 @@ import {
 import { StatusBar } from "expo-status-bar";
 import { useState, useEffect } from "react";
 
-import { Text, View, TouchableOpacity, Image } from "react-native";
+import { Text, View, TouchableOpacity, Image, ActivityIndicator } from "react-native";
 import { styles } from "./styles";
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import EventCard from "../../components/EventCard/EventCard";
 import { ScrollView } from "react-native";
 import CompanyCard from "../../components/CompanyCard/CompanyCard";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {  useGetAllEventsByOrgMutation, useGetAllEventsQuery } from "../../../redux/endpoints/EventEndpoints";
 import { FlatList } from "react-native-gesture-handler";
-const CompanyProfileScene = () => {
+import { useRoute } from '@react-navigation/native';
+const CompanyProfileScene = ({navigation, route}) => {
   const [token, setToken] = useState();
   const [user, setUser] = useState();
   const [events, setEvents] = useState();
-
+  var stack="Home"
+  if(route){
+    if(route.params){
+      if(route.params.stack){
+        stack = route.params.stack
+      }
+    }
+    
+  }
+ 
   const 
   [ getAllEventsByOrg, { isLoading }] = useGetAllEventsByOrgMutation();
 
   const handleChange = async () => {
     setToken(await AsyncStorage.getItem("token"));
-    const userVar = await AsyncStorage.getItem("user")
-    setUser(JSON.parse(userVar));
+
+    var userVar = await AsyncStorage.getItem("user")
+    if(route){
+      if(route.params){
+        if(route.params.item){
+          userVar = route.params.item
+          setUser(route.params.item);
+        }
+      }
+      
+    }else{
+      setUser(JSON.parse(userVar));
+    }
+    
   };
   useEffect(() => {
     handleChange();
@@ -81,7 +103,7 @@ const ListEvents = () =>{
   return(
     <FlatList
       data={events}
-      renderItem={({ item }) => <EventCard item={item} user={user} /> }
+      renderItem={({ item }) => <EventCard stack={route.name} navigation={navigation} item={item} user={user} /> }
       keyExtractor={item => item._id}
     />
   )
@@ -91,6 +113,9 @@ const ListEvents = () =>{
       <View style={styles.container}>
          { user ?
          <ScrollView>
+          <TouchableOpacity onPress={()=>{navigation.navigate(stack)}} style={{width:"20%", marginTop:10, marginLeft:10}}>
+            <MaterialCommunityIcons name="arrow-left-circle-outline" size={25} color="#3B0081"/>
+          </TouchableOpacity>
           <View style={styles.headerSection}>
             <View
               style={{
@@ -135,21 +160,10 @@ const ListEvents = () =>{
                   name: 'domain',
                   type: 'MaterialIcons',
                   size: 20,
-                  color: user.status=="approved"?"#008A1F":"#D2630B",
+                  color: "#fff",
                 }}
-                type="outline"
-                containerStyle={{ marginVertical: 15 }}
-              />
-              <Chip
-                title={user.location}
-                icon={{
-                  name: 'location-pin',
-                  type: 'MaterialIcons',
-                  size: 20,
-                  color: user.status=="approved"?"#008A1F":"#D2630B",
-                }}
-                type="outline"
-                containerStyle={{ marginVertical: 15 }}
+                type="solid"
+                containerStyle={{ marginVertical: 15, marginHorizontal: 5 }}
               />
               <Chip
                 title={user.status}
@@ -160,8 +174,20 @@ const ListEvents = () =>{
                   color: user.status=="approved"?"#008A1F":"#D2630B",
                 }}
                 type="outline"
-                containerStyle={{ marginVertical: 15 }}
+                containerStyle={{ marginVertical: 15, marginHorizontal: 5 }}
               />
+              <Chip
+                title={user.location}
+                icon={{
+                  name: 'location-pin',
+                  type: 'MaterialIcons',
+                  size: 20,
+                  color: "#fff",
+                }}
+                type="solid"
+                containerStyle={{ marginVertical: 15, marginHorizontal: 5 }}
+              />
+              
               
             </View>
             <Divider style={{ width: "90%", alignSelf: "center" }} />
@@ -173,16 +199,16 @@ const ListEvents = () =>{
               }}
             >
               <View style={{ flexDirection: "row" }}>
-                <MaterialIcons
-                  name="supervised-user-circle"
+                <MaterialCommunityIcons
+                  name="chef-hat"
                   size={18}
                   color="#333"
                 />
-                <Text style={{ fontSize: 14 }}>200 member</Text>
+                <Text style={{ fontSize: 14 }}>{user.directorName}</Text>
               </View>
               <View style={{ flexDirection: "row" }}>
-                <MaterialIcons name="verified-user" size={18} color="#333" />
-                <Text style={{ fontSize: 14 }}>8 Office members</Text>
+                <MaterialIcons name="event" size={18} color="#333" />
+                <Text style={{ fontSize: 14 }}>events: {user.events.length}</Text>
               </View>
               <View style={{ flexDirection: "row" }}>
                 <MaterialIcons name="more-time" size={18} color="#333" />
@@ -202,7 +228,7 @@ const ListEvents = () =>{
           <View style={styles.descSection}>
             <Text style={styles.desc}> Organisation Actions Plan </Text>
             
-            {user ?
+            {/* {user ?
                   <FlatList
                   data={user.planActions.split(",")}
                   renderItem={({ item }) => <Text> * {item}</Text> }
@@ -210,7 +236,7 @@ const ListEvents = () =>{
                 />
                   
               :""
-            }
+            } */}
           </View>
 
           <View style={styles.descSection}>
@@ -229,7 +255,7 @@ const ListEvents = () =>{
             }
           </View>
         </ScrollView>
-        :""
+        :<ActivityIndicator/>
       }
       </View>
     

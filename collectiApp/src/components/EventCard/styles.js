@@ -33,6 +33,21 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         flexWrap: "wrap",
     },
+
+    chip: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center",
+        backgroundColor: "#432c7a",
+        marginHorizontal: 5,
+        marginVertical: 5,
+        paddingVertical: 5,
+        paddingHorizontal: 12,
+        borderRadius: 50,
+
+
+
+    },
     eventName: {
         fontSize: 20,
         fontWeight: "bold",
