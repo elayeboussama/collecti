@@ -3,7 +3,9 @@ import { useState } from "react"
 import DonationPopup from "../components/event/DonationPopup"
 import EventCard from "../components/event/EventCard"
 import Tabs from "../components/shared/Tab/Tab"
-import { useGetAllEventsQuery, useOrgDetailsQuery } from "../endpoints/AuthEndpoints"
+import { useGetAllEventsQuery} from "../endpoints/AuthEndpoints"
+import noResult from "./noresult.gif"
+
 
 
 const Events = () => {
@@ -11,6 +13,8 @@ const Events = () => {
     const[raisedMoney, setRaisedMoney]=useState(0)
     const[donators, setDonators]=useState(0)
     const [showModal, setShowModal] = useState(false)
+
+   
 
     
 
@@ -21,6 +25,11 @@ const Events = () => {
         isError,
         error
     } = useGetAllEventsQuery()
+    const csEvents = events?.event.filter(event => event.category==="Computer science" && event.status==="approved")
+
+    const roboticsEvents = events?.event.filter(event => event.category==="Robotics" && event.status==="approved")
+
+    const culturalEvents = events?.event.filter(event => event.category==="Cultural" && event.status==="approved")
 
 
     const handleVisible = num => {
@@ -53,8 +62,9 @@ const [orgInfo, setOrgInfo]=useState()
                 content1={<div className="flex items-center justify-center h-full py-4 sm:p-4">
 
                     {isSuccess ? <div className="grid h-full grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-7">
-                        {events.event.map((allevent, i) =>
-                            allevent.category === "Computer science" ?
+                        {csEvents.length!=0?
+                        csEvents.map((allevent, i) =>
+                           
                                 <EventCard 
                                 eventTitle={allevent.name}
                                 orgId={allevent.organization_id}
@@ -63,9 +73,13 @@ const [orgInfo, setOrgInfo]=useState()
                                  location={allevent.location ?? allevent.location}
                                  donators={allevent.donators}
                                   id={allevent._id}
-                                /> : ""
+                                /> 
 
-                        )}
+                        ):
+                        <div className="ml-66">
+                            <img className="mt-20 ml-96" src={noResult}/>
+                            </div>
+                        }
 
                     </div> : <p>error</p>}
                 </div>
@@ -77,20 +91,20 @@ const [orgInfo, setOrgInfo]=useState()
                     <div className="flex items-center justify-center h-full py-4 sm:p-4">
 
                         {isSuccess ? <div className="grid h-full grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-7">
-                            {events.event.map((allevent, i) =>
-                                allevent.category === "Robotics" ?
-                            
-                                    <EventCard 
-                                    eventTitle={allevent.name} 
-                                    id={allevent._id}
-                                    orgId={allevent.organization_id}
-                                    date={allevent.date}
-                                    location={allevent.location ?? allevent.location}
-                                    donators={allevent.donators}
-                                    handleClick={()=>handleClick(allevent._id,allevent.raisedMoney, allevent.donators)} 
-                                    /> : ""
+                        {roboticsEvents.length!=0?
+                        roboticsEvents.map((allevent, i) =>
+                           
+                                <EventCard 
+                                eventTitle={allevent.name}
+                                orgId={allevent.organization_id}
+                                date={allevent.date}
+                                 handleClick={()=>handleClick(allevent._id, allevent.raisedMoney, allevent.donators)}
+                                 location={allevent.location ?? allevent.location}
+                                 donators={allevent.donators}
+                                  id={allevent._id}
+                                /> 
 
-                            )}
+                        ): <img  className="mt-20 ml-96" src={noResult}/>}
 
                         </div> : <p>error</p>}
 
@@ -100,19 +114,20 @@ const [orgInfo, setOrgInfo]=useState()
                     <div className="flex items-center justify-center h-full py-4 sm:p-4">
 
                         {isSuccess ? <div className="grid h-full grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-7">
-                            {events.event.map((allevent, i) =>
-                                allevent.category === "Cultural" ?
-                                    <EventCard 
-                                    eventTitle={allevent.name} 
-                                    orgId={allevent.organization_id}
-                                    location={allevent.location ?? allevent.location}
-                                    date={allevent.date}
-                                    donators={allevent.donators}
-                                    handleClick={()=>handleClick(allevent._id, allevent.raisedMoney, allevent.donators)} 
-                                    id={allevent._id}
-                                    /> : ""
+                        {culturalEvents.length!=0?
+                        culturalEvents.map((allevent, i) =>
+                           
+                                <EventCard 
+                                eventTitle={allevent.name}
+                                orgId={allevent.organization_id}
+                                date={allevent.date}
+                                 handleClick={()=>handleClick(allevent._id, allevent.raisedMoney, allevent.donators)}
+                                 location={allevent.location ?? allevent.location}
+                                 donators={allevent.donators}
+                                  id={allevent._id}
+                                /> 
 
-                            )}
+                        ): <img className="mt-20 ml-96" src={noResult}/>}
 
                         </div> : <p>error</p>}
 
