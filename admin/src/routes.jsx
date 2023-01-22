@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import App from './App';
 import ErrorPage from './routes/ErrorPage';
+import Event from './routes/Event';
 import Events from './routes/Events';
 import Index from './routes/Index';
 import Organization from './routes/Organization';
@@ -31,10 +32,10 @@ const router = createBrowserRouter([
                         path: 'organization/:organizationId',
                         element: <Organization />,
                     },
-                    // {
-                    //     path: 'events/:eventId',
-                    //     element: <Event />,
-                    // },
+                    {
+                        path: 'events/:eventId',
+                        element: <Event />,
+                    },
                     // {
                     //     path: 'events/add',
                     //     element: <CreateEvent />,

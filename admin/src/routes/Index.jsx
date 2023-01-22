@@ -1,6 +1,8 @@
+import Dashboard from "./dashboard/Dashboard"
+
 const Index = () => {
     return (
-        <div>Index</div>
+        <Dashboard/>
     )
 }
 
