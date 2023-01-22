@@ -10,93 +10,106 @@ import { TouchableOpacity } from "react-native";
 import { useState } from "react";
 import { useGetOneOrgsQuery } from "../../../redux/endpoints/OrganizationEndpoints";
 
-const EventCard = async({  item }) => {
+const EventCard = ({item }) => {
   
-  // const {
-  //   getOneOrgs,
-  //   error,
-  //   isLoading,
-  //   isSuccess,
-  // } = useGetOneOrgsQuery();
-console.log("de74: ",item.organization_id)
-  const organization_data = "dd"
+
+  function formatDate(date) {
+    const newDate = new Date(date)
+    const currentMonth = newDate.getMonth();
+    const monthString = currentMonth >= 10 ? currentMonth : `0${currentMonth}`;
+    const currentDate = newDate.getDate();
+    const dateString = currentDate >= 10 ? currentDate : `0${currentDate}`;
+    return `${newDate.getFullYear()}-${Number(monthString)+1}-${currentDate}`;
+}
+  //  const {
+  //    data: organization_data,
+  //    error,
+  //    isLoading,
+  //    isSuccess,
+  //  } = useGetOneOrgsQuery({id:item.organization_id});
+console.log("de74: ",item)
+
+const category = item.category
+const date = item.date
+const requirementFunds = item.requirementFunds
 
   return (
     <View>
-      {organization_data ?
+      {category!=undefined && requirementFunds!=undefined && date!=undefined ? 
+        
       <View style={styles.cardContainer}>
-        <View style={styles.headerSection}>
-          <Avatar
-            size={32}
-            rounded
-            source={{ uri: "https://i.ibb.co/wg9Qvtp/logo2.png" }}
-          />
-          <Text>
-            {/* {organization_data.name
-              ? organization_data.name
-              : "Organization name"} */}
-          </Text>
-        </View>
-        <View style={styles.leftSection}>
-          <View
+      <View style={styles.headerSection}>
+        <Avatar
+          size={32}
+          rounded
+          source={{ uri: "https://i.ibb.co/wg9Qvtp/logo2.png" }}
+        />
+        {/* <Text>
+          {organization_data.name
+            ? organization_data.name
+            : "Organization name"} 
+        </Text>*/}
+      </View>
+      <View style={styles.leftSection}>
+        <View
+          style={{
+            height: 250,
+            width: "100%",
+          }}
+        >
+          <Image
+            source={require("../../../assets/event.png")}
             style={{
-              height: 250,
+              padding: 20,
+              borderRadius: 12,
               width: "100%",
+              height: "100%",
             }}
-          >
-            <Image
-              source={require("../../../assets/event.png")}
-              style={{
-                padding: 20,
-                borderRadius: 12,
-                width: "100%",
-                height: "100%",
-              }}
-            ></Image>
-          </View>
-        </View>
-        <View style={styles.rightSection}>
-          <Text style={styles.eventName}>{item.name}</Text>
-          <Text> {item.description}</Text>
-
-          <View style={styles.chips}>
-            <Chip
-              title={item.category}
-              containerStyle={{ width: 80, marginLeft: 8 }}
-              titleStyle={{ fontSize: 8 }}
-            />
-            <Chip
-              title={item.requirementFunds}
-              containerStyle={{ width: 80, marginLeft: 8 }}
-              titleStyle={{ fontSize: 8 }}
-            />
-            <Chip
-              title={item.date}
-              containerStyle={{ width: 80, marginLeft: 8 }}
-              titleStyle={{ fontSize: 8 }}
-            />
-          </View>
-          <Divider />
-          <View style={styles.actions}>
-            <TouchableOpacity style={styles.actionLeft}>
-              <View style={styles.actionLeft}>
-                <Text style={{ fontSize: 14 }}>Donate</Text>
-                <MaterialIcons name="attach-money" size={18} color="#333" />
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.actionLeft}>
-              <View style={styles.actionLeft}>
-                <Text style={{ fontSize: 14 }}>Details</Text>
-                <MaterialIcons name="arrow-forward" size={18} color="#333" />
-              </View>
-            </TouchableOpacity>
-          </View>
+          ></Image>
         </View>
       </View>
-      :
-      <ActivityIndicator/>
- 
+      <View style={styles.rightSection}>
+        <Text style={styles.eventName}>{item.name}</Text>
+        <Text> {item.description}</Text>
+
+        <View style={styles.chips}>
+          <Chip
+            title={"category"}
+            containerStyle={{ width: 80, marginLeft: 8 }}
+            titleStyle={{ fontSize: 8 }}
+          />
+          <Chip
+            title={"requirementFunds"}
+            containerStyle={{ width: 80, marginLeft: 8 }}
+            titleStyle={{ fontSize: 8 }}
+          />
+          <Chip
+            title={"date"}
+            containerStyle={{ width: 80, marginLeft: 8 }}
+            titleStyle={{ fontSize: 8 }}
+          />
+        </View>
+        <Divider />
+        <View style={styles.actions}>
+          <TouchableOpacity style={styles.actionLeft}>
+            <View style={styles.actionLeft}>
+              <Text style={{ fontSize: 14 }}>Donate</Text>
+              <MaterialIcons name="attach-money" size={18} color="#333" />
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.actionLeft}>
+            <View style={styles.actionLeft}>
+              <Text style={{ fontSize: 14 }}>Details</Text>
+              <MaterialIcons name="arrow-forward" size={18} color="#333" />
+            </View>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </View>  
+
+    : <ActivityIndicator/>
     }
+
   </View>
   );
 };
