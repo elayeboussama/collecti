@@ -13,17 +13,22 @@ import { useGetAllOrgsQuery } from "../../../redux/endpoints/OrganizationEndpoin
 // import { setCredentials } from "../../../redux/slicers/AuthSlice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import CustomInput from "../../components/CustomInput/CustomInput";
+import axios from "axios" 
 // import { useNavigation } from "@react-navigation/native";
 // import { useSelector } from 'react-redux';
 // import { selectOrganizations, setOrganizations } from '../../../redux/slicers/OrganizationSlice';
 
-const CompanySearchScene = ({ navigation }) => {
+const CompanySearchScene =  ({ navigation }) => {
   const [isVisible, setIsVisible] = useState(false);
   const { theme } = useTheme();
 
-  const { data, error, isLoading, isSuccess } = useGetAllOrgsQuery();
 
-  useEffect(() => {
+
+
+  const { data, error, isLoading, isSuccess, refresh } = useGetAllOrgsQuery();
+  const filteredData = data?.organization.filter(organization => organization.firstConnection === false && organization.status==="approved")
+  useEffect(async() => {
+    
     console.log(
       "-------------------------------------------------------------------------------------------------------------------------------------------------"
     );
@@ -43,6 +48,8 @@ const CompanySearchScene = ({ navigation }) => {
     console.log(
       "-------------------------------------------------------------------------------------------------------------------------------------------------"
     );
+
+
   }, []);
 
   // const storedOrgs = useSelector(selectOrganizations)
@@ -60,9 +67,10 @@ const CompanySearchScene = ({ navigation }) => {
       </View>
       <ScrollView>
         {data != undefined ? (
-          data.organization.map((org) => {
-            return <CompanyCard org={org} navigation={navigation} />;
-          })
+          filteredData && filteredData.length === 0 ? <i>No organizations found</i> :
+          filteredData?.map(organization => (
+              <Text>hello</Text>
+          ))
         ) : (
           <Text>no companies</Text>
         )}
