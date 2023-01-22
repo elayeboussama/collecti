@@ -28,6 +28,7 @@ const CustomDrawer = (props) => {
     setToken(await AsyncStorage.getItem("token"));
     const userVar = await AsyncStorage.getItem("user")
     setUser(JSON.parse(userVar));
+    setUserId(JSON.parse(userVar._id));
   };
   useEffect(() => {
     handleChange();
@@ -39,19 +40,7 @@ const CustomDrawer = (props) => {
   }, [user]);
 
 
-  useEffect(() => {
-    console.log(user_id);
-  }, [user_id]);
-  const {
-    data: organization_data,
-    error,
-    isLoading,
-    isSuccess,
-  } = useOrgDetailsQuery(user_id);
-
-  useEffect(() => {
-    console.log(organization_data);
-  }, [organization_data]);
+ 
   return (
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView
@@ -63,7 +52,7 @@ const CustomDrawer = (props) => {
           style={{ padding: 20 }}
         >
           <Image
-            source={user ? {  uri: `http://192.168.56.1:8080/${user.logo}`}: {  uri: "file:///C:/Users/ELAYEB/Downloads/collecti%20(1).svg"}}
+            source={user ? {  uri: `http://192.168.56.1:8080/${user.logo}`}: require("../../../assets/collecti (1).svg")}
             style={{
               height: 80,
               width: 80,
@@ -82,7 +71,7 @@ const CustomDrawer = (props) => {
           >
             {user ? user.name :""}
           </Text>
-          <View style={{ flexDirection: "row" }}>
+          {/* <View style={{ flexDirection: "row" }}>
             <Text
               style={{
                 color: "#fff",
@@ -93,7 +82,7 @@ const CustomDrawer = (props) => {
               280 Coins
             </Text>
             <FontAwesome5 name="coins" size={14} color="#fff" />
-          </View>
+          </View> */}
         </ImageBackground>
         <View style={{ flex: 1, backgroundColor: "#fff", paddingTop: 10 }}>
           <DrawerItemList {...props} />
