@@ -26,8 +26,8 @@ const CompanySearchScene =  ({ navigation }) => {
 
 
   const { data, error, isLoading, isSuccess, refresh } = useGetAllOrgsQuery();
-  const filteredData = data?.organization.filter(organization => organization.firstConnection === false && organization.status==="approved")
-  useEffect(async() => {
+  // const filteredData = data?.organization.filter(organization => organization.firstConnection === false && organization.status==="approved")
+  useEffect(() => {
     
     console.log(
       "-------------------------------------------------------------------------------------------------------------------------------------------------"
