@@ -41,7 +41,7 @@ const RootDrawerNavigator = () => {
   useEffect(() => {
     console.log("drawer token =>", token);
     console.log("drawer user =>", user);
-  }, [user]);
+  }, [user,token]);
 
   return (
     <NavigationContainer>

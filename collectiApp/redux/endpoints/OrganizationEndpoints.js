@@ -19,9 +19,14 @@ export const orgEndpoints = apiSlice.injectEndpoints({
 
 
         getOneOrgs: builder.query({
+            // query: (credentials) => ({
+            //     url: "/api/organization/" + credentials.id,
+            //     method: "GET",
+            // }),
             query: (credentials) => ({
-                url: "/api/organization/organization/" + credentials.id,
+                url: `/api/organization/${id}`,
                 method: "GET",
+                params: { id: credentials.id },
             }),
         }),
         deleteOneOrgs: builder.mutation({

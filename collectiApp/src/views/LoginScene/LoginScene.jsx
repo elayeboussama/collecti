@@ -24,7 +24,7 @@ const LoginScene = () => {
 
   const loginOrganization = async (values) => {
     try {
-      console.log(values);
+      console.log("values: ",values);
       const organization_data = await login({
         ...values,
       }).unwrap();
@@ -62,6 +62,7 @@ const LoginScene = () => {
           style={styles.backButton}
           icon={<Icon name="arrow-left" size={15} color="blue" />}
           buttonStyle={styles.backButton}
+          
           type="outline"
         />
       </ImageBackground>
@@ -72,9 +73,9 @@ const LoginScene = () => {
         initialValues={{ email: "", password: "" }}
         onSubmit={(values) => {
           loginOrganization(values);
-          setTimeout(() => {
-            NativeModules.DevSettings.reload();
-          }, 1000);
+           setTimeout(() => {
+             NativeModules.DevSettings.reload();
+           }, 1000);
         }}
       >
         {({
