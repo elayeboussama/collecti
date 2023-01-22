@@ -17,6 +17,7 @@ import CustomInput from "../../components/CustomInput/CustomInput";
 
 const HomeScene = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [eventsState, setEventsState] = useState()
   const { theme } = useTheme();
   const {
     data: events,
@@ -27,12 +28,13 @@ const HomeScene = () => {
 
   useEffect(() => {
     console.log("bbbbbbbbbbbbbbb", events);
+    setEventsState(events)
   }, [events]);
 
   const ListEvents = () =>{
     return(
       <FlatList
-        data={events}
+        data={eventsState}
         renderItem={({ item }) => <EventCard item={item} /> }
         keyExtractor={item => item._id}
       />
@@ -41,7 +43,7 @@ const HomeScene = () => {
 
   return (
     <>
-      {events ? 
+      {eventsState ? 
         <View style={styles.container}>
           <View style={styles.searchCard}>
             <Text>Search</Text>
@@ -50,7 +52,7 @@ const HomeScene = () => {
             </TouchableOpacity>
           </View>
           <View>
-            {events &&
+            {eventsState &&
                <ListEvents/>
             }
           </View>{/*here errrorr<EventCard item={item} />*/}
