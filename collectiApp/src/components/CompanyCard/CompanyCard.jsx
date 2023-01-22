@@ -10,6 +10,15 @@ import { TouchableOpacity } from "react-native";
 
 
 const CompanyCard = ({ navigation, org }) => {
+
+  function formatDate(date) {
+    const newDate = new Date(date)
+    const currentMonth = newDate.getMonth();
+    const monthString = currentMonth >= 10 ? currentMonth : `0${currentMonth}`;
+    const currentDate = newDate.getDate();
+    const dateString = currentDate >= 10 ? currentDate : `0${currentDate}`;
+    return `${newDate.getFullYear()}-${Number(monthString)+1}-${currentDate}`;
+  }
   return (
     <View style={styles.cardContainer}>
       <View style={styles.leftSection}>
@@ -22,7 +31,7 @@ const CompanyCard = ({ navigation, org }) => {
           }}
         >
           <Image
-            source={require("../../../assets/event.png")}
+            source={org.cover ? {  uri: `http://192.168.56.1:8080/${org.cover}`} : require("../../../assets/goose-funky.png")}
             style={{
               padding: 20,
               borderRadius: 12,
@@ -33,19 +42,17 @@ const CompanyCard = ({ navigation, org }) => {
         </View>
         <View
           style={{
-            height: 80,
-            width: "40%",
+            height: 100,
+            width:  100,
             marginTop: -50,
             marginLeft: 12,
-            borderBottomLeftRadius: 12,
-            borderBottomRightRadius: 12,
           }}
         >
           <Image
-            source={require("../../../assets/menu-bg.jpeg")}
+            source={org.logo ? {  uri: `http://192.168.56.1:8080/${org.logo}`} :require("../../../assets/menu-bg.jpeg")}
             style={{
               padding: 20,
-              borderRadius: 12,
+              borderRadius: 100,
               width: "100%",
               height: "100%",
             }}
@@ -63,11 +70,11 @@ const CompanyCard = ({ navigation, org }) => {
         >
           <View style={{ flexDirection: "row" }}>
             <MaterialIcons
-              name="supervised-user-circle"
+              name="event"
               size={18}
               color="#333"
             />
-            <Text style={{ fontSize: 14 }}>200 member</Text>
+            <Text style={{ fontSize: 14 }}>{org.events.length}</Text>
           </View>
           <View style={{ flexDirection: "row" }}>
             <MaterialIcons name="verified-user" size={18} color="#333" />
@@ -75,7 +82,7 @@ const CompanyCard = ({ navigation, org }) => {
           </View>
           <View style={{ flexDirection: "row" }}>
             <MaterialIcons name="more-time" size={18} color="#333" />
-            <Text style={{ fontSize: 14 }}>2 Years</Text>
+            <Text style={{ fontSize: 14 }}>{org ? formatDate(org.creationDate) :"" }</Text>
           </View>
         </View>
         <View style={styles.chips}>
@@ -100,7 +107,7 @@ const CompanyCard = ({ navigation, org }) => {
           <TouchableOpacity
             style={styles.actionLeft}
             onPress={() => {
-              navigation.push("CompanyProfile",{"org":org,callback: callbackFunction })
+              navigation.push("CompanyProfile")
             }}
           >
             <View style={styles.actionLeft}>

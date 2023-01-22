@@ -128,21 +128,41 @@ const ListEvents = () =>{
               {/* Organisation Name */}
             </Text>
             <View style={styles.chips}>
+              
               <Chip
-                title="Sector"
-                containerStyle={{ width: 80, marginLeft: 8 }}
-                titleStyle={{ fontSize: 8 }}
+                title={user.sector}
+                icon={{
+                  name: 'domain',
+                  type: 'MaterialIcons',
+                  size: 20,
+                  color: user.status=="approved"?"#008A1F":"#D2630B",
+                }}
+                type="outline"
+                containerStyle={{ marginVertical: 15 }}
               />
               <Chip
-                title="Location"
-                containerStyle={{ width: 80, marginLeft: 8 }}
-                titleStyle={{ fontSize: 8 }}
+                title={user.location}
+                icon={{
+                  name: 'location-pin',
+                  type: 'MaterialIcons',
+                  size: 20,
+                  color: user.status=="approved"?"#008A1F":"#D2630B",
+                }}
+                type="outline"
+                containerStyle={{ marginVertical: 15 }}
               />
               <Chip
-                title="Start Date"
-                containerStyle={{ width: 80, marginLeft: 8 }}
-                titleStyle={{ fontSize: 8 }}
+                title={user.status}
+                icon={{
+                  name: 'fiber-manual-record',
+                  type: 'MaterialIcons',
+                  size: 20,
+                  color: user.status=="approved"?"#008A1F":"#D2630B",
+                }}
+                type="outline"
+                containerStyle={{ marginVertical: 15 }}
               />
+              
             </View>
             <Divider style={{ width: "90%", alignSelf: "center" }} />
             <View
@@ -179,7 +199,31 @@ const ListEvents = () =>{
             }
             </Text>
           </View>
-          <View>
+          <View style={styles.descSection}>
+            <Text style={styles.desc}> Organisation Actions Plan </Text>
+            
+            {user ?
+                  <FlatList
+                  data={user.planActions.split(",")}
+                  renderItem={({ item }) => <Text> * {item}</Text> }
+                  keyExtractor={item => item._id}
+                />
+                  
+              :""
+            }
+          </View>
+
+          <View style={styles.descSection}>
+            <Text style={styles.desc}> Organisation Vision </Text>
+            <Text>
+            {user ?
+                  user.Vision
+              :""
+            }
+            </Text>
+          </View>
+          <View style={styles.descSection}>
+            <Text style={styles.desc}> Events </Text>
             {events &&
                <ListEvents/>
             }
