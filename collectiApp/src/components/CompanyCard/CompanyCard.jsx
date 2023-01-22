@@ -70,7 +70,7 @@ const CompanyCard = ({ navigation, org }) => {
         >
           <View style={{ flexDirection: "row" }}>
             <MaterialIcons
-              name="events"
+              name="event"
               size={18}
               color="#333"
             />
