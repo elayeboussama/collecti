@@ -131,12 +131,33 @@ router.post("/update", authenticateToken, async (req, res) => {
   }
 });
 
+router.post("/updateStatus", async (req, res) => {
+  try {
+    console.log(req.body);
+    const organization = await Organization.findOne({ _id: req.body._id });
+    console.log("eeeee", organization);
+    await Organization.updateOne(
+      { _id: req.body._id },
+      { $set: req.body }
+    );
+
+    const organizationUpdated = await Organization.findOne({ _id: req.body._id });
+    organizationUpdated.password = undefined;
+    res.status(200).send({ organizationUpdated: organizationUpdated, message: "Organization updated" });
+  } catch (error) {
+    res.status(500).send({ message: "Internal Server Error", error: error });
+    console.log(error);
+  }
+});
+
 router.get("/organizations", async (req, res) => {
   try {
-    const organizations = await Organization.find();
+    console.log("zzzzzzz");
+    const organizations = await Organization.find({},{ password:0});
+    
 
     if (organizations) {
-      console.log();
+      console.log("zzzzzzz");
       res
         .status(201)
         .send({ organization: organizations, message: "Organizations found" });
@@ -153,7 +174,7 @@ router.post("/organizations", async (req, res) => {
   try {
     const organizations = await Organization.find({
       _id: { $in: req.body.organizations },
-    });
+    },{ password:0});
 
     if (organizations) {
       res
@@ -169,10 +190,10 @@ router.post("/organizations", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
-  console.log("sssssss")
+  console.log("sssasssss")
 
   try {
-    const organization = await Organization.findOne({ _id: req.params["id"] });
+    const organization = await Organization.findOne({ _id: req.params["id"] },{ password:0});
     organization.password = undefined;
     if (organization) {
       console.log("aaaaaaaa", organization);

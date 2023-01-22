@@ -126,6 +126,23 @@ router.post("/update", authenticateToken, async (req, res) => {
   }
 });
 
+router.get("/getAllMobile", async (req, res) => {
+  try {
+    const events = await Event.find();
+    console.log("aaaaaaaaaaaaaaaaa");
+    if (events) {
+      res.status(201).send(events);
+      console.log(events);
+    } else {
+      res.status(404).send({ message: "Events Not Found" });
+    }
+
+  }catch (error) {
+    res.status(500).send({ message: "Internal Server Error", error: error });
+    console.log(error);
+  }
+})
+
 router.get("/getAll", async (req, res) => {
   try {
     const events = await Event.find();
@@ -145,7 +162,10 @@ router.get("/getAll", async (req, res) => {
 
 router.post("/events", async (req, res) => {
     try {
-        const events = await Event.find({ _id: { $in: req.body.events } });
+      console.log("valhala")
+      console.log(req)
+      const events = await Event.find({ _id: { $in: req.body.events } });
+      console.log(events)
 
 
 
@@ -168,26 +188,7 @@ router.post("/events", async (req, res) => {
     }
 })
 
-router.get("/event/:id", async (req, res) => {
-    try {
-        const event = await Event.findOne({ _id: req.params['id'] });
 
-        if (event) {
-
-            res.status(201).send({ event: event, message: "Event found" });
-
-        } else {
-
-            res.status(404).send({ message: "Event Not Found" });
-
-        }
-
-    } catch (error) {
-
-        res.status(500).send({ message: "Internal Server Error", error: error });
-        console.log(error)
-    }
-});
 
 router.get("/event/:id", async (req, res) => {
   try {
