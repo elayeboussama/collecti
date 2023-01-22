@@ -1,14 +1,31 @@
+import { format } from "date-fns"
+import { useState } from "react"
+import { useEffect } from "react"
+import { useGetDonationsQuery } from "../../endpoints/apiEndpoints"
 import TitleCard from "./TitleCard"
 
-const userSourceData = [
-    {source : "Facebook Ads", count : "26,345", conversionPercent : 10.2},
-    {source : "Google Ads", count : "21,341", conversionPercent : 11.7},
-    {source : "Instagram Ads", count : "34,379", conversionPercent : 12.4},
-    {source : "Affiliates", count : "12,359", conversionPercent : 20.9},
-    {source : "Organic", count : "10,345", conversionPercent : 10.3},
-]
 
-function UserChannels(){
+
+const UserChannels = ()=>{
+    const { data: receivedData } = useGetDonationsQuery()
+    const[tab, setTab]=useState([])
+    useEffect(()=>{
+        for (let j=receivedData?.donates.length-1; j>=0; j--){
+           tab.push(receivedData.donates[j])
+
+        }
+    },[receivedData])
+    console.log("sseees",tab)
+   
+    const userSourceData = [
+       
+        {source : tab[0]?.email, count : tab[0]?.amount, date : tab[0]?.date},
+        {source : tab[1]?.email, count : tab[1]?.amount, date : tab[1]?.date},
+        {source : tab[2]?.email, count : tab[2]?.amount, date : tab[2]?.date},
+        {source : tab[3]?.email, count : tab[3]?.amount, date : tab[3]?.date},
+        {source : tab[4]?.email, count : tab[4]?.amount, date : tab[4]?.date},
+       
+    ]
     return(
         <TitleCard title={"User Signup Source"}>
              {/** Table Data */}
@@ -17,9 +34,9 @@ function UserChannels(){
                     <thead>
                     <tr>
                         <th></th>
-                        <th className="normal-case">Source</th>
-                        <th className="normal-case">No of Users</th>
-                        <th className="normal-case">Conversion</th>
+                        <th className="normal-case">Email</th>
+                        <th className="normal-case">Amount</th>
+                        <th className="normal-case">Date</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -30,7 +47,7 @@ function UserChannels(){
                                         <th>{k+1}</th>
                                         <td>{u.source}</td>
                                         <td>{u.count}</td>
-                                        <td>{`${u.conversionPercent}%`}</td>
+                                        <td>{`${u.date}%`}</td>
                                     </tr>
                                 )
                             })
