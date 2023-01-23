@@ -37,11 +37,12 @@ const CompanyProfileScene = ({navigation, route}) => {
  
   const 
   [ getAllEventsByOrg, { isLoading }] = useGetAllEventsByOrgMutation();
-  var userVar=null
+  var userVar={}
   const handleChange = async () => {
     setToken(await AsyncStorage.getItem("token"));
 
-   userVar = await AsyncStorage.getItem("user")
+    userVar = await AsyncStorage.getItem("user")
+    setUser(JSON.parse(userVar));
     if(route){
       if(route.params){
         if(route.params.item){
@@ -50,8 +51,6 @@ const CompanyProfileScene = ({navigation, route}) => {
         }
       }
       
-    }else{
-      setUser(JSON.parse(userVar));
     }
     
   };
@@ -71,11 +70,11 @@ const CompanyProfileScene = ({navigation, route}) => {
     }
   }, [user,]);
 
-  useEffect(() => {
-    console.log("zzzzzzzzzssssxxx: ",events)
-  }, [events]);
-  const [isVisible, setIsVisible] = useState(false);
-  const { theme } = useTheme();
+  // useEffect(() => {
+  //   console.log("zzzzzzzzzssssxxx: ",events)
+  // }, [events]);
+  // const [isVisible, setIsVisible] = useState(false);
+  // const { theme } = useTheme();
   function formatDate(date) {
     const newDate = new Date(date)
     const currentMonth = newDate.getMonth();
@@ -113,9 +112,12 @@ const ListEvents = () =>{
       <View style={styles.container}>
          { user ?
          <ScrollView>
+          {stack!="" ?
           <TouchableOpacity onPress={()=>{navigation.navigate(stack)}} style={{width:"20%", marginTop:10, marginLeft:10}}>
             <MaterialCommunityIcons name="arrow-left-circle-outline" size={25} color="#3B0081"/>
-          </TouchableOpacity>
+          </TouchableOpacity>  
+          :""
+        }
           <View style={styles.headerSection}>
             <View
               style={{
