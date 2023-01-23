@@ -27,11 +27,11 @@ const EditOrganization = () => {
         setFieldValue("keywords", user.user.keywords || [])
         if (user.user.keywords) setTags(user.user.keywords)
         setFieldValue("phone", user.user.phone || "")
-        setFieldValue("catchPhrase",user.user.catchPhrase || "")
+        setFieldValue("catchPhrase", user.user.catchPhrase || "")
         setFieldValue("description", user.user.description || "")
-        setFieldValue("socialMedia.facebook",user.user.socialMedia?.facebook || "")
-        setFieldValue("socialMedia.instagram",user.user.socialMedia?.instagram || "")
-        setFieldValue("socialMedia.likendIn",user.user.socialMedia?.linkedIn || "")
+        setFieldValue("socialMedia.facebook", user.user.socialMedia?.facebook || "")
+        setFieldValue("socialMedia.instagram", user.user.socialMedia?.instagram || "")
+        setFieldValue("socialMedia.likendIn", user.user.socialMedia?.linkedIn || "")
     }, [user])
 
     const { values, handleChange, handleBlur, errors, touched, setFieldValue, handleSubmit } = useFormik({
@@ -43,11 +43,11 @@ const EditOrganization = () => {
             keywords: [],
             phone: "",
             description: "",
-            catchPhrase: "",
+            // catchPhrase: "",
             socialMedia: {
-                facebook:'',
-                instagram:'',
-                linkedIn:'',
+                facebook: '',
+                instagram: '',
+                linkedIn: '',
             },
         },
         validationSchema: EditOrganizationSchema,
@@ -156,7 +156,7 @@ const EditOrganization = () => {
                         ))}
                     </div>
                 </div>
-                <div className="form-control">
+                {/* <div className="form-control">
                     <label className="label">
                         <span className="label-text">Catch phrase</span>
                     </label>
@@ -167,7 +167,7 @@ const EditOrganization = () => {
                         onBlur={handleBlur}
                         className={`input input-bordered block ${errors.catchPhrase && touched.catchPhrase && 'input-error'}`} />
                     {errors.catchPhrase && touched.catchPhrase && <p className="mt-2 text-xs text-red-500">{errors.catchPhrase}</p>}
-                </div>
+                </div> */}
                 <div className="form-control">
                     <label className="label">
                         <span className="label-text">Phone number</span>
