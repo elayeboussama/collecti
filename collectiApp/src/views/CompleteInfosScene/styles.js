@@ -72,8 +72,13 @@ const styles = StyleSheet.create({
     dropdown: {
         height: 50,
         borderColor: 'gray',
+        backgroundColor: "#fff",
+
         borderBottomWidth: 0.5,
         paddingHorizontal: 8,
+        marginVertical: 10,
+        borderRadius: COLORS.light,
+        marginHorizontal: 20,
     },
     icon: {
         marginRight: 5,

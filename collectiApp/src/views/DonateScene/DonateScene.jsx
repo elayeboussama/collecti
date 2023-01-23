@@ -24,6 +24,8 @@ const initialState = {
 const DonateScene = ({ navigation, route }) => {
   const item = route.params.item
   const stack = route.params.stack
+  const stackPrev = route.params.stackPrev
+  console.log("stack from dinate :",stack)
   const [donate, {isLoading}]=useDonateMutation();
   const [values, setValues] = useState({...initialState, event:item._id});
   const [errors, setErrors] = React.useState({});
@@ -65,7 +67,15 @@ const DonateScene = ({ navigation, route }) => {
   const donation=async()=>{
     await donate({
       ...values,
-    }).unwrap();
+    }).unwrap()
+    .then(async(res)=>{
+      console.log("zzzzzzaaaaaaazzzzzzres",res)
+      navigation.navigate("Payment",{values:values,item:item, user:user, stack:stack, stackPrev:stackPrev})
+    }).catch(async(err)=>{
+      console.log()
+      console.log("zzzzzzaaaaaaazzzzzz",err)
+    });
+    
   }
 
   const AddRdv = () => {
@@ -78,7 +88,7 @@ const DonateScene = ({ navigation, route }) => {
   };
   return (
     <ScrollView style={styles.container}>
-       <TouchableOpacity onPress={()=>{navigation.navigate(stack)}} style={{width:"20%", marginTop:10, marginLeft:10}}>
+       <TouchableOpacity onPress={()=>{navigation.navigate(stackPrev, {stack:stack})}} style={{width:"20%", marginTop:10, marginLeft:10}}>
           <MaterialCommunityIcons name="arrow-left-circle-outline" size={25} color="#3B0081"/>
         </TouchableOpacity>
       <Text style={styles.title}>Event Donation</Text>

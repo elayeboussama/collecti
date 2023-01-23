@@ -8,17 +8,19 @@ import AddEventScene from "./AddEventScene/AddEventScene";
 import CompanySettingsScene from "./CompanySettingsScene/CompanySettingsScene";
 import EditEventScene from "./EditEventScene/EditEventScene";
 import DonateScene from "./DonateScene/DonateScene";
+import PaymentScreen from "./DonateScene/PaymentScreen";
 import EventProfileScene from "./EventProfileScene/EventProfileScene";
 export {
-  HomeScene,
-  AboutScene,
-  AuthScene,
-  CompanySearchScene,
-  CompanyProfileScene,
-  CompleteInfosScene,
-  AddEventScene,
-  CompanySettingsScene,
-  EditEventScene,
-  DonateScene,
-  EventProfileScene,
+    HomeScene,
+    AboutScene,
+    AuthScene,
+    CompanySearchScene,
+    CompanyProfileScene,
+    CompleteInfosScene,
+    AddEventScene,
+    CompanySettingsScene,
+    EditEventScene,
+    DonateScene,
+    PaymentScreen,
+    EventProfileScene,
 };

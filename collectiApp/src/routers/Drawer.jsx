@@ -14,6 +14,8 @@ import { selectCurrentToken } from "../../redux/slicers/AuthSlice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
 import ProfileStack from "./ProfileStack";
+import { MaterialIcons } from "@expo/vector-icons";
+
 // drawer navigation options
 // const RootDrawerNavigator = createDrawerNavigator({
 //   Home: {
@@ -60,16 +62,16 @@ const RootDrawerNavigator = () => {
         }}
       >
         
-        
         <Drawer.Screen
           name="Home"
-          component={HomeStack}
+          component={AboutStack}
           options={{
             drawerIcon: ({ color }) => (
               <Ionicons name="home-outline" size={22} color={color} />
             ),
           }}
         />
+        
         {token && (
         <Drawer.Screen
             name="Profile"
@@ -80,12 +82,13 @@ const RootDrawerNavigator = () => {
               ),
             }}
           />)}
+        
         <Drawer.Screen
-          name="About"
-          component={AboutStack}
+          name="Events"
+          component={HomeStack}
           options={{
             drawerIcon: ({ color }) => (
-              <Ionicons name="person-outline" size={22} color={color} />
+              <MaterialIcons name="event" size={22} color={color} />
             ),
           }}
         />
@@ -104,7 +107,7 @@ const RootDrawerNavigator = () => {
             component={views.AuthScene}
             options={{
               drawerIcon: ({ color }) => (
-                <Ionicons name="person-outline" size={22} color={color} />
+                <MaterialIcons name="login" size={22} color={color} />
               ),
             }}
           />

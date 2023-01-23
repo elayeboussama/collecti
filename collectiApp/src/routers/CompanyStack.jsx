@@ -36,6 +36,8 @@ const CompanyStack = () => {
         
         component={views.CompanyProfileScene}
       />
+      <Stack.Screen name="EventProfile" component={views.EventProfileScene} />
+        <Stack.Screen name="Donate" component={views.DonateScene} />
     </Stack.Navigator>
   );
 };
