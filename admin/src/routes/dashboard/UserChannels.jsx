@@ -7,6 +7,14 @@ import TitleCard from "./TitleCard"
 
 
 const UserChannels = ()=>{
+    function formatDate(date) {
+        const newDate = new Date(date);
+        const currentMonth = newDate.getMonth();
+        const monthString = currentMonth >= 10 ? currentMonth : `0${currentMonth}`;
+        const currentDate = newDate.getDate();
+        const dateString = currentDate >= 10 ? currentDate : `0${currentDate}`;
+        return `${newDate.getFullYear()}-${Number(monthString) + 1}-${currentDate}`;
+      }
     const { data: receivedData } = useGetDonationsQuery()
     const[tab, setTab]=useState([])
     useEffect(()=>{
@@ -24,6 +32,7 @@ const UserChannels = ()=>{
         {source : tab[2]?.email, count : tab[2]?.amount, date : tab[2]?.date},
         {source : tab[3]?.email, count : tab[3]?.amount, date : tab[3]?.date},
         {source : tab[4]?.email, count : tab[4]?.amount, date : tab[4]?.date},
+
        
     ]
     return(
@@ -47,7 +56,7 @@ const UserChannels = ()=>{
                                         <th>{k+1}</th>
                                         <td>{u.source}</td>
                                         <td>{u.count}</td>
-                                        <td>{`${u.date}%`}</td>
+                                        <td>{`${formatDate(new Date(u.date))}`}</td>
                                     </tr>
                                 )
                             })
