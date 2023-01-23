@@ -8,12 +8,14 @@ import {
   Pressable,
   Keyboard,
   ScrollView,
+  Alert,
 } from "react-native";
 import COLORS from "../../styles/const";
 import CustomInput from "../../components/CustomInput/CustomInput";
 import { useTheme } from "@rneui/themed";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useDonateMutation } from "../../../redux/endpoints/EventEndpoints";
+import { CardField } from "@stripe/stripe-react-native";
 
 const initialState = {
   email: "",
@@ -67,14 +69,12 @@ const DonateScene = ({ navigation, route }) => {
   const donation=async()=>{
     await donate({
       ...values,
-    }).unwrap()
-    .then(async(res)=>{
-      console.log("zzzzzzaaaaaaazzzzzzres",res)
-      navigation.navigate("Payment",{values:values,item:item, user:user, stack:stack, stackPrev:stackPrev})
-    }).catch(async(err)=>{
-      console.log()
-      console.log("zzzzzzaaaaaaazzzzzz",err)
-    });
+    }) 
+    Alert.alert('Payment State', 'Payment Done Successfuly', [
+      
+      {text: 'OK', onPress: () => console.log('OK Pressed')},
+    ]);
+    navigation.navigate(stackPrev, {stack:stack })
     
   }
 
@@ -112,6 +112,7 @@ const DonateScene = ({ navigation, route }) => {
         // error={errors.amount}
         value={values.amount}
       />
+      <CardField  placeholder={{number:'4242 4242 4242 4242'}} postalCodeEnabled={false} style={styles.CardField} cardStyle={{borderColor:"#000000", borderWidth:1, borderRadius:8}} />
       <View style={styles.action}>
         <Pressable
           style={{ ...styles.button, backgroundColor: theme.colors.primary }}
@@ -162,6 +163,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
   },
+  CardField:{
+    width:"100%",
+    height:50,
+    marginVertical:30
+  }
 });
 
 export default DonateScene;

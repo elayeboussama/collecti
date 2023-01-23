@@ -17,7 +17,9 @@ import { useState } from "react";
 import { useAddEventMutation } from "../../../redux/endpoints/EventEndpoints";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import CustomInput from "../../components/CustomInput/CustomInput";
-const AddEventScene = () => {
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
+const AddEventScene = ({navigation}) => {
   const { theme } = useTheme();
   const [timePicker, setTimePicker] = useState(false);
   const [date, setDate] = useState(new Date());
@@ -40,13 +42,26 @@ const AddEventScene = () => {
         date: date,
       }).unwrap();
       console.log(event_data);
+      navigation.navigate("Home")
       // navigate("/", { replace: true });
     } catch (err) {
       console.log(err);
     }
   };
+
+  function formatDate(date) {
+    const newDate = new Date(date);
+    const currentMonth = newDate.getMonth();
+    const monthString = currentMonth >= 10 ? currentMonth : `0${currentMonth}`;
+    const currentDate = newDate.getDate();
+    const dateString = currentDate >= 10 ? currentDate : `0${currentDate}`;
+    return `${newDate.getFullYear()}-${Number(monthString) + 1}-${currentDate}`;
+  }
   return (
     <ScrollView style={styles.container}>
+      <TouchableOpacity onPress={()=>{navigation.navigate( "Home")}} style={{width:"20%", marginTop:10, marginLeft:10}}>
+        <MaterialCommunityIcons name="arrow-left-circle-outline" size={25} color="#3B0081"/>
+      </TouchableOpacity>
       <CustomImagePicker type="event" image={image} setImage={setImage} />
       <Formik
         validationSchema={signUpValidationSchema}
@@ -149,9 +164,7 @@ const AddEventScene = () => {
                 containerStyle={{ width: "25%", marginRight: 8 }}
               />
               <Chip
-                title={`${date.getFullYear().toString()}-${date
-                  .getMonth()
-                  .toString()}-${date.getDate().toString()}`}
+                title={`${formatDate(date) }`}
                 type="outline"
               />
             </View>

@@ -14,7 +14,7 @@ import { selectCurrentToken } from "../../redux/slicers/AuthSlice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
 import ProfileStack from "./ProfileStack";
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 
 // drawer navigation options
 // const RootDrawerNavigator = createDrawerNavigator({
@@ -78,7 +78,7 @@ const RootDrawerNavigator = () => {
             component={ProfileStack}
             options={{
               drawerIcon: ({ color }) => (
-                <Ionicons name="face-man-profile" size={22} color={color} />
+                <MaterialCommunityIcons name="face-man-profile" size={22} color={color} />
               ),
             }}
           />)}

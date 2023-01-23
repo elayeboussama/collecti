@@ -124,8 +124,8 @@ const EditInfosScene = () => {
     setUser({ ...user, name: value });
   };
 
-  const [image, setImage] = useState(null);
-  const [cover, setCover] = useState(null);
+  const [image, setImage] = useState(user.image);
+  const [cover, setCover] = useState(user.cover);
 
   const pickImage = async () => {
     //No permissions request is necessary for launching the image library
