@@ -3,8 +3,7 @@ import { BsFacebook, BsLinkedin } from 'react-icons/bs';
 import { useParams } from 'react-router-dom';
 import { useOrgDetailsQuery, useUpdateStatusMutation } from "../endpoints/apiEndpoints"
 import InstagramIcon from '../components/InstagramIcon';
-
-
+import { toast } from "react-toastify";
 import Tabs from '../components/Tab';
 import SmallEventCard from '../components/SmallEventCard';
 import TeamCard from '../components/TeamCard';
@@ -19,15 +18,17 @@ const Organization = () => {
 
     const [updateStatus] = useUpdateStatusMutation()
 
-    const tabsTitle = ["Description", "Plan d'action", "Vision"]
+    const tabsTitle = ["Description", "Actions plan", "Vision"]
     const eventsList = data?.organization.events;
 
-    const updateStatusHandler = (status) => {
+    const updateStatusHandler = async (status) => {
         if (status === "approve") {
-            updateStatus({ _id: organizationId, status: "approved" })
+            await updateStatus({ _id: organizationId, status: "approved" })
+            toast.success("Organization approved.")
         }
         else if (status === "reject") {
-            updateStatus({ _id: organizationId, status: "rejected" })
+            await updateStatus({ _id: organizationId, status: "rejected" })
+            toast.success("Organization rejected.")
         } else {
             return
         }

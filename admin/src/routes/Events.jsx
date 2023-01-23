@@ -1,8 +1,9 @@
 import { format } from "date-fns"
 import { useMemo } from "react"
 import { Link } from "react-router-dom"
+import Badge from "../components/Badge"
 import Table from "../components/Table"
-import { useGetAllEventsQuery, useOrgDetailsQuery } from "../endpoints/apiEndpoints"
+import { useGetAllEventsQuery } from "../endpoints/apiEndpoints"
 
 const Events = () => {
     const { data: events } = useGetAllEventsQuery()
@@ -12,11 +13,7 @@ const Events = () => {
             {
                 Header: 'Name',
                 accessor: 'name', // accessor is the "key" in the data
-            },
-            {
-                Header: 'Orgnization',
-                accessor: 'organization_id',
-            
+                Cell: row => <span className="font-medium">{row.value}</span>
             },
             {
                 Header: 'Category',
@@ -30,11 +27,12 @@ const Events = () => {
             {
                 Header: 'Status',
                 accessor: 'status',
+                Cell: row => <Badge status={row.value} />
             },
             {
                 Header: 'Link',
                 accessor: '_id',
-                Cell: row => <Link className="link" to={`/events/${row.value}`}>Visit</Link>
+                Cell: row => <Link className="link link-primary link-hover text-[#416c9e] hover:text-[#416c9e] font-semibold" to={`/events/${row.value}`}>View</Link>
             },
         ],
         []
@@ -52,7 +50,7 @@ const Events = () => {
     )
     if (!events) return <i>Loading...</i>
     return (
-        <Table columns={columns} data={data}/>
+        <Table columns={columns} data={data} />
     )
 }
 
