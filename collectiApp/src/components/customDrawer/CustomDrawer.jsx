@@ -88,8 +88,8 @@ const CustomDrawer = (props) => {
           <DrawerItemList {...props} />
         </View>
       </DrawerContentScrollView>
-      <View style={{ padding: 20, borderTopWidth: 1, borderTopColor: "#ccc" }}>
-        <TouchableOpacity onPress={() => {}} style={{ paddingVertical: 15 }}>
+      <View style={{ paddingHorizontal: 20, borderTopWidth: 1, borderTopColor: "#ccc" }}>
+        {/* <TouchableOpacity onPress={() => {}} style={{ paddingVertical: 15 }}>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Ionicons name="share-social-outline" size={22} />
             <Text
@@ -102,7 +102,7 @@ const CustomDrawer = (props) => {
               Tell a Friend
             </Text>
           </View>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <TouchableOpacity
           onPress={async () => {
             await AsyncStorage.removeItem("token");

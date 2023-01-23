@@ -59,12 +59,17 @@ const EventStack = () => {
       })}
     >
       {/* <Stack.Screen name="AddEvent" component={views.DonateScene} /> */}
-      
+        <Stack.Screen name="Home" component={views.HomeScene} />
         <Stack.Screen name="EventEdit" component={views.EditEventScene} />
-         
         <Stack.Screen name="EventProfile" component={views.EventProfileScene} />
-      
-            
+        <Stack.Screen name="Donate" component={views.DonateScene} />
+        <Stack.Screen name="Payment" component={views.PaymentScreen} />
+        <Stack.Screen name="Companies" component={views.CompanySearchScene} />
+        <Stack.Screen
+        name="CompanyProfile"
+        
+        component={views.CompanyProfileScene}
+      />
     </Stack.Navigator>
   );
 };
