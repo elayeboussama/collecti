@@ -24,6 +24,20 @@ const styles = StyleSheet.create({
         borderRadius: 12,
         backgroundColor: "#fff",
     },
+    chip: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center",
+        backgroundColor: "#432c7a",
+        marginHorizontal: 5,
+        marginVertical: 5,
+        paddingVertical: 5,
+        paddingHorizontal: 12,
+        borderRadius: 50,
+
+
+
+    },
     desc: {
         fontSize: 20,
         fontWeight: "bold",
@@ -31,13 +45,12 @@ const styles = StyleSheet.create({
         borderLeftColor: "#432C7A",
         paddingLeft: 8,
     },
-
-    submitButton: {
-        margin: 10,
-        borderRadius: 5,
-        width: 200,
-        alignSelf: "flex-end"
-    }
+    chips: {
+        marginTop: 12,
+        marginBottom: 12,
+        flexDirection: "row",
+        justifyContent: "center",
+    },
 });
 
 export { styles };

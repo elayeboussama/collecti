@@ -64,7 +64,9 @@ const ProfileStack = () => {
          :
         <Stack.Screen name="Profile" component={views.CompanyProfileScene} />
       }
-            
+      
+      <Stack.Screen name="EventEdit" component={views.EditEventScene} />
+      <Stack.Screen name="EventProfile" component={views.EventProfileScene} />
     </Stack.Navigator>
   );
 };

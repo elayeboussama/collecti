@@ -16,6 +16,7 @@ const styles = StyleSheet.create({
     },
     descSection: {
         padding: 12,
+
         marginTop: 12,
         elevation: 3,
         width: "95%",

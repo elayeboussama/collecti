@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useState } from "react";
-
+import { MaterialIcons,MaterialCommunityIcons } from "@expo/vector-icons";
 import {
   View,
   Text,
@@ -12,16 +12,20 @@ import {
 import COLORS from "../../styles/const";
 import CustomInput from "../../components/CustomInput/CustomInput";
 import { useTheme } from "@rneui/themed";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { useDonateMutation } from "../../../redux/endpoints/EventEndpoints";
 
 const initialState = {
-  first_name: "",
-  last_name: "",
   email: "",
-  donation_amount: "",
+  amount: "",
+  event: "",
 };
 
-const DonateScene = ({ navigation }) => {
-  const [values, setValues] = useState(initialState);
+const DonateScene = ({ navigation, route }) => {
+  const item = route.params.item
+  const stack = route.params.stack
+  const [donate, {isLoading}]=useDonateMutation();
+  const [values, setValues] = useState({...initialState, event:item._id});
   const [errors, setErrors] = React.useState({});
   const { theme } = useTheme();
   const handleError = (error, input) => {
@@ -31,29 +35,38 @@ const DonateScene = ({ navigation }) => {
     setValues((prevState) => ({ ...prevState, [input]: text }));
   };
 
-  const validate = async () => {
-    Keyboard.dismiss();
-    let isValid = true;
-    if (!values.first_name) {
-      handleError("Please input first name", "first_name");
-      isValid = false;
-    }
-    if (!values.last_name) {
-      handleError("Please input last name", "last_name");
-      isValid = false;
-    }
-    if (!values.email) {
-      handleError("Please input email", "email");
-      isValid = false;
-    }
-    if (!values.donation_amount) {
-      handleError("Please input donation_amount", "donation_amount");
-      isValid = false;
-    }
-    if (isValid) {
-      AddRdv();
-    }
-  };
+
+  
+
+  // const validate = async () => {
+  //   Keyboard.dismiss();
+  //   let isValid = true;
+  //   if (!values.first_name) {
+  //     handleError("Please input first name", "first_name");
+  //     isValid = false;
+  //   }
+  //   if (!values.last_name) {
+  //     handleError("Please input last name", "last_name");
+  //     isValid = false;
+  //   }
+  //   if (!values.email) {
+  //     handleError("Please input email", "email");
+  //     isValid = false;
+  //   }
+  //   if (!values.donation_amount) {
+  //     handleError("Please input donation_amount", "donation_amount");
+  //     isValid = false;
+  //   }
+  //   if (isValid) {
+  //     AddRdv();
+  //   }
+  // };
+
+  const donation=async()=>{
+    await donate({
+      ...values,
+    }).unwrap();
+  }
 
   const AddRdv = () => {
     console.log("done !!!!");
@@ -65,25 +78,12 @@ const DonateScene = ({ navigation }) => {
   };
   return (
     <ScrollView style={styles.container}>
+       <TouchableOpacity onPress={()=>{navigation.navigate(stack)}} style={{width:"20%", marginTop:10, marginLeft:10}}>
+          <MaterialCommunityIcons name="arrow-left-circle-outline" size={25} color="#3B0081"/>
+        </TouchableOpacity>
       <Text style={styles.title}>Event Donation</Text>
-      <CustomInput
-        onChangeText={(text) => handleOnchange(text, "first_name")}
-        onFocus={() => handleError(null, "first_name")}
-        iconName="person"
-        label="First Name"
-        placeholder="Enter your first name..."
-        error={errors.first_name}
-        value={values.first_name}
-      />
-      <CustomInput
-        onChangeText={(text) => handleOnchange(text, "last_name")}
-        onFocus={() => handleError(null, "last_name")}
-        iconName="person"
-        label="Last Name"
-        placeholder="Enter your last name..."
-        error={errors.last_name}
-        value={values.last_name}
-      />
+      
+      
       <CustomInput
         onChangeText={(text) => handleOnchange(text, "email")}
         onFocus={() => handleError(null, "email")}
@@ -94,27 +94,27 @@ const DonateScene = ({ navigation }) => {
         value={values.email}
       />
       <CustomInput
-        onChangeText={(text) => handleOnchange(text, "donation_amount")}
-        onFocus={() => handleError(null, "donation_amount")}
+        onChangeText={(text) => handleOnchange(text, "amount")}
+        // onFocus={() => handleError(null, "amount")}
         iconName="money"
         label="Donation Amount"
         placeholder="Enter your donation ammount..."
-        error={errors.donation_amount}
-        value={values.donation_amount}
+        // error={errors.amount}
+        value={values.amount}
       />
       <View style={styles.action}>
         <Pressable
           style={{ ...styles.button, backgroundColor: theme.colors.primary }}
-          onPress={validate}
+          onPress={donation}
         >
           <Text style={styles.text}>Donate</Text>
         </Pressable>
-        <Pressable
+        {/* <Pressable
           style={{ ...styles.button, backgroundColor: theme.colors.primary }}
-          onPress={reset}
+          // onPress={reset}
         >
           <Text style={styles.text}>Clear</Text>
-        </Pressable>
+        </Pressable> */}
       </View>
     </ScrollView>
   );
