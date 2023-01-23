@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-
+import COLORS from "./../../styles/const";
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -71,17 +71,18 @@ const styles = StyleSheet.create({
 
     dropdown: {
         height: 50,
-        borderColor: 'gray',
-        backgroundColor: "#fff",
-
+        borderColor: "transparent",
+        backgroundColor: COLORS.light,
         borderBottomWidth: 0.5,
         paddingHorizontal: 8,
-        marginVertical: 10,
-        borderRadius: COLORS.light,
+        marginTop: 0,
+        marginBottom: 20,
+        borderRadius: 15,
         marginHorizontal: 20,
     },
     icon: {
         marginRight: 5,
+        color: COLORS.darkBlue
     },
     label: {
         position: 'absolute',
@@ -93,7 +94,8 @@ const styles = StyleSheet.create({
         fontSize: 14,
     },
     placeholderStyle: {
-        fontSize: 16,
+        fontSize: 14,
+        color: COLORS.grey,
     },
     selectedTextStyle: {
         fontSize: 16,
