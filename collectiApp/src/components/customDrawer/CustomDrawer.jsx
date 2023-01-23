@@ -103,7 +103,8 @@ const CustomDrawer = (props) => {
             </Text>
           </View>
         </TouchableOpacity> */}
-        <TouchableOpacity
+        {user?
+          <TouchableOpacity
           onPress={async () => {
             await AsyncStorage.removeItem("token");
             await AsyncStorage.removeItem("user");
@@ -128,6 +129,10 @@ const CustomDrawer = (props) => {
             </Text>
           </View>
         </TouchableOpacity>
+        
+        :""
+      
+      }
       </View>
     </View>
   );

@@ -20,9 +20,27 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useGetAllEventsQuery } from "../../../redux/endpoints/EventEndpoints";
 import CustomInput from "../../components/CustomInput/CustomInput";
 import { useRoute } from "@react-navigation/native";
+import { FAB } from "@rneui/base";
 // import Loading from "../../components/Loading/Loading";
 
 const HomeScene = ({ navigation }) => {
+
+  const [token, setToken] = useState();
+  const [user, setUser] = useState();
+  const handleChange = async () => {
+    setToken(await AsyncStorage.getItem("token"));
+    const userVar = await AsyncStorage.getItem("user")
+    setUser(JSON.parse(userVar));
+  };
+  useEffect(() => {
+    handleChange();
+  }, []);
+  useEffect(() => {
+    console.log("drawer token =>", token);
+    console.log("drawer user =>", user);
+  }, [user,token]);
+
+
   const [isVisible, setIsVisible] = useState(false);
   const [eventsState, setEventsState] = useState();
   const [event_name, setEvent_name] = useState("");
@@ -133,6 +151,17 @@ const HomeScene = ({ navigation }) => {
               />
             </View>
           </BottomSheet>
+          {user?
+            <FAB
+            style={{ display:"flex"}}
+            visible={true}
+            icon={{ name: "edit", color: "white"}}
+            placement="right"
+            color="#432C7A"
+            onPress={()=>{navigation.navigate("EventAdd",{stack:"Home"})}}
+          />  
+        :""
+        }
         </View>
       ) : (
         <ActivityIndicator size="large" color="#00ff00" />
