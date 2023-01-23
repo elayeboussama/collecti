@@ -18,6 +18,10 @@ const DashboardTopBar =({updateDashboardPeriod})=>{
         updateDashboardPeriod(value)
     }
 
+    const refresh = () =>{
+         window.location.reload(true)
+    }
+
     return(
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="">
@@ -32,7 +36,7 @@ const DashboardTopBar =({updateDashboardPeriod})=>{
             />
             </div>
             <div className="text-right ">
-                <button className="normal-case btn btn-ghost btn-sm"><ArrowPathIcon className="w-4 mr-2"/>Refresh Data</button>
+                <button className="normal-case btn btn-ghost btn-sm" onClick={refresh}><ArrowPathIcon className="w-4 mr-2"/>Refresh Data</button>
                 <button className="ml-2 normal-case btn btn-ghost btn-sm"><ShareIcon className="w-4 mr-2"/>Share</button>
 
                 <div className="ml-2 dropdown dropdown-bottom dropdown-end">
