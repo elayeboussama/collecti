@@ -112,7 +112,6 @@ router.post("/delete", authenticateToken, async (req, res) => {
 
 router.post("/update", authenticateToken, async (req, res) => {
   try {
-    console.log(req.body);
     const organization = await Organization.findOne({ _id: req.body._id });
     console.log("eeeee", organization);
     await Organization.updateOne({ _id: req.body._id }, { $set: req.body });
@@ -136,14 +135,16 @@ router.post("/updateStatus", async (req, res) => {
     console.log(req.body);
     const organization = await Organization.findOne({ _id: req.body._id });
     console.log("eeeee", organization);
-    await Organization.updateOne(
-      { _id: req.body._id },
-      { $set: req.body }
-    );
+    await Organization.updateOne({ _id: req.body._id }, { $set: req.body });
 
-    const organizationUpdated = await Organization.findOne({ _id: req.body._id });
+    const organizationUpdated = await Organization.findOne({
+      _id: req.body._id,
+    });
     organizationUpdated.password = undefined;
-    res.status(200).send({ organizationUpdated: organizationUpdated, message: "Organization updated" });
+    res.status(200).send({
+      organizationUpdated: organizationUpdated,
+      message: "Organization updated",
+    });
   } catch (error) {
     res.status(500).send({ message: "Internal Server Error", error: error });
     console.log(error);
