@@ -3,6 +3,8 @@ import DashboardTopBar from "./DashboardTopBar";
 import { showNotification } from "./headerSlice";
 import UserGroupIcon  from '@heroicons/react/24/outline/UserGroupIcon'
 import UsersIcon  from '@heroicons/react/24/outline/UsersIcon'
+import eventIcon from "./calendar.png"
+import pendingIcon from "./wall-clock.png"
 import CircleStackIcon  from '@heroicons/react/24/outline/CircleStackIcon'
 import CreditCardIcon  from '@heroicons/react/24/outline/CreditCardIcon'
 import DashboardStats from "./DashboardStats";
@@ -42,9 +44,9 @@ const Dashboard = () => {
 
     const statsData = [
         {title : "Approved Organizations", value : approvedorgs?.length, icon : <UserGroupIcon className='w-8 h-8'/>, description : "↗︎ 2300 (22%)"},
-        {title : "Pending Organizations", value : pendingorgs?.length, icon : <CreditCardIcon className='w-8 h-8'/>, description : "Current month"},
-        {title : "Approved Events", value : approvedevents?.length, icon : <CircleStackIcon className='w-8 h-8'/>, description : "50 in hot leads"},
-        {title : "Pending Events", value : pendingevents?.length, icon : <UsersIcon className='w-8 h-8'/>, description : "↙ 300 (18%)"},
+        {title : "Pending Organizations", value : pendingorgs?.length, icon : <img src={pendingIcon} className='w-8 h-8'/>, description : "Current month"},
+        {title : "Approved Events", value : approvedevents?.length, icon :<img src={eventIcon} className='w-8 h-8'/>, description : "50 in hot leads"},
+        {title : "Pending Events", value : pendingevents?.length, icon : <img src={pendingIcon} className='w-8 h-8'/>, description : "↙ 300 (18%)"},
     ]
     const dispatch = useDispatch()
     const updateDashboardPeriod = (newRange) => {
@@ -74,8 +76,8 @@ const Dashboard = () => {
              {/** ---------------------- Different stats content 2 ------------------------- */}
         
              <div className="grid grid-cols-1 gap-6 mt-10 lg:grid-cols-2">
-                <AmountStats donators={donators} raiseMoney={raiseMoney} />
-                <PageStats />
+                {/* <AmountStats donators={donators} raiseMoney={raiseMoney} /> */}
+                <PageStats donators={donators} raiseMoney={raiseMoney}/>
             </div>
 
             {/** ---------------------- User source channels table  ------------------------- */}
