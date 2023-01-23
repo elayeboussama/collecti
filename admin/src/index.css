@@ -6,3 +6,7 @@
 table tr:nth-child(even) {
     background-color: #f4f6fa;
 }
+
+.Toastify__toast {
+    border-radius: 0.5rem !important;
+}

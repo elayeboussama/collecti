@@ -8,7 +8,6 @@ import Drawer from "./components/shared/Drawer";
 import Footer from "./components/shared/Footer";
 import Modal from "./components/shared/Modal";
 import Navbar from "./components/shared/Navbar";
-import { useOrgDetailsQuery } from "./endpoints/AuthEndpoints";
 import { checkToken } from "./features/authSlice";
 
 function App() {
