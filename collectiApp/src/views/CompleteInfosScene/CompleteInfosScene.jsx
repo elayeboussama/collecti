@@ -378,7 +378,7 @@ const CompleteInfosScene = () => {
                     label="Email"
                     placeholder="Enter your Email..."
                     error={errors.email}
-                    value={values.email}
+                    value={user.email}
                   />
                 )}
                 {/* <Input

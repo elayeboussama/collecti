@@ -32,18 +32,24 @@ const EventProfileScene = ({navigation, route}) => {
     setCurrentUser(JSON.parse(userVar));
   };
   useEffect(() => {
-    handleChange();
+    if(AsyncStorage.getItem("user")){
+      handleChange();
+    }
+    
   }, []);
   useEffect(() => {
-    if(currentUser){
+    if(currentUser!=undefined){
       console.log("scene event user =>", currentUser);
-      console.log("scene event user =>", currentUser._id==item.organization_id);
+      if(currentUser._id){
+        console.log("scene event user =>", currentUser._id==item.organization_id);
+      }
     }
     
   }, [currentUser,]);
   const item = route.params.item
   const user = route.params.user
   const stack = route.params.stack
+  const stackPrev = route.params.stackPrev
   console.log("sce^voievropeniv",stack)
 
   function formatDate(date) {
@@ -70,11 +76,11 @@ const EventProfileScene = ({navigation, route}) => {
 
   return (
     <>
-      {item && currentUser?
+      {item && user?
         <View style={styles.container}>
         <ScrollView>
         
-          <TouchableOpacity onPress={()=>{navigation.navigate(stack)}} style={{width:"20%", marginTop:10, marginLeft:10}}>
+          <TouchableOpacity onPress={()=>{navigation.navigate(stackPrev,{stack:stack})}} style={{width:"20%", marginTop:10, marginLeft:10}}>
             <MaterialCommunityIcons name="arrow-left-circle-outline" size={25} color="#3B0081"/>
           </TouchableOpacity>
           <View style={styles.headerSection}>
@@ -161,7 +167,7 @@ const EventProfileScene = ({navigation, route}) => {
             
           </View>
           {
-            item.organization_id == currentUser._id ?
+            currentUser && item.organization_id == currentUser._id ?
               <FAB
               visible={true}
               icon={{ name: "edit", color: "white" }}

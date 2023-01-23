@@ -25,7 +25,7 @@ const CompanyProfileScene = ({navigation, route}) => {
   const [token, setToken] = useState();
   const [user, setUser] = useState();
   const [events, setEvents] = useState();
-  var stack="Home"
+  var stack=""
   if(route){
     if(route.params){
       if(route.params.stack){
@@ -37,11 +37,11 @@ const CompanyProfileScene = ({navigation, route}) => {
  
   const 
   [ getAllEventsByOrg, { isLoading }] = useGetAllEventsByOrgMutation();
-
+  var userVar=null
   const handleChange = async () => {
     setToken(await AsyncStorage.getItem("token"));
 
-    var userVar = await AsyncStorage.getItem("user")
+   userVar = await AsyncStorage.getItem("user")
     if(route){
       if(route.params){
         if(route.params.item){
@@ -103,7 +103,7 @@ const ListEvents = () =>{
   return(
     <FlatList
       data={events}
-      renderItem={({ item }) => <EventCard stack={route.name} navigation={navigation} item={item} user={user} /> }
+      renderItem={({ item }) => <EventCard stackPrev={route.name} stack={stack} navigation={navigation} item={item} user={user} /> }
       keyExtractor={item => item._id}
     />
   )

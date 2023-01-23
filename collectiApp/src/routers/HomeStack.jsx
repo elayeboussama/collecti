@@ -48,6 +48,7 @@ const HomeStack = () => {
       <Stack.Screen name="EventEdit" component={views.EditEventScene} />
       <Stack.Screen name="EventProfile" component={views.EventProfileScene} />
       <Stack.Screen name="Donate" component={views.DonateScene} />
+      <Stack.Screen name="Payment" component={views.PaymentScreen} />
     </Stack.Navigator>
   );
 };
