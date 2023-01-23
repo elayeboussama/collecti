@@ -18,7 +18,7 @@ const CompanyStack = () => {
             style={{ position: "absolute", left: 16, color: "white" }}
           />
         ),
-        title: "Collecti",
+        title: "Organization",
         headerStyle: {
           backgroundColor: "#432C7A",
         },
@@ -36,6 +36,8 @@ const CompanyStack = () => {
         
         component={views.CompanyProfileScene}
       />
+      <Stack.Screen name="EventProfile" component={views.EventProfileScene} />
+        <Stack.Screen name="Donate" component={views.DonateScene} />
     </Stack.Navigator>
   );
 };

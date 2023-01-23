@@ -8,7 +8,9 @@ import AddEventScene from "./AddEventScene/AddEventScene";
 import CompanySettingsScene from "./CompanySettingsScene/CompanySettingsScene";
 import EditEventScene from "./EditEventScene/EditEventScene";
 import DonateScene from "./DonateScene/DonateScene";
+import PaymentScreen from "./DonateScene/PaymentScreen";
 import EventProfileScene from "./EventProfileScene/EventProfileScene";
+import EditInfosScene from "./EditInfosScene/EditInfosScene";
 export {
   HomeScene,
   AboutScene,
@@ -20,5 +22,7 @@ export {
   CompanySettingsScene,
   EditEventScene,
   DonateScene,
+  PaymentScreen,
   EventProfileScene,
+  EditInfosScene,
 };

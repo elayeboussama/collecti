@@ -82,10 +82,22 @@ import { Dropdown } from "react-native-element-dropdown";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import mime from "mime";
 import CustomInput from "../../components/CustomInput/CustomInput";
-
-const CompleteInfosScene = () => {
+const init_values = {
+  sector: "",
+  socialMedia: [],
+  description: "",
+  planActions: "",
+  Vision: "",
+  directorName: "",
+  teamMembersNames: [],
+  phone: "",
+  location: "",
+  keywords: [],
+};
+const EditInfosScene = () => {
   const [token, setToken] = useState();
   const [user, setUser] = useState({ email: "" });
+  const [initial_values, setInitialValues] = useState(init_values);
   const handleChange = async () => {
     setToken(await AsyncStorage.getItem("token"));
     const userVar = await AsyncStorage.getItem("user");
@@ -101,6 +113,7 @@ const CompleteInfosScene = () => {
     if (user.email != "") {
       email = user.email;
     }
+    setInitialValues(user);
   }, [user]);
 
   const handleChangeEmail = async (value) => {
@@ -203,35 +216,48 @@ const CompleteInfosScene = () => {
     // console.log(isLoading)
     //return await fetch('http://192.168.56.1:8080/api/organization/upload', options);
   };
-
+  const handleChangeUser = (key, value) => {
+    setUser({ ...user, [key]: value });
+  };
   const updateUser = async (values) => {
     setUser({ ...user, ...values });
   };
 
   const handleSubmit = async (values) => {
+    console.log("uuuuuuuuuusssssssssseeeeerrrr", user);
     const resultCover = await submitCover();
     const resultlogo = await submitImage();
-    console.log(
-      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz-- ",
-      resultCover
-    );
+    const sendUser = {
+      ...user,
+      cover: resultCover.path,
+      logo: resultlogo.path,
+      firstConnection: false,
+    };
+    AsyncStorage.setItem("user", JSON.stringify(sendUser));
+
+    const updateResult = await UpdateOrg({
+      ...sendUser,
+    }).unwrap();
+
+    // console.log(
+    //   "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz-- ",
+    //   resultCover
+    // );
     // console.log("sublit result: ",submitCover().toString())
     // const imagePath = submitImage().toString()
     // const coverPath = submitCover().toString()
     // console.log("from submit image : ",imagePath)
     // console.log("from submit cover : ",coverPath)
-    await updateUser(values);
-    const sendUser = {
-      ...user,
-      ...values,
-      cover: resultCover.path,
-      logo: resultlogo.path,
-      firstConnection: false,
-    };
-    console.log("-----user:  " + JSON.stringify(sendUser));
-    AsyncStorage.setItem("user", JSON.stringify(sendUser));
-    const updateResult = await UpdateOrg({ ...sendUser }).unwrap();
-    console.log(updateResult);
+    // await updateUser(values);
+    // const sendUser = {
+    //   ...user,
+    //   // cover: resultCover.path,
+    //   // logo: resultlogo.path,
+    //   firstConnection: false,
+    // };
+    // AsyncStorage.setItem("user", JSON.stringify(sendUser));
+    // const updateResult = await UpdateOrg({ ...user }).unwrap();
+    // console.log(updateResult);
   };
 
   useEffect(() => {
@@ -298,18 +324,7 @@ const CompleteInfosScene = () => {
         {user && (
           <Formik
             // validationSchema={formValidationSchema}
-            initialValues={{
-              sector: "",
-              socialMedia: [],
-              description: "",
-              planActions: "",
-              Vision: "",
-              directorName: "",
-              teamMembersNames: [],
-              phone: "",
-              location: "",
-              keywords: [],
-            }}
+            initialValues={initial_values}
             onSubmit={(values) => {
               handleSubmit(values);
               setTimeout(() => {
@@ -397,13 +412,13 @@ const CompleteInfosScene = () => {
                   renderErrorMessage={errors.phone ? true : false}
                 /> */}
                 <CustomInput
-                  onChangeText={handleChange("phone")}
+                  onChangeText={(value) => handleChangeUser("phone", value)}
                   // onFocus={() => handleError(null, "last_name")}
                   iconName="phone"
                   label="Phone"
                   placeholder="Enter your Phone..."
                   error={errors.phone}
-                  value={values.phone}
+                  value={user.phone}
                 />
                 <Dropdown
                   style={[styles.dropdown, isFocus && { borderColor: "blue" }]}
@@ -418,7 +433,7 @@ const CompleteInfosScene = () => {
                   valueField="value"
                   placeholder={!isFocus ? "Select sector" : "..."}
                   searchPlaceholder="Search..."
-                  value={values.sector}
+                  value={user.sector}
                   onFocus={() => setIsFocus(true)}
                   onBlur={() => setIsFocus(false)}
                   onChange={(item) => {
@@ -451,13 +466,15 @@ const CompleteInfosScene = () => {
                   renderErrorMessage={errors.directorName ? true : false}
                 /> */}
                 <CustomInput
-                  onChangeText={handleChange("directorName")}
+                  onChangeText={(value) =>
+                    handleChangeUser("directorName", value)
+                  }
                   // onFocus={() => handleError(null, "last_name")}
                   iconName="office-building-cog"
                   label="Director name"
                   placeholder="Enter your Director Name..."
                   error={errors.directorName}
-                  value={values.directorName}
+                  value={user.directorName}
                 />
                 {/* <Input
                   style={styles.input}
@@ -475,13 +492,13 @@ const CompleteInfosScene = () => {
                   renderErrorMessage={errors.location ? true : false}
                 /> */}
                 <CustomInput
-                  onChangeText={handleChange("location")}
+                  onChangeText={(value) => handleChangeUser("location", value)}
                   // onFocus={() => handleError(null, "last_name")}
                   iconName="location-enter"
                   label="Location"
                   placeholder="Enter your Location..."
                   error={errors.location}
-                  value={values.location}
+                  value={user.location}
                 />
                 {/* <Input
                   style={styles.input}
@@ -499,13 +516,15 @@ const CompleteInfosScene = () => {
                   renderErrorMessage={errors.description ? true : false}
                 /> */}
                 <CustomInput
-                  onChangeText={handleChange("description")}
+                  onChangeText={(value) =>
+                    handleChangeUser("description", value)
+                  }
                   // onFocus={() => handleError(null, "last_name")}
                   iconName="android-messages"
                   label="description"
                   placeholder="Enter your description..."
                   error={errors.description}
-                  value={values.description}
+                  value={user.description}
                 />
                 {/* <Input
                   style={styles.input}
@@ -523,13 +542,13 @@ const CompleteInfosScene = () => {
                   renderErrorMessage={errors.Vision ? true : false}
                 /> */}
                 <CustomInput
-                  onChangeText={handleChange("Vision")}
+                  onChangeText={(value) => handleChangeUser("Vision", value)}
                   // onFocus={() => handleError(null, "last_name")}
                   iconName="eye"
                   label="Vision"
                   placeholder="Enter your Vision..."
                   error={errors.Vision}
-                  value={values.Vision}
+                  value={user.Vision}
                 />
                 {/* <Input
                   style={styles.input}
@@ -547,13 +566,15 @@ const CompleteInfosScene = () => {
                   renderErrorMessage={errors.planActions ? true : false}
                 /> */}
                 <CustomInput
-                  onChangeText={handleChange("planActions")}
+                  onChangeText={(value) =>
+                    handleChangeUser("planActions", value)
+                  }
                   // onFocus={() => handleError(null, "last_name")}
                   iconName="chart-bar"
                   label="planActions"
                   placeholder="Enter your plan d'actions..."
                   error={errors.planActions}
-                  value={values.planActions}
+                  value={user.planActions}
                 />
                 <Button
                   icon={
@@ -604,7 +625,7 @@ const formValidationSchema = yup.object().shape({
   email: yup,
 });
 
-export default CompleteInfosScene;
+export default EditInfosScene;
 
 {
   /* <Input
