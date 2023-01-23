@@ -1,12 +1,18 @@
 import { useEffect } from "react"
 import { toast } from "react-toastify"
-import { useDonateEventMutation } from "../../endpoints/AuthEndpoints"
+import { useDonateEventMutation, useDonateMutation } from "../../endpoints/AuthEndpoints"
 import image from "./check.gif"
 
 const CheckoutSuccess = () => {
   const [updateEvent] = useDonateEventMutation()
+  const [donate] = useDonateMutation()
 
   const handleCheckOut = async () =>{
+    const requestDonate={
+      email: localStorage.getItem('donatorEmail'),
+      amount: localStorage.getItem('damount'),
+      event: localStorage.getItem('eventId'),
+    }
   const requestObject = {
                         
     _id: localStorage.getItem('eventId'),
@@ -21,7 +27,15 @@ try {
     toast.success("Profile updated! You're all set. 🙌")
 } catch (error) {
     console.error(error)
-}}
+}
+try {
+  console.log(requestObject)
+  const responsee = await donate({ ...requestDonate }).unwrap()
+  
+} catch (error) {
+  console.error(error)
+}
+}
 useEffect(()=>{
   handleCheckOut()
 },[])

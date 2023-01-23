@@ -3,6 +3,7 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
     cardContainer: {
         marginTop: 12,
+        marginBottom: 12,
         elevation: 3,
         borderRadius: 12,
         width: "95%",
@@ -31,6 +32,21 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         flexDirection: "row",
         flexWrap: "wrap",
+    },
+
+    chip: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center",
+        backgroundColor: "#432c7a",
+        marginHorizontal: 5,
+        marginVertical: 5,
+        paddingVertical: 5,
+        paddingHorizontal: 12,
+        borderRadius: 50,
+
+
+
     },
     eventName: {
         fontSize: 20,

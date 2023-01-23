@@ -13,7 +13,7 @@ import { useGetAllOrgsQuery } from "../../../redux/endpoints/OrganizationEndpoin
 // import { setCredentials } from "../../../redux/slicers/AuthSlice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import CustomInput from "../../components/CustomInput/CustomInput";
-
+import { useRoute } from "@react-navigation/native";
 // import { useNavigation } from "@react-navigation/native";
 // import { useSelector } from 'react-redux';
 // import { selectOrganizations, setOrganizations } from '../../../redux/slicers/OrganizationSlice';
@@ -21,7 +21,7 @@ import CustomInput from "../../components/CustomInput/CustomInput";
 const CompanySearchScene = ({ navigation }) => {
   const [isVisible, setIsVisible] = useState(false);
   const { theme } = useTheme();
-
+  const route = useRoute();
   const {
     data: orgs,
     error,
@@ -71,7 +71,7 @@ const CompanySearchScene = ({ navigation }) => {
       {orgs && (
         <FlatList
           data={orgs.organization}
-          renderItem={({ item }) => <CompanyCard org={item} />}
+          renderItem={({ item }) => <CompanyCard stack={route.name} navigation={navigation} org={item} />}
           keyExtractor={(item) => item._id}
         />
       )}
