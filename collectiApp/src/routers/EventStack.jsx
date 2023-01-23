@@ -20,19 +20,20 @@ const screens = {
 
 const Stack = createStackNavigator();
 
-const ProfileStack = () => {
-  const [org, setOrg] = useState();
-  const handleChangeOrg = async () => {
-    const orgVar = await AsyncStorage.getItem("user");
-    setOrg(JSON.parse(orgVar));
-  };
-  useEffect(() => {
-    handleChangeOrg();
-  }, []);
+const EventStack = () => {
+  
+   const [org, setOrg] = useState()
+   const handleChangeOrg = async () => {
+     const orgVar = await AsyncStorage.getItem("user")
+     setOrg(JSON.parse(orgVar));
+   };
+   useEffect(() => {
+     handleChangeOrg();
+   }, []);
 
-  useEffect(() => {
-    console.log("org Data Stack: ", org);
-  }, [org]);
+   useEffect(() => {
+     console.log("org Data Stack: ",org);
+   }, [org]);
 
   return (
     <Stack.Navigator
@@ -45,7 +46,7 @@ const ProfileStack = () => {
             style={{ position: "absolute", left: 16, color: "white" }}
           />
         ),
-        title: "Profile",
+        title: "Event",
         headerStyle: {
           backgroundColor: "#432C7A",
         },
@@ -58,29 +59,19 @@ const ProfileStack = () => {
       })}
     >
       {/* <Stack.Screen name="AddEvent" component={views.DonateScene} /> */}
-      {org && org.firstConnection == true ? (
+        <Stack.Screen name="Home" component={views.HomeScene} />
+        <Stack.Screen name="EventEdit" component={views.EditEventScene} />
+        <Stack.Screen name="EventProfile" component={views.EventProfileScene} />
+        <Stack.Screen name="Donate" component={views.DonateScene} />
+        <Stack.Screen name="Payment" component={views.PaymentScreen} />
+        <Stack.Screen name="Companies" component={views.CompanySearchScene} />
         <Stack.Screen
-          name="CompleteInfos"
-          component={views.CompleteInfosScene}
-        />
-      ) : (
-        // <Stack.Screen
-        //   name="Profile"
-        //   component={views.CompanyProfileScene}
-        //   isUser={true}
-        // />
-        <Stack.Screen name="Profile">
-          {(props) => <views.CompanyProfileScene {...props} isUser={true} />}
-        </Stack.Screen>
-      )}
-
-      <Stack.Screen name="EventEdit" component={views.EditEventScene} />
-      <Stack.Screen name="EventProfile" component={views.EventProfileScene} />
-      <Stack.Screen name="Donate" component={views.DonateScene} />
-      <Stack.Screen name="Payment" component={views.PaymentScreen} />
-      <Stack.Screen name="Edit" component={views.EditInfosScene} />
+        name="CompanyProfile"
+        
+        component={views.CompanyProfileScene}
+      />
     </Stack.Navigator>
   );
 };
 
-export default ProfileStack;
+export default EventStack;

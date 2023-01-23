@@ -9,7 +9,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
 
 
-const CompanyCard = ({ navigation, org }) => {
+const CompanyCard = ({ navigation, org, stack }) => {
 
   function formatDate(date) {
     const newDate = new Date(date)
@@ -107,7 +107,7 @@ const CompanyCard = ({ navigation, org }) => {
           <TouchableOpacity
             style={styles.actionLeft}
             onPress={() => {
-              navigation.push("CompanyProfile")
+              navigation.navigate("CompanyProfile", {org:org, stack:stack, item:org})
             }}
           >
             <View style={styles.actionLeft}>

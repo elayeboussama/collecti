@@ -38,6 +38,14 @@ export const orgEndpoints = apiSlice.injectEndpoints({
         headers: credentials.headers,
       }),
     }),
+    EditOrg: builder.mutation({
+      query: (credentials) => ({
+        url: "/api/organization/update",
+        method: "POST",
+        body: { ...credentials },
+        invalidatesTags: ["user", "orgs"],
+      }),
+    }),
   }),
 });
 
@@ -65,6 +73,7 @@ export const {
   useGetOneOrgsQuery,
   useDeleteOneOrgsMutation,
   useUploadImageMutation,
+  useEditOrgMutation,
 } = orgEndpoints;
 
 export const { useUpdateOrgMutation, useGetAllOrgsQuery } =

@@ -9,11 +9,31 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
 import { useState } from "react";
 import { useGetAllOrgsQuery } from "../../../redux/endpoints/OrganizationEndpoints";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+// import { useNavigation } from "@react-navigation/native";
 
-const EventCard = ({item }) => {
+const EventCard = ({item,navigation,stack, stackPrev}) => {
   
+  const [currentUser, setCurrentUser] = useState();
+  const handleChange = async () => {
+    const userVar = await AsyncStorage.getItem("user")
+    setCurrentUser(JSON.parse(userVar));
+  };
+  useEffect(() => {
+    if(AsyncStorage.getItem("user")){
+      handleChange();
+    }
+    
+  }, []);
+  useEffect(() => {
+    if(currentUser){
+      console.log("scene event user =>", currentUser);
+      
+    }
+    
+  }, [currentUser,]);
   const [user, setUser]=useState()
-
+  // const navigation = useNavigation();
   function formatDate(date) {
     const newDate = new Date(date)
     const currentMonth = newDate.getMonth();
@@ -46,13 +66,11 @@ const EventCard = ({item }) => {
   
 console.log("de74: ",item)
 
-const category = item.category
-const date = item.date
-const requirementFunds = item.requirementFunds
+
 
   return (
     <View>
-      {category!=undefined && requirementFunds!=undefined && date!=undefined && user? 
+      {item && user? 
         
       <View style={styles.cardContainer}>
       <View style={styles.headerSection}>
@@ -91,31 +109,32 @@ const requirementFunds = item.requirementFunds
         <Text> {item.description}</Text>
 
         <View style={styles.chips}>
-          <Chip
-            title={"category"}
-            containerStyle={{ width: 80, marginLeft: 8 }}
-            titleStyle={{ fontSize: 8 }}
-          />
-          <Chip
-            title={"requirementFunds"}
-            containerStyle={{ width: 80, marginLeft: 8 }}
-            titleStyle={{ fontSize: 8 }}
-          />
-          <Chip
-            title={"date"}
-            containerStyle={{ width: 80, marginLeft: 8 }}
-            titleStyle={{ fontSize: 8 }}
-          />
+          <View style={styles.chip}>
+            <MaterialIcons name="domain" size={15} color="#fff"/>
+            <Text style={{color: "#fff", fontSize:12}}>{item.category}</Text>
+          </View>
+          <View style={styles.chip}>
+            <MaterialIcons name="attach-money" size={18} color="#fff"/>
+            <Text style={{color: "#fff", fontSize:12}}>donators : {item.donators}</Text>
+          </View>
+          <View style={styles.chip}>
+            <MaterialIcons name="more-time" size={18} color="#fff"/>
+            <Text style={{color: "#fff", fontSize:12}}>{formatDate(item.date)}</Text>
+          </View>
+          
         </View>
         <Divider />
         <View style={styles.actions}>
-          <TouchableOpacity style={styles.actionLeft}>
+          <TouchableOpacity
+            onPress={()=>{navigation.navigate("Donate",{item:item, stack:stack, stackPrev:stackPrev})}}
+            style={styles.actionLeft}>
             <View style={styles.actionLeft}>
               <Text style={{ fontSize: 14 }}>Donate</Text>
               <MaterialIcons name="attach-money" size={18} color="#333" />
             </View>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.actionLeft}>
+          
+          <TouchableOpacity onPress={()=>{navigation.navigate("EventProfile",{item:item, user:user, stack:stack, stackPrev:stackPrev})}} style={styles.actionLeft}>
             <View style={styles.actionLeft}>
               <Text style={{ fontSize: 14 }}>Details</Text>
               <MaterialIcons name="arrow-forward" size={18} color="#333" />

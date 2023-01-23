@@ -13,7 +13,7 @@ import { useState } from "react";
 
 import { Text, View, TouchableOpacity, Image } from "react-native";
 import { styles } from "./styles";
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons,MaterialCommunityIcons } from "@expo/vector-icons";
 import EventCard from "../../components/EventCard/EventCard";
 import { ScrollView } from "react-native";
 import CompanyCard from "../../components/CompanyCard/CompanyCard";
@@ -31,13 +31,15 @@ const initialState = {
   members_number: "",
   office_members: "",
 };
-const EditEventScene = () => {
-  const [values, setValues] = useState(initialState);
+const EditEventScene = ({navigation, route}) => {
+  const item = route.params.item
+  const stack = route.params.stack
+  const [values, setValues] = useState(item);
   const [errors, setErrors] = useState({});
   const [isVisible, setIsVisible] = useState(false);
   const { theme } = useTheme();
   const [image, setImage] = useState(
-    "https://i.postimg.cc/6qbtTHjS/menu-bg.jpg"
+    item.image[0]
   );
   const [profileImage, setPorfileImage] = useState(
     "https://i.ibb.co/wg9Qvtp/logo2.png"
@@ -45,7 +47,7 @@ const EditEventScene = () => {
   const [timePicker, setTimePicker] = useState(false);
   const [date, setDate] = useState(new Date());
   function onDateSelected(event, value) {
-    setDate(value);
+    setValues({...values, date : value});
     setTimePicker(false);
   }
   const handleError = (error, input) => {
@@ -54,10 +56,22 @@ const EditEventScene = () => {
   const handleOnchange = (text, input) => {
     setValues((prevState) => ({ ...prevState, [input]: text }));
   };
+
+  function formatDate(date) {
+    const newDate = new Date(date);
+    const currentMonth = newDate.getMonth();
+    const monthString = currentMonth >= 10 ? currentMonth : `0${currentMonth}`;
+    const currentDate = newDate.getDate();
+    const dateString = currentDate >= 10 ? currentDate : `0${currentDate}`;
+    return `${newDate.getFullYear()}-${Number(monthString) + 1}-${currentDate}`;
+  }
   return (
     <View style={styles.container}>
       <ScrollView>
         <View style={styles.headerSection}>
+        <TouchableOpacity onPress={()=>{navigation.navigate(stack)}} style={{width:"20%", marginTop:10, marginLeft:10}}>
+            <MaterialCommunityIcons name="arrow-left-circle-outline" size={25} color="#3B0081"/>
+          </TouchableOpacity>
           <View
             style={{
               height: 200,
@@ -76,25 +90,25 @@ const EditEventScene = () => {
             source={{ uri: "https://i.ibb.co/wg9Qvtp/logo2.png" }}
           /> */}
 
-          <View style={{ paddingHorizontal: 12, marginTop: 70 }}>
+          <View style={{ paddingHorizontal: 12, marginTop: 70}}>
             <Text style={styles.desc}> Event Details</Text>
             <CustomInput
-              onChangeText={(text) => handleOnchange(text, "ev_name")}
+              onChangeText={(text) => handleOnchange(text, "name")}
               onFocus={() => handleError(null, "ev_name")}
               // iconName="update"
               label="Event Name"
               placeholder="Event Name"
               error={errors.ev_name}
-              value={values.ev_name}
+              value={values.name}
             />
             <CustomInput
-              onChangeText={(text) => handleOnchange(text, "desc")}
+              onChangeText={(text) => handleOnchange(text, "description")}
               onFocus={() => handleError(null, "desc")}
               // iconName="update"
               label="Description"
               placeholder="Description"
               error={errors.desc}
-              value={values.desc}
+              value={values.description}
               multiline
               numberOfLines={10}
             />
@@ -108,13 +122,13 @@ const EditEventScene = () => {
               value={values.category}
             />
             <CustomInput
-              onChangeText={(text) => handleOnchange(text, "required_fund")}
+              onChangeText={(text) => handleOnchange(text, "requirementFunds")}
               onFocus={() => handleError(null, "org_loc")}
               // iconName="update"
               label="Required Fund"
               placeholder="Required Fund"
               error={errors.required_fund}
-              value={values.required_fund}
+              value={values.requirementFunds}
             />
             <View
               style={{
@@ -130,11 +144,10 @@ const EditEventScene = () => {
                   alignItems: "center",
                 }}
               >
-                <Text style={{ marginRight: 12 }}>Start Date</Text>
+                <Text style={{ marginRight: 12 }}>Date</Text>
                 <Chip
-                  title={`${date.getFullYear().toString()}-${date
-                    .getMonth()
-                    .toString()}-${date.getDate().toString()}`}
+
+                  title={formatDate(values.date)}
                   onPress={() => setTimePicker(true)}
                   type="outline"
                   icon={{
@@ -148,12 +161,11 @@ const EditEventScene = () => {
               </View>
             </View>
             {timePicker && (
-              <DateTimePicker value={date} onChange={onDateSelected} />
+              <DateTimePicker value={new Date(values.date)} onChange={onDateSelected} />
             )}
             <Button
               buttonStyle={styles.submitButton}
               title={"Save"}
-              iconRight
             />
           </View>
         </View>
