@@ -9,9 +9,10 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
 import { useState } from "react";
 import { useGetAllOrgsQuery } from "../../../redux/endpoints/OrganizationEndpoints";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 // import { useNavigation } from "@react-navigation/native";
 
-const EventCard = ({item,navigation,stack}) => {
+const EventCard = ({item,navigation,stack, stackPrev}) => {
   
   const [currentUser, setCurrentUser] = useState();
   const handleChange = async () => {
@@ -19,7 +20,10 @@ const EventCard = ({item,navigation,stack}) => {
     setCurrentUser(JSON.parse(userVar));
   };
   useEffect(() => {
-    handleChange();
+    if(AsyncStorage.getItem("user")){
+      handleChange();
+    }
+    
   }, []);
   useEffect(() => {
     if(currentUser){
@@ -122,7 +126,7 @@ console.log("de74: ",item)
         <Divider />
         <View style={styles.actions}>
           <TouchableOpacity
-            onPress={()=>{navigation.navigate("Donate",{item:item, stack:stack})}}
+            onPress={()=>{navigation.navigate("Donate",{item:item, stack:stack, stackPrev:stackPrev})}}
             style={styles.actionLeft}>
             <View style={styles.actionLeft}>
               <Text style={{ fontSize: 14 }}>Donate</Text>
@@ -130,7 +134,7 @@ console.log("de74: ",item)
             </View>
           </TouchableOpacity>
           
-          <TouchableOpacity onPress={()=>{navigation.navigate("EventProfile",{item:item, user:user, stack:stack})}} style={styles.actionLeft}>
+          <TouchableOpacity onPress={()=>{navigation.navigate("EventProfile",{item:item, user:user, stack:stack, stackPrev:stackPrev})}} style={styles.actionLeft}>
             <View style={styles.actionLeft}>
               <Text style={{ fontSize: 14 }}>Details</Text>
               <MaterialIcons name="arrow-forward" size={18} color="#333" />

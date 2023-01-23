@@ -36,7 +36,7 @@ const HomeScene = ({navigation}) => {
     return(
       <FlatList
         data={eventsState}
-        renderItem={({ item }) => <EventCard  stack={route.name} navigation={navigation} item={item}  /> }
+        renderItem={({ item }) => <EventCard  stackPrev={route.name} stack={"Home"} navigation={navigation} item={item}  /> }
         keyExtractor={item => item._id}
       />
     )
