@@ -13,8 +13,8 @@ const Event = () => {
     let { eventId } = useParams();
     const { data, isLoading } = useGetEventQuery(eventId)
     const [showModal, setShowModal] = useState(false)
-    // console.log(data)
-    
+    console.log(data)
+
     const handleVisible = num => {
         setShowModal(!showModal);
 
@@ -57,7 +57,7 @@ const Event = () => {
                             <span className='text-xs text-gray-500'>donators</span>
                         </div>
                         <div className='flex flex-col items-baseline space-x-1 xl:flex-row'>
-                            <span className='font-bold text-gray-500 xl:text-2xl'>{differenceInDays(new Date(data?.event.date), new Date())}</span>
+                            <span className='font-bold text-gray-500 xl:text-2xl'>{differenceInDays(new Date(data?.event.date), new Date()) < 0 ? 0 : differenceInDays(new Date(data?.event.date), new Date())}</span>
                             <span className='text-xs text-gray-500'>days to go</span>
                         </div>
                     </div>
@@ -66,6 +66,18 @@ const Event = () => {
                             Donate
                         </Button>
                     </div>
+                    {data?.event.status === "pending" && <div className="block alert alert-warning xl:hidden">
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0 w-6 h-6 stroke-current" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                            <span>This event is not visible to the public yet as it's still waiting for approval by our administrators.</span>
+                        </div>
+                    </div>}
+                    {data?.event.status === "rejected" && <div className="my-2 alert alert-error">
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0 w-6 h-6 stroke-current" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                            <span>We regret to inform you that your event has been rejected.</span>
+                        </div>
+                    </div>}
                     <div className='xl:hidden'>
                         <h2 className='text-2xl font-bold'>About us</h2>
                         <p className='mt-2'>{data?.event.description}</p>
@@ -75,6 +87,18 @@ const Event = () => {
             </div>
             <UserInfo id={data.event.organization_id} className={"hidden xl:flex xl:border-0"} />
             <div className='hidden xl:block'>
+                {data?.event.status === "pending" && <div className="my-2 alert alert-warning">
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0 w-6 h-6 stroke-current" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                        <span>This event is not visible to the public yet as it's still waiting for approval by our administrators.</span>
+                    </div>
+                </div>}
+                {data?.event.status === "rejected" && <div className="my-2 alert alert-error">
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0 w-6 h-6 stroke-current" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                        <span>We regret to inform you that your event has been rejected.</span>
+                    </div>
+                </div>}
                 <h2 className='text-2xl font-bold'>About us</h2>
                 <p className='mt-2'>{data?.event.description}</p>
             </div>

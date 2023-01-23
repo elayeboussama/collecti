@@ -2,29 +2,32 @@
 import { useParams } from 'react-router-dom';
 import Button from '../components/Button'
 import ImageSlider from '../components/ImageSlider'
-import { useGetEventQuery } from '../endpoints/apiEndpoints'
+import { useGetEventQuery, useUpdateEventStatusMutation } from '../endpoints/apiEndpoints'
 import { differenceInDays } from 'date-fns'
 
 import UserInfo from '../components/UserInfo';
-
-import { useState } from 'react';
+import Actions from '../components/Actions';
+import { toast } from 'react-toastify';
 
 const Event = () => {
-    let { eventId } = useParams();
+    const { eventId } = useParams();
     const { data, isLoading } = useGetEventQuery(eventId)
-    const [showModal, setShowModal] = useState(false)
-    // console.log(data)
-    
-    const handleVisible = num => {
-        setShowModal(!showModal);
+    const [updateEventStatus] = useUpdateEventStatusMutation()
 
+    console.log(data)
 
+    const updateStatusHandler = async (status) => {
+        if (status === "approve") {
+            await updateEventStatus({ _id: eventId, status: "approved" })
+            toast.success("Organization approved.")
+        }
+        else if (status === "reject") {
+            await updateEventStatus({ _id: eventId, status: "rejected" })
+            toast.success("Organization rejected.")
+        } else {
+            return
+        }
     }
-    const handleClick = num => {
-        // 👇️ take parameter passed from Child component
-        setShowModal(true)
-        // setEventId(num);
-    };
 
     if (isLoading) {
         return <div>Loading...</div>
@@ -57,12 +60,12 @@ const Event = () => {
                             <span className='text-xs text-gray-500'>donators</span>
                         </div>
                         <div className='flex flex-col items-baseline space-x-1 xl:flex-row'>
-                            <span className='font-bold text-gray-500 xl:text-2xl'>{differenceInDays(new Date(data?.event.date), new Date())}</span>
+                            <span className='font-bold text-gray-500 xl:text-2xl'>{differenceInDays(new Date(data?.event.date), new Date()) < 0 ? 0 : differenceInDays(new Date(data?.event.date), new Date()) < 0}</span>
                             <span className='text-xs text-gray-500'>days to go</span>
                         </div>
                     </div>
                     <div className='my-5 xl:mb-auto'>
-                        <Button wide className={'btn-success text-white'} onClick={() => handleClick(data?.event._id)}>
+                        <Button wide className={'btn-success text-white'}>
                             Donate
                         </Button>
                     </div>
@@ -78,7 +81,7 @@ const Event = () => {
                 <h2 className='text-2xl font-bold'>About us</h2>
                 <p className='mt-2'>{data?.event.description}</p>
             </div>
-         
+            <Actions id={data?.event._id} updateStatus={updateStatusHandler} />
         </div>
     )
 }

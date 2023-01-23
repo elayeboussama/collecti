@@ -18,7 +18,7 @@ const Organization = () => {
 
     const [updateStatus] = useUpdateStatusMutation()
 
-    const tabsTitle = ["Description", "Plan d'action", "Vision"]
+    const tabsTitle = ["Description", "Actions plan", "Vision"]
     const eventsList = data?.organization.events;
 
     const updateStatusHandler = async (status) => {
