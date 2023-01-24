@@ -4,8 +4,8 @@ import { useOrgDetailsQuery } from "../../endpoints/AuthEndpoints"
 import image from "./rb.jpg"
 
 
-const EventCard = ({ eventTitle, handleShow, handleClick, id , orgId, date, location="not specified", donators}) => {
-    
+const EventCard = ({ eventTitle, handleShow, handleClick, id, orgId, date, location = "not specified", donators }) => {
+
     const { data, isLoading, isSuccess } = useOrgDetailsQuery(orgId)
     // const[showModal,setShowModal]=useState(false)
     // const handleVisible = () => setShowModal(!showModal)
@@ -36,73 +36,73 @@ const EventCard = ({ eventTitle, handleShow, handleClick, id , orgId, date, loca
                     </div>
 
                     <div className="-space-x-6 overflow-visible avatar-group">
-                        {donators>0 ?
-                        donators<2 ?
-                        <>
-                        <div className="avatar">
-                            <div className="w-12">
-                                <img src="https://placeimg.com/192/192/people" />
-                            </div>
-                        </div> 
-                          <div className="avatar placeholder">
-                          <div className="w-12 bg-neutral-focus text-neutral-content">
-                              <span>{donators}</span>
-                          </div>
+                        {donators > 0 ?
+                            donators < 2 ?
+                                <>
+                                    <div className="avatar">
+                                        <div className="w-12">
+                                            <img src="https://placeimg.com/192/192/people" />
+                                        </div>
+                                    </div>
+                                    <div className="avatar placeholder">
+                                        <div className="w-12 bg-neutral-focus text-neutral-content">
+                                            <span>{donators}</span>
+                                        </div>
 
-                      </div>
-                      <p className="pt-3 pl-6 text-slate-400">are donating</p>
-                      </> :
-                      donators < 3 ?
-                      <>
-                       <div className="avatar">
-                            <div className="w-12">
-                                <img src="https://placeimg.com/192/192/people" />
-                            </div>
-                        </div>
-                        <div className="avatar">
-                            <div className="w-12">
-                                <img src="https://placeimg.com/192/192/people" />
-                            </div>
-                        </div>
-                        <div className="avatar placeholder">
-                          <div className="w-12 bg-neutral-focus text-neutral-content">
-                              <span>{donators}</span>
-                          </div>
+                                    </div>
+                                    <p className="pt-3 pl-6 text-slate-400">Donated</p>
+                                </> :
+                                donators < 3 ?
+                                    <>
+                                        <div className="avatar">
+                                            <div className="w-12">
+                                                <img src="https://placeimg.com/192/192/people" />
+                                            </div>
+                                        </div>
+                                        <div className="avatar">
+                                            <div className="w-12">
+                                                <img src="https://placeimg.com/192/192/people" />
+                                            </div>
+                                        </div>
+                                        <div className="avatar placeholder">
+                                            <div className="w-12 bg-neutral-focus text-neutral-content">
+                                                <span>{donators}</span>
+                                            </div>
 
-                      </div>
-                      <p className="pt-3 pl-6 text-slate-400">are donating</p>
-                      </>
-                      :
-                      <>
-                       <div className="avatar">
-                            <div className="w-12">
-                                <img src="https://placeimg.com/192/192/people" />
-                            </div>
-                        </div>
-                        <div className="avatar">
-                            <div className="w-12">
-                                <img src="https://placeimg.com/192/192/people" />
-                            </div>
-                        </div>
-                         <div className="avatar">
-                            <div className="w-12">
-                                <img src="https://placeimg.com/192/192/people" />
-                            </div>
-                        </div>
-                        <div className="avatar placeholder">
-                            <div className="w-12 bg-neutral-focus text-neutral-content">
-                                <span>+{donators-3}</span>
-                            </div>
+                                        </div>
+                                        <p className="pt-3 pl-6 text-slate-400">donated</p>
+                                    </>
+                                    :
+                                    <>
+                                        <div className="avatar">
+                                            <div className="w-12">
+                                                <img src="https://placeimg.com/192/192/people" />
+                                            </div>
+                                        </div>
+                                        <div className="avatar">
+                                            <div className="w-12">
+                                                <img src="https://placeimg.com/192/192/people" />
+                                            </div>
+                                        </div>
+                                        <div className="avatar">
+                                            <div className="w-12">
+                                                <img src="https://placeimg.com/192/192/people" />
+                                            </div>
+                                        </div>
+                                        <div className="avatar placeholder">
+                                            <div className="w-12 bg-neutral-focus text-neutral-content">
+                                                <span>+{donators - 3}</span>
+                                            </div>
 
-                        </div>
-                        <p className="pt-3 pl-6 text-slate-400">are donating</p>
-                      </>
-                      : "there's no donators"
+                                        </div>
+                                        <p className="pt-3 pl-6 text-slate-400">donated</p>
+                                    </>
+                            : "there's no donators"
 
 
                         }
-                       
-                     
+
+
                     </div>
 
 
