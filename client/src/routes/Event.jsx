@@ -1,13 +1,12 @@
 // import Youtube from 'react-youtube'
-import { useParams } from 'react-router-dom';
-import Button from '../components/shared/Button'
-import ImageSlider from '../components/shared/ImageSlider'
-import { useGetEventQuery } from '../endpoints/AuthEndpoints'
-import { differenceInDays } from 'date-fns'
-import Avatar from '../components/shared/Avatar';
-import UserInfo from '../components/shared/UserInfo';
-import DonationPopup from '../components/event/DonationPopup';
+import { differenceInDays } from 'date-fns';
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import DonationPopup from '../components/event/DonationPopup';
+import Button from '../components/shared/Button';
+import ImageSlider from '../components/shared/ImageSlider';
+import UserInfo from '../components/shared/UserInfo';
+import { useGetEventQuery } from '../endpoints/AuthEndpoints';
 
 const Event = () => {
     let { eventId } = useParams();
