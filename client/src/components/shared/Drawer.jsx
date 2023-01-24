@@ -1,4 +1,4 @@
-import { ArrowLeftOnRectangleIcon, ArrowRightOnRectangleIcon, CalendarIcon, Cog6ToothIcon, GlobeAltIcon, HomeIcon, PlusCircleIcon, UserIcon } from "@heroicons/react/24/outline";
+import { ArrowLeftOnRectangleIcon, ArrowRightOnRectangleIcon, CalendarDaysIcon, CalendarIcon, Cog6ToothIcon, GlobeAltIcon, HomeIcon, PlusCircleIcon, UserIcon } from "@heroicons/react/24/outline";
 import cn from "classnames";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
@@ -14,7 +14,9 @@ const Drawer = ({ children }) => {
 
     const ProtectedRoutes = <>
         <li><NavLink end to={"/events/add"} className={({ isActive }) => cn({ "bg-primary text-white": isActive })}><PlusCircleIcon className="w-6 h-6" />Create Event</NavLink></li>
+        <li><NavLink end to={"/my-events"} className={({ isActive }) => cn({ "bg-primary text-white": isActive })}><CalendarDaysIcon className="w-6 h-6" />My Events</NavLink></li>
         <li><NavLink end to={"/organization/edit"} className={({ isActive }) => cn({ "bg-primary text-white": isActive })}><Cog6ToothIcon className="w-6 h-6" />Settings</NavLink></li>
+
     </>
 
     return (
