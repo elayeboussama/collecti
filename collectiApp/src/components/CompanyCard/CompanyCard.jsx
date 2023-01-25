@@ -1,12 +1,13 @@
 import { Avatar, Button, Chip } from "@rneui/themed";
 import React from "react";
-import { Image } from "react-native";
+import { Image, ActivityIndicator } from "react-native";
 import { ImageBackground } from "react-native";
 import { Text, View, StyleSheet } from "react-native";
 import { styles } from "./styles";
 import { Divider } from "@rneui/themed";
 import { MaterialIcons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
+import { useState, useEffect } from "react"; 
 
 
 const CompanyCard = ({ navigation, org, stack }) => {
@@ -19,8 +20,73 @@ const CompanyCard = ({ navigation, org, stack }) => {
     const dateString = currentDate >= 10 ? currentDate : `0${currentDate}`;
     return `${newDate.getFullYear()}-${Number(monthString)+1}-${currentDate}`;
   }
+  const [orgData, setOrgDate]=useState(org)
+  const [cover, setCover] = useState("")
+  const [logo, setLogo] = useState("")
+  const [logo2, setLogo2] = useState("")
+  useEffect(()=>{
+    if(org){
+      
+
+      if( org.logo2 && org.logo2.split("/")[0] == "https:" ){
+        console.log("dandandan: ",org.logo2)
+        setLogo2(org.cover)
+      }else if (org.cover && org.cover.split("/")[0] == "https: " ){
+        console.log("dandandan: ",org.cover)
+        setLogo2(org.cover)
+      }else if (org.cover && org.cover.split("/")[0] == "uploads"){
+        console.log("dandandan: ",org.cover)
+        setLogo2(`http://192.168.56.1:8080/${org.cover}`)
+      }else if (org.cover && org.cover.split("\\")[0] == "uploads"){
+        console.log("dandandan: ",org.cover)
+        setLogo2(`http://192.168.56.1:8080/${org.cover}`)
+      }
+    }
+  },[orgData])
+  useEffect(()=>{
+    if(org){
+      
+
+      if( org.logo && org.logo.split("/")[0] == "https:" ){
+        console.log("dandandan: ",org.logo)
+        setLogo(org.logo)
+      }else if (org.logo && org.logo.split("/")[0] == "https: " ){
+        console.log("dandandan: ",org.logo)
+        setLogo(org.logo)
+      }else if (org.logo && org.logo.split("/")[0] == "uploads"){
+        console.log("dandandan: ",org.logo)
+        setLogo(`http://192.168.56.1:8080/${org.logo}`)
+      }else if (org.logo && org.logo.split("\\")[0] == "uploads"){
+        console.log("dandandan: ",org.logo)
+        setLogo(`http://192.168.56.1:8080/${org.logo}`)
+      }
+      
+    }
+  },[orgData])
+  useEffect(()=>{
+    if(org){
+      
+
+      if( org.cover && org.cover.split("/")[0] == "https:" ){
+        console.log("dandandan: ",org.cover)
+        setCover(org.cover)
+      }else if (org.cover && org.cover.split("/")[0] == "https: " ){
+        console.log("dandandan: ",org.cover)
+        setCover(org.cover)
+      }else if (org.cover && org.cover.split("/")[0] == "uploads"){
+        console.log("dandandan: ",org.cover)
+        setCover(`http://192.168.56.1:8080/${org.cover}`)
+      }else if (org.cover && org.cover.split("\\")[0] == "uploads"){
+        console.log("dandandan: ",org.cover)
+        setCover(`http://192.168.56.1:8080/${org.cover}`)
+      }
+    }
+  },[orgData])
   return (
+    <View>
+    {  orgData ? 
     <View style={styles.cardContainer}>
+      
       <View style={styles.leftSection}>
         <View
           style={{
@@ -31,7 +97,7 @@ const CompanyCard = ({ navigation, org, stack }) => {
           }}
         >
           <Image
-            source={org.cover ? {  uri: `http://192.168.56.1:8080/${org.cover}`} : require("../../../assets/goose-funky.png")}
+            source={org && orgData.cover && orgData && org.cover &&  logo2!="" ? {  uri: logo2} : require("../../../assets/goose-funky.png")}
             style={{
               padding: 20,
               borderRadius: 12,
@@ -49,7 +115,7 @@ const CompanyCard = ({ navigation, org, stack }) => {
           }}
         >
           <Image
-            source={org.logo ? {  uri: `http://192.168.56.1:8080/${org.logo}`} :require("../../../assets/menu-bg.jpeg")}
+            source={org && orgData && orgData.logo && org.logo &&  logo!="" ? {  uri: logo} :require("../../../assets/menu-bg.jpeg")}
             style={{
               padding: 20,
               borderRadius: 100,
@@ -117,6 +183,11 @@ const CompanyCard = ({ navigation, org, stack }) => {
           </TouchableOpacity>
         </View>
       </View>
+    </View>
+    :<ActivityIndicator/>
+  }
+    
+    
     </View>
   );
 };

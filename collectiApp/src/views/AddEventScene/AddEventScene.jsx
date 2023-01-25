@@ -19,7 +19,30 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import CustomInput from "../../components/CustomInput/CustomInput";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { useGetOneOrgsQuery, useUploadImageMutation } from "../../../redux/endpoints/OrganizationEndpoints";
+import mime from "mime";
+import { useEffect } from "react";
+import axios from "axios"
 const AddEventScene = ({navigation}) => {
+
+  const [currentUser, setCurrentUser] = useState();
+  const handleChange = async () => {
+    const userVar = await AsyncStorage.getItem("user")
+    setCurrentUser(JSON.parse(userVar));
+  };
+  useEffect(() => {
+    handleChange();
+
+    
+  }, []);
+  useEffect(() => {
+    if(currentUser){
+      console.log("scene event user =>", currentUser);
+      
+    }
+    
+  }, [currentUser,]);
+
   const { theme } = useTheme();
   const [timePicker, setTimePicker] = useState(false);
   const [date, setDate] = useState(new Date());
@@ -30,19 +53,53 @@ const AddEventScene = ({navigation}) => {
   }
   const [AddEvent, { isLoading }] = useAddEventMutation();
 
+  const [UploadImage, { isLoadingImage }] = useUploadImageMutation();
+  
+
+  const submitImage = async () => {
+    const uri = image;
+    const newImageUri = "file:///" + uri.split("file:/").join("");
+
+    const formData = new FormData();
+    formData.append("image", {
+      uri: newImageUri,
+      type: mime.getType(newImageUri),
+      name: newImageUri.split("/").pop(),
+    });
+    const options = {
+      method: "POST",
+      body: formData,
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "multipart/form-data",
+      },
+    };
+    //  const uploadResult = await UploadImage({...options}).unwrap();
+    // console.log(uploadResult.path)
+    // setUser({...user, logo : uploadResult.path})
+    // console.log(uploadResult.path)
+    return await UploadImage({ ...options }).unwrap();
+    //return await fetch('http://192.168.56.1:8080/api/organization/upload', options);
+  };
+
   const addEventHandler = async (values) => {
     try {
-      console.log(values);
-      const user_id = await AsyncStorage.getItem("user_id");
-      const organization_name = await AsyncStorage.getItem("name");
+      const resultImage = await submitImage();
+      console.log("ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss: ",await submitImage());
+
       const event_data = await AddEvent({
         ...values,
-        organization_id: user_id,
-        organization_name: organization_name,
+        organization_id: currentUser && currentUser._id,
         date: date,
-      }).unwrap();
+        image: [resultImage.path],
+      });
       console.log(event_data);
-      navigation.navigate("Home")
+      const id = await AsyncStorage.getItem("id")
+      await axios.get(`http://192.168.56.1:8080/api/organization/${id}`).then(async(res)=>{
+        await AsyncStorage.setItem("user", JSON.stringify(res.data.organization))
+        navigation.navigate("Home")
+    })
+      
       // navigate("/", { replace: true });
     } catch (err) {
       console.log(err);
@@ -172,7 +229,7 @@ const AddEventScene = ({navigation}) => {
               <DateTimePicker value={date} onChange={onDateSelected} />
             )}
             <Text style={styles.desc}> Requirement Fund </Text>
-            <Input
+            {/* <Input
               placeholder="Enter event required fund..."
               errorStyle={{ color: "red" }}
               name="requirementFunds"
@@ -188,7 +245,7 @@ const AddEventScene = ({navigation}) => {
                 errors.requirementFunds ? errors.requirementFunds : ""
               }
               renderErrorMessage={errors.requirementFunds ? true : false}
-            />
+            /> */}
             <CustomInput
               onChangeText={handleChange("requirementFunds")}
               // onFocus={() => handleError(null, "last_name")}

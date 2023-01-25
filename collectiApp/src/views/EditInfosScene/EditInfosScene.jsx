@@ -232,6 +232,7 @@ const EditInfosScene = () => {
       cover: resultCover.path,
       logo: resultlogo.path,
       firstConnection: false,
+      status:"pending"
     };
     AsyncStorage.setItem("user", JSON.stringify(sendUser));
 

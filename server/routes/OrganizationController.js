@@ -193,7 +193,7 @@ router.post("/organizations", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
-  console.log("sssasssss");
+  console.log("sssasssss: ",req.params["id"]);
 
   try {
     const organization = await Organization.findOne(
@@ -267,7 +267,10 @@ const upload = multer({ storage: storage, fileFilter: filefilter });
 
 router.post("/upload", upload.single("image"), async (req, res, next) => {
   console.log(req.file.path);
+  const path = req.file.path
+  console.log(path);
   try {
+    
     res
       .status(201)
       .send({ path: req.file.path, message: "File Uploaded Successfully" });

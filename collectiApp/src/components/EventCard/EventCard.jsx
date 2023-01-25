@@ -59,10 +59,35 @@ const EventCard = ({item,navigation,stack, stackPrev}) => {
       }
   
   }, [organization])
+  const [logo, setLogo]=useState("")
+  const [image, setImage]=useState("")
 
   useEffect(()=>{
-    console.log("userrrrrrrrrrrrrrrrrr",user)
+    
+    if(user){
+      if( user.logo.split("/")[0] == "https:" ){
+        setLogo(user.logo)
+      }else if(user.logo.split("/")[0] == "uploads"){
+        setLogo(`http://192.168.56.1:8080/${user.logo}`)
+      }else if (user.logo.split("\\")[0] == "uploads"){
+        setLogo(`http://192.168.56.1:8080/${user.logo}`)
+      }
+    }
   },[user])
+
+  useEffect(()=>{
+    if(item){
+      if( item.image[0] && item.image[0].split("/")[0] == "https:" ){
+        setImage(item.image[0])
+      }else if (item.image[0] && item.image[0].split("/")[0] == "https: " ){
+        setImage(item.image[0])
+      }else if (item.image[0] && item.image[0].split("/")[0] == "uploads"){
+        setImage(`http://192.168.56.1:8080/${item.image[0]}`)
+      }else if (item.image[0] && item.image[0].split("\\")[0] == "uploads"){
+        setImage(`http://192.168.56.1:8080/${item.image[0]}`)
+      }
+    }
+  },[item])
   
 console.log("de74: ",item)
 
@@ -77,7 +102,7 @@ console.log("de74: ",item)
         <Avatar
           size={32}
           rounded
-          source={user.logo? {  uri: `http://192.168.56.1:8080/${user.logo}`}: require("../../../assets/logo2.png")}
+          source={user && user.logo && logo!=""? {  uri: logo}: require("../../../assets/logo2.png")}
         />
         
         <Text style={{marginLeft:10, marginBottom:5, fontSize:20}}>
@@ -94,7 +119,7 @@ console.log("de74: ",item)
           }}
         >
           <Image
-            source={item.image[0] ? {uri : `${item.image[0]}`}: require("../../../assets/event.png")}
+            source={item && item.image[0] && image!="" ? {uri : image}: require("../../../assets/event.png")}
             style={{
               padding: 20,
               borderRadius: 12,

@@ -63,6 +63,9 @@ const CompanyProfileScene = ({ navigation, route, isUser }) => {
   useEffect(() => {
     handleChange();
   }, []);
+
+  const [logo, setLogo]=useState("")
+  const [cover, setCover]=useState("")
   useEffect(() => {
     console.log("scene token =>", token);
     console.log("scene user =>", user);
@@ -76,7 +79,32 @@ const CompanyProfileScene = ({ navigation, route, isUser }) => {
           });
       }
     }
+
+
+
+      if(user && user.logo){
+        if( user.logo.split("/")[0] == "https:" ){
+          setLogo(user.logo)
+        }else if(user.logo.split("/")[0] == "uploads"){
+          setLogo(`http://192.168.56.1:8080/${user.logo}`)
+        }else if (user.logo.split("\\")[0] == "uploads"){
+          setLogo(`http://192.168.56.1:8080/${user.logo}`)
+        }
+
+        if( user.cover.split("/")[0] == "https:" ){
+          setCover(user.cover)
+        }else if(user.cover.split("/")[0] == "uploads"){
+          setCover(`http://192.168.56.1:8080/${user.cover}`)
+        }else if (user.cover.split("\\")[0] == "uploads"){
+          setCover(`http://192.168.56.1:8080/${user.cover}`)
+        }
+      }
+    
+
+
   }, [user]);
+
+  
 
   // useEffect(() => {
   //   console.log("zzzzzzzzzssssxxx: ",events)
@@ -164,7 +192,7 @@ const CompanyProfileScene = ({ navigation, route, isUser }) => {
               }}
             >
               <Image
-                source={{ uri: `http://192.168.56.1:8080/${user.cover}` }}
+                source={user && user.cover && cover!="" ? { uri: cover }: require("../../../assets/menu-bg.jpeg")}
                 style={{
                   padding: 20,
                   borderRadius: 12,
@@ -177,7 +205,7 @@ const CompanyProfileScene = ({ navigation, route, isUser }) => {
               size={160}
               containerStyle={{ marginTop: -80, alignSelf: "center" }}
               rounded
-              source={{ uri: `http://192.168.56.1:8080/${user.logo}` }}
+              source={user && user.logo && logo!="" ? { uri: logo }: require("../../../assets/menu-bg.jpeg")}
             />
             <Text
               style={{ alignSelf: "center", fontSize: 25, fontWeight: "bold" }}
