@@ -7,6 +7,11 @@ export const EditOrganizationSchema = yup.object().shape({
     avatar: yup.array().min(1, "Hold on! You forgot to include a logo for your organization. 📷").max(1),
     coverPhoto: yup.array().min(1, "Hold on! You forgot to include a cover photo for your organization. 📷").max(1),
     phone: yup.string().matches(phoneNumberRegex, "Please enter a valid phone number. 📞"),
+    socailMedia: yup.object().shape({
+        facebook: yup.string().url("Please enter a valid Facebook URL. 🌐"),
+        instagram: yup.string().url("Please enter a valid Instagram URL. 🌐"),
+        linkedin: yup.string().url("Please enter a valid Linkedin URL. 🌐"),
+    }),
     description: yup.string().min(200, "Please enter a description for your organization that is at least 200 characters. 📝").required("A description is required for your organization. Please add one. 📝"),
 })
 

@@ -76,7 +76,7 @@ const EditOrganization = () => {
         }
     })
 
-
+    console.log(errors)
     const handleAddTag = () => {
         const tag = tagInputRef.current.value
         if (tag && !tags.includes(tag)) {
@@ -196,7 +196,7 @@ const EditOrganization = () => {
                     <label className="label">
                         <span className="label-text">Instagram</span>
                     </label>
-                    <input type="text" name='socialMedia.instagram'
+                    <input type="url" name='socialMedia.instagram'
                         placeholder="Instagram Link"
                         onChange={handleChange}
                         value={values.socialMedia.instagram}
@@ -206,7 +206,7 @@ const EditOrganization = () => {
                 </div>
                 <div className="form-control">
                     <label className="label">
-                        <span className="label-text">Linked in</span>
+                        <span className="label-text">Linkedin</span>
                     </label>
                     <input type="text" name='socialMedia.linkedIn'
                         placeholder="Linked in Link"

@@ -24,13 +24,13 @@ app.use(express.json());
 app.use(bodyParser.json());
 
 ////process.env.CLIENT
-app.use(cors({ origin: process.env.CLIENT, "preflightContinue": true, "optionsSuccessStatus": 204, credentials: true, }))
+app.use(cors({ origin: "*", "preflightContinue": true, "optionsSuccessStatus": 204, credentials: true, }))
 
 // Add headers before the routes are defined
 app.use(function (req, res, next) {
 
     // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', process.env.CLIENT);
+    res.setHeader('Access-Control-Allow-Origin', "*");
 
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
