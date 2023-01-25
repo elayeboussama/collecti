@@ -30,7 +30,6 @@ const CompanySearchScene = ({ navigation }) => {
   const [company_name, setCompany_name] = useState("");
   const [data, setData] = useState([]);
   const { theme } = useTheme();
-<<<<<<< Updated upstream
   const route = useRoute();
   const {
     data: orgs,
@@ -44,24 +43,11 @@ const CompanySearchScene = ({ navigation }) => {
       organization.firstConnection === false &&
       organization.status === "approved"
   );
-=======
-
-
-
-
-  const { data, error, isLoading, isSuccess } = useGetAllOrgsQuery();
-  console.log("eeeeeeeeeeee:",data)
-  const filteredData = data?.organizations.filter(organization => organization.firstConnection === false && organization.status==="approved")
->>>>>>> Stashed changes
   useEffect(() => {
     console.log(
       "-------------------------------------------------------------------------------------------------------------------------------------------------"
     );
-<<<<<<< Updated upstream
     console.log("daaaaaaaaaaaaaattttttttaaaaaaaaaaaaaa", orgs);
-=======
-    console.log("data: ", typeof(data));
->>>>>>> Stashed changes
     console.log(
       "-------------------------------------------------------------------------------------------------------------------------------------------------"
     );

@@ -8,14 +8,9 @@ import { Divider } from "@rneui/themed";
 import { MaterialIcons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
 import { useState } from "react";
-<<<<<<< Updated upstream
+import { useGetAllEventsQuery } from "../../../redux/endpoints/EventEndpoints";
 import { useGetAllOrgsQuery } from "../../../redux/endpoints/OrganizationEndpoints";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-// import { useNavigation } from "@react-navigation/native";
-=======
-import { useGetAllEventsQuery, useGetAllOrgsQuery } from "../../../redux/endpoints/EventEndpoints";
 
->>>>>>> Stashed changes
 
 const EventCard = ({item,navigation,stack, stackPrev}) => {
   
