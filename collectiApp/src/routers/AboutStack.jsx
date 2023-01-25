@@ -1,12 +1,14 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import React from "react";
+import React, { useEffect } from "react";
 import { Header } from "../components";
 import * as views from "../views";
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons"; 
 
 const Stack = createStackNavigator();
 // home stack navigator screens
 const AboutStack = () => {
+  
+
   return (
     <Stack.Navigator
       screenOptions={({ navigation, route }) => ({

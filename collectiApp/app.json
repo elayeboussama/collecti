@@ -1,39 +1,39 @@
 {
-  "expo": {
-    "name": "collecti-app",
-    "slug": "collecti-app",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      },
-      "package": "com.elayeboussama.collectiapp"
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "22b3374e-c089-4bc1-bd1f-fd18781a461f"
-      }
+    "expo": {
+        "name": "collecti-app",
+        "slug": "collecti-app",
+        "version": "1.0.0",
+        "orientation": "portrait",
+        "icon": "./assets/collecti3.png",
+        "userInterfaceStyle": "light",
+        "splash": {
+            "image": "./assets/collecti.png",
+            "resizeMode": "contain",
+            "backgroundColor": "#ffffff"
+        },
+        "updates": {
+            "fallbackToCacheTimeout": 0
+        },
+        "assetBundlePatterns": [
+            "**/*"
+        ],
+        "ios": {
+            "supportsTablet": true
+        },
+        "android": {
+            "adaptiveIcon": {
+                "foregroundImage": "./assets/adaptive-icon.png",
+                "backgroundColor": "#FFFFFF"
+            },
+            "package": "com.elayeboussama.collectiapp"
+        },
+        "web": {
+            "favicon": "./assets/favicon.png"
+        },
+        "extra": {
+            "eas": {
+                "projectId": "22b3374e-c089-4bc1-bd1f-fd18781a461f"
+            }
+        }
     }
-  }
 }

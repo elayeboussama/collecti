@@ -25,6 +25,16 @@ import { FAB } from "@rneui/base";
 
 const HomeScene = ({ navigation }) => {
 
+  // useEffect(()=>{
+  //   if(route){
+  //     if(route.params.refresh){
+  //       if(route.params.refresh==true){
+  //         window.location.reload(true)
+  //       }
+  //     }
+  //   }
+  // })
+
   const [token, setToken] = useState();
   const [user, setUser] = useState();
   const handleChange = async () => {
@@ -52,6 +62,8 @@ const HomeScene = ({ navigation }) => {
   });
 
   const { data: events, error, isLoading, isSuccess } = useGetAllEventsQuery();
+
+  
   const route = useRoute();
   useEffect(() => {
     console.log("bbbbbbbbbbbbbbb", events);
@@ -151,7 +163,7 @@ const HomeScene = ({ navigation }) => {
               />
             </View>
           </BottomSheet>
-          {user?
+          {user && user.status == "approved"?
             <FAB
             style={{ display:"flex"}}
             visible={true}

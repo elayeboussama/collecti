@@ -70,11 +70,18 @@ const DonateScene = ({ navigation, route }) => {
     await donate({
       ...values,
     }) 
+    
     Alert.alert('Payment State', 'Payment Done Successfuly', [
       
-      {text: 'OK', onPress: () => console.log('OK Pressed')},
+      {text: 'OK', onPress: () => {
+        navigation.reset({
+          index: 0,
+          routes: [{ name: "About" }],
+        });
+      }},
     ]);
-    navigation.navigate(stackPrev, {stack:stack })
+    // navigation.navigate(stackPrev, {stack:stack })
+    
     
   }
 
