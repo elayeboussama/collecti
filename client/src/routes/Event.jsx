@@ -1,13 +1,12 @@
 // import Youtube from 'react-youtube'
-import { useParams } from 'react-router-dom';
-import Button from '../components/shared/Button'
-import ImageSlider from '../components/shared/ImageSlider'
-import { useGetEventQuery } from '../endpoints/AuthEndpoints'
-import { differenceInDays } from 'date-fns'
-import Avatar from '../components/shared/Avatar';
-import UserInfo from '../components/shared/UserInfo';
-import DonationPopup from '../components/event/DonationPopup';
+import { differenceInDays } from 'date-fns';
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import DonationPopup from '../components/event/DonationPopup';
+import Button from '../components/shared/Button';
+import ImageSlider from '../components/shared/ImageSlider';
+import UserInfo from '../components/shared/UserInfo';
+import { useGetEventQuery } from '../endpoints/AuthEndpoints';
 
 const Event = () => {
     let { eventId } = useParams();
@@ -62,7 +61,7 @@ const Event = () => {
                         </div>
                     </div>
                     <div className='my-5 xl:mb-auto'>
-                        <Button wide className={'btn-success text-white'} onClick={() => handleClick(data?.event._id)}>
+                        <Button disabled={data?.event.status !== "approved"} wide className={'btn-success text-white'} onClick={() => handleClick(data?.event._id)}>
                             Donate
                         </Button>
                     </div>
@@ -72,7 +71,7 @@ const Event = () => {
                             <span>This event is not visible to the public yet as it's still waiting for approval by our administrators.</span>
                         </div>
                     </div>}
-                    {data?.event.status === "rejected" && <div className="my-2 alert alert-error">
+                    {data?.event.status === "rejected" && <div className="my-2 alert alert-error xl:hidden">
                         <div>
                             <svg xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0 w-6 h-6 stroke-current" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
                             <span>We regret to inform you that your event has been rejected.</span>

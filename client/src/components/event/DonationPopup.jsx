@@ -5,7 +5,7 @@ import { DonateSchema } from '../../schemas';
 import image from './donation.png';
 import PayButton from './PayButton';
 
-const DonationPopup = ({ isOpen, onClose, eventId ,prevRaisedMoney, prevDonators}) => {
+const DonationPopup = ({ isOpen, onClose, eventId, prevRaisedMoney, prevDonators }) => {
 
     const { values, handleChange, handleBlur, errors, touched, setFieldValue, handleSubmit } = useFormik({
         initialValues: {
@@ -69,7 +69,7 @@ const DonationPopup = ({ isOpen, onClose, eventId ,prevRaisedMoney, prevDonators
                         <label className="label">
                             <span className="label-text">Amount</span>
                         </label>
-                        <input type="number" name="amount" placeholder="Montant"
+                        <input type="number" name="amount" max="9999999999" placeholder="Montant"
                             onChange={handleChange}
                             value={values.amount}
                             onBlur={handleBlur}
@@ -92,13 +92,13 @@ const DonationPopup = ({ isOpen, onClose, eventId ,prevRaisedMoney, prevDonators
 
                 </form>
 
-                <PayButton 
-                onClose={onClose}
-                 informations={values}
-                  eventId={eventId}
-                  prevDonators={prevDonators}
-                  prevRaisedMoney={prevRaisedMoney}
-                  />
+                <PayButton
+                    onClose={onClose}
+                    informations={values}
+                    eventId={eventId}
+                    prevDonators={prevDonators}
+                    prevRaisedMoney={prevRaisedMoney}
+                />
                 {/* <button className="w-1/2 mt-6 btn btn-primary" onClick={onClose}>Donate</button> */}
             </div>
 
