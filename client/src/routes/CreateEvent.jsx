@@ -141,7 +141,7 @@ const CreateEvent = () => {
             <form onSubmit={handleSubmit} className='flex flex-col space-y-3'>
                 <div className="form-control">
                     <label className="label">
-                        <span className="label-text">Title</span>
+                        <span className="label-text">Title <span className='text-error'>*</span></span>
                     </label>
                     <input type="text" name='title'
                         placeholder="Race for the Cure"
@@ -154,7 +154,7 @@ const CreateEvent = () => {
                 </div>
                 <div className="form-control">
                     <label className="label">
-                        <span className="label-text">Slogan</span>
+                        <span className="label-text">Slogan <span className='text-error'>*</span></span>
                     </label>
                     <input type="text" name='slogan' placeholder="Join us in the fight against breast cancer!"
                         onChange={handleChange}
@@ -166,7 +166,7 @@ const CreateEvent = () => {
                 </div>
                 <div className=" form-control">
                     <label className="label">
-                        <span className="label-text">Category</span>
+                        <span className="label-text">Category <span className='text-error'>*</span></span>
 
                     </label>
                     <select disabled={user.user.firstConnection || user.user.status !== "approved"} id="selectedCategory" name="category" onChange={handleSelectedCategory} className="w-full select select-bordered">
@@ -196,7 +196,7 @@ const CreateEvent = () => {
                 </div>
                 <div className="form-control">
                     <label className="label">
-                        <span className="label-text">Price goal</span>
+                        <span className="label-text">Price goal <span className='text-error'>*</span></span>
                     </label>
                     <label className="input-group">
                         <input type="number" placeholder="15000" name='price'
@@ -211,14 +211,14 @@ const CreateEvent = () => {
                 </div>
                 <div className="form-control">
                     <label className="label">
-                        <span className="label-text">Event Images</span>
+                        <span className="label-text">Event Images <span className='text-error'>*</span></span>
                     </label>
                     <ImageUpload disabled={user.user.firstConnection || user.user.status !== "approved"} images={images} setImages={checkImages} handleChange={handleChange} setFieldValue={setFieldValue} />
                     {errors.images && touched.images && <p className="mt-2 text-xs text-red-500">{errors.images}</p>}
                 </div>
                 <div className="form-control">
                     <label className="label">
-                        <span className="label-text">Event due date</span>
+                        <span className="label-text">Event due date <span className='text-error'>*</span></span>
                     </label>
                     <input type="date" name='date'
                         onChange={handleChange}
@@ -232,7 +232,7 @@ const CreateEvent = () => {
                 </div>
                 <div className="form-control">
                     <label className="label">
-                        <span className="label-text">Details</span>
+                        <span className="label-text">Details <span className='text-error'>*</span></span>
                     </label>
                     <textarea placeholder="Join us for our annual Race for the Cure to raise funds for breast cancer research and support. This event is open to all fitness levels and is a great way to get active while supporting a good cause. All proceeds from ticket sales and donations will go towards supporting those affected by breast cancer and finding a cure. We hope to see you there!" name='description'
                         onChange={handleChange}
@@ -247,7 +247,7 @@ const CreateEvent = () => {
                     Please note: By submitting this form, you agree to make the event's data publicly available. This includes money collected and number of donors. This information will be visible to anyone visiting the event page. 🌍
                 </p>
                 <div className='text-right'>
-                    <Button disabled={user.user.firstConnection && user.user.status !== "approved"} loading={loading} className={cn({ "border-none btn": true, "animated-gradient": !user.user.firstConnection && user.user.status === "approved" })} type="submit">Create Event</Button>
+                    <Button disabled={user.user.firstConnection || user.user.status !== "approved"} loading={loading} className={cn({ "border-none btn": true, "animated-gradient": !user.user.firstConnection && user.user.status === "approved" })} type="submit">Create Event</Button>
                 </div>
 
             </form>

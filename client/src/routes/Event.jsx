@@ -30,7 +30,7 @@ const Event = () => {
     }
 
     return (
-        <div className='w-full max-w-5xl mx-auto'>
+        <div className='w-full max-w-5xl mx-auto mt-5'>
             <div className='xl:flex'>
                 <div className='w-full max-w-3xl mx-auto xl:max-w-2xl xl:mx-0'>
                     {data?.event?.image && <ImageSlider images={data?.event?.image} />}
@@ -98,7 +98,7 @@ const Event = () => {
                         <span>We regret to inform you that your event has been rejected.</span>
                     </div>
                 </div>}
-                <h2 className='text-2xl font-bold'>About us</h2>
+                <h2 className='text-2xl font-bold'>Description</h2>
                 <p className='mt-2'>{data?.event.description}</p>
             </div>
             <DonationPopup
