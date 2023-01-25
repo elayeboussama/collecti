@@ -170,6 +170,38 @@ router.get("/organizations", async (req, res) => {
   }
 });
 
+router.get("/organizationsMobile", async (req, res) => {
+  try {
+    console.log("zzzzzzz");
+    const organizations = await Organization.find({},{ password:0});
+    
+
+    if (organizations) {
+      console.log("zzzzzzz");
+      res.status(201).send(organizations);
+    } else {
+      res.status(404).send({ message: "Organizations Not Found" });
+    }
+  } catch (error) {
+    res.status(500).send({ message: "Internal Server Error", error: error });
+    console.log(error);
+  }
+});
+
+router.get("/getAll", async (req, res) => {
+  try {
+    console.log("zzzzzzzeafergeferferferfz");
+    const organizations = ["edddddddd","ddccccccccccccc"];
+    
+      res.status(200).send({ organizations: organizations, message: "Organizations found" });
+    
+  } catch (error) {
+    res.status(500).send({ message: "Internal Server Error", error: error });
+    console.log(error);
+  }
+});
+
+
 router.post("/organizations", async (req, res) => {
   try {
     const organizations = await Organization.find(

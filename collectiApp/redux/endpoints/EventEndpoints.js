@@ -9,7 +9,12 @@ export const eventEndpoints = apiSliceWithToken.injectEndpoints({
                 method: "GET",
             }),
         }),
-
+        getAllOrgs: builder.query({
+            query: () => ({
+                url: "/api/organization/organizationsMobile",
+                method: "GET",
+            }),
+        }),
 
         addEvent: builder.mutation({
             query: (credentials) => ({
@@ -39,8 +44,14 @@ export const eventEndpointsWithNoToken = apiSlice.injectEndpoints({
             }),
         }),
 
+
+
     }),
 });
 
+<<<<<<< Updated upstream
 export const { useAddEventMutation, useGetAllEventsQuery, useDonateMutation } = eventEndpoints;
+=======
+export const { useAddEventMutation, useGetAllEventsQuery, useGetAllOrgsQuery } = eventEndpoints;
+>>>>>>> Stashed changes
 export const { useGetAllEventsByOrgMutation } = eventEndpointsWithNoToken;
