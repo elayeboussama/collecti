@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { NativeModules, StyleSheet, Text, View } from "react-native";
 import { styles } from "./styles";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { Button, Chip } from "@rneui/themed";
@@ -97,8 +97,17 @@ const AddEventScene = ({navigation}) => {
       const id = await AsyncStorage.getItem("id")
       await axios.get(`http://192.168.56.1:8080/api/organization/${id}`).then(async(res)=>{
         await AsyncStorage.setItem("user", JSON.stringify(res.data.organization))
-        navigation.navigate("Home")
+        navigation.reset({
+          index: 0,
+          routes: [{ name: "Home" }],
+        });
+
+        setTimeout(() => {
+          NativeModules.DevSettings.reload();
+        }, 1000);
     })
+
+    
       
       // navigate("/", { replace: true });
     } catch (err) {

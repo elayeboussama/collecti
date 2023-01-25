@@ -9,6 +9,7 @@ import {
   Keyboard,
   ScrollView,
   Alert,
+  NativeModules,
 } from "react-native";
 import COLORS from "../../styles/const";
 import CustomInput from "../../components/CustomInput/CustomInput";
@@ -74,10 +75,9 @@ const DonateScene = ({ navigation, route }) => {
     Alert.alert('Payment State', 'Payment Done Successfuly', [
       
       {text: 'OK', onPress: () => {
-        navigation.reset({
-          index: 0,
-          routes: [{ name: "About" }],
-        });
+        setTimeout(() => {
+          NativeModules.DevSettings.reload();
+        }, 1000);
       }},
     ]);
     // navigation.navigate(stackPrev, {stack:stack })

@@ -14,13 +14,14 @@ import { MaterialIcons } from "@expo/vector-icons";
 import EventCard from "../../components/EventCard/EventCard";
 import { ScrollView } from "react-native";
 import CompanyCard from "../../components/CompanyCard/CompanyCard";
-import { useGetAllEventsQuery, useGetAllOrgsQuery } from "../../../redux/endpoints/EventEndpoints";
+import { useGetAllEventsQuery } from "../../../redux/endpoints/EventEndpoints";
 
 // import { useDispatch } from "react-redux";
 // import { setCredentials } from "../../../redux/slicers/AuthSlice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import CustomInput from "../../components/CustomInput/CustomInput";
 import { useRoute } from "@react-navigation/native";
+import { useGetAllOrgsQuery } from "../../../redux/endpoints/OrganizationEndpoints";
 // import { useNavigation } from "@react-navigation/native";
 // import { useSelector } from 'react-redux';
 // import { selectOrganizations, setOrganizations } from '../../../redux/slicers/OrganizationSlice';

@@ -240,6 +240,10 @@ const EditInfosScene = () => {
       ...sendUser,
     }).unwrap();
 
+    setTimeout(() => {
+      NativeModules.DevSettings.reload();
+    }, 1000);
+
     // console.log(
     //   "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz-- ",
     //   resultCover
