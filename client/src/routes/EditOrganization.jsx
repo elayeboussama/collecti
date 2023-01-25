@@ -54,8 +54,6 @@ const EditOrganization = () => {
         onSubmit: async (values) => {
             setIsLoading(true)
 
-            let fistConnection = true
-            if (user.user.firstConnection === false) fistConnection = false
 
             const [avatar, coverPhoto] = await Promise.all([
                 uploadFile(values.avatar[0]),
@@ -67,7 +65,7 @@ const EditOrganization = () => {
                 logo: avatar,
                 cover: coverPhoto,
                 status: "pending",
-                fistConnection
+                firstConnection: false
             }
             try {
                 console.log(requestObject)

@@ -62,7 +62,7 @@ const CreateEvent = () => {
         initialValues: {
             title: "",
             slogan: "",
-            category: "",
+            category: "Comptuer science",
             keywords: [],
             images: [],
             price: "",
