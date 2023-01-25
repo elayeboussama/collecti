@@ -10,9 +10,9 @@ import { TouchableOpacity } from "react-native";
 import { useState } from "react";
 import { useGetAllEventsQuery } from "../../../redux/endpoints/EventEndpoints";
 import { useGetAllOrgsQuery } from "../../../redux/endpoints/OrganizationEndpoints";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-
-const EventCard = ({item,navigation,stack, stackPrev}) => {
+const EventCard = ({item,navigation,stack, stackPrev, events}) => {
   
   const [currentUser, setCurrentUser] = useState();
   const handleChange = async () => {
@@ -151,7 +151,7 @@ console.log("de74: ",item)
         <Divider />
         <View style={styles.actions}>
           <TouchableOpacity
-            onPress={()=>{navigation.navigate("Donate",{item:item, stack:stack, stackPrev:stackPrev})}}
+            onPress={()=>{navigation.navigate("Donate",{item:item, stack:stack, stackPrev:stackPrev, events:events})}}
             style={styles.actionLeft}>
             <View style={styles.actionLeft}>
               <Text style={{ fontSize: 14 }}>Donate</Text>
