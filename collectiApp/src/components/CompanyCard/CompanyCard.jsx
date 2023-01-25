@@ -97,7 +97,7 @@ const CompanyCard = ({ navigation, org, stack }) => {
           }}
         >
           <Image
-            source={org && orgData.cover && orgData && org.cover &&  logo2!="" ? {  uri: logo2} : require("../../../assets/goose-funky.png")}
+            source={org && orgData.cover && orgData && org.cover &&  cover!="" ? {  uri: cover} : require("../../../assets/goose-funky.png")}
             style={{
               padding: 20,
               borderRadius: 12,
