@@ -14,7 +14,8 @@ import { MaterialIcons } from "@expo/vector-icons";
 import EventCard from "../../components/EventCard/EventCard";
 import { ScrollView } from "react-native";
 import CompanyCard from "../../components/CompanyCard/CompanyCard";
-import { useGetAllOrgsQuery } from "../../../redux/endpoints/OrganizationEndpoints";
+import { useGetAllEventsQuery, useGetAllOrgsQuery } from "../../../redux/endpoints/EventEndpoints";
+
 // import { useDispatch } from "react-redux";
 // import { setCredentials } from "../../../redux/slicers/AuthSlice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -29,6 +30,7 @@ const CompanySearchScene = ({ navigation }) => {
   const [company_name, setCompany_name] = useState("");
   const [data, setData] = useState([]);
   const { theme } = useTheme();
+<<<<<<< Updated upstream
   const route = useRoute();
   const {
     data: orgs,
@@ -42,11 +44,24 @@ const CompanySearchScene = ({ navigation }) => {
       organization.firstConnection === false &&
       organization.status === "approved"
   );
+=======
+
+
+
+
+  const { data, error, isLoading, isSuccess } = useGetAllOrgsQuery();
+  console.log("eeeeeeeeeeee:",data)
+  const filteredData = data?.organizations.filter(organization => organization.firstConnection === false && organization.status==="approved")
+>>>>>>> Stashed changes
   useEffect(() => {
     console.log(
       "-------------------------------------------------------------------------------------------------------------------------------------------------"
     );
+<<<<<<< Updated upstream
     console.log("daaaaaaaaaaaaaattttttttaaaaaaaaaaaaaa", orgs);
+=======
+    console.log("data: ", typeof(data));
+>>>>>>> Stashed changes
     console.log(
       "-------------------------------------------------------------------------------------------------------------------------------------------------"
     );
