@@ -55,7 +55,6 @@ const HomeScene = ({ navigation }) => {
   const [eventsState, setEventsState] = useState();
   const [event_name, setEvent_name] = useState("");
   const { theme } = useTheme();
-<<<<<<< Updated upstream
   const [filterFn, setFilterFn] = useState({
     fn: (items) => {
       return items;
@@ -69,22 +68,6 @@ const HomeScene = ({ navigation }) => {
   useEffect(() => {
     console.log("bbbbbbbbbbbbbbb", events);
     setEventsState(events);
-=======
-  const {
-    data: events,
-    error,
-    isLoading,
-    isSuccess,
-  } = useGetAllEventsQuery();
-  const { 
-    data: organizations, 
-    errorOrg,
-    isLoadingOrg,
-    isSuccessOrg} = useGetAllOrgsQuery();
-  useEffect(() => {
-    console.log("bbbbbbbbbbbbbbb", events);
-    console.log("bbbbbbbbbbbbbbb", organizations);
->>>>>>> Stashed changes
   }, [events]);
 
   const handleSearch = () => {

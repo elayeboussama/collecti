@@ -49,9 +49,5 @@ export const eventEndpointsWithNoToken = apiSlice.injectEndpoints({
     }),
 });
 
-<<<<<<< Updated upstream
 export const { useAddEventMutation, useGetAllEventsQuery, useDonateMutation } = eventEndpoints;
-=======
-export const { useAddEventMutation, useGetAllEventsQuery, useGetAllOrgsQuery } = eventEndpoints;
->>>>>>> Stashed changes
 export const { useGetAllEventsByOrgMutation } = eventEndpointsWithNoToken;

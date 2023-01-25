@@ -70,10 +70,7 @@ export const orgWithTokenEndpoints = apiSliceWithToken.injectEndpoints({
 });
 
 export const {
-<<<<<<< Updated upstream
-=======
     // useGetAllOrgsQuery,
->>>>>>> Stashed changes
     useGetListOrgsMutation,
 
     useDeleteOneOrgsMutation,
