@@ -34,6 +34,17 @@ const Organization = () => {
         }
     }
 
+    let logo = data?.organization.logo ?? ""
+    let cover = data?.organization.cover ?? ""
+
+    if (logo[0] === "u") {
+        logo = `http://192.168.56.1:8080/${data?.organization.logo}`
+    }
+
+    if (cover[0] === "u") {
+        cover = `http://192.168.56.1:8080/${data?.organization.cover}`
+    }
+
     return (
         <div>
 
@@ -42,10 +53,10 @@ const Organization = () => {
                     <div className="flex-initial w-full card glass place-content-center max-h-max">
                         <figure>
                             <div className="flex-col w-full -space-y-28 avatar-group ">
-                                <img className='object-cover w-full max-w-10xl h-72' src={data.organization.cover} alt="car!" />
+                                <img className='object-cover w-full max-w-10xl h-72' src={cover} alt="car!" />
                                 <div className="pl-10 border-0 avatar">
                                     <div className="w-48 border-4 rounded-full border-inherit">
-                                        <img src={data.organization.logo} />
+                                        <img src={logo} />
                                     </div>
                                 </div>
                             </div>
@@ -108,7 +119,7 @@ const Organization = () => {
                     <div className="h-auto card bg-base-100 glass ">
                         <div className="card-body">
                             <h2 className="card-title">Team</h2>
-                            <div className="flex-col -space-y-6 avatar-group">
+                            <div className="flex-col">
                                 <TeamCard name={data.organization.directorName ?? "Not specified"} post="director" />
                                 <TeamCard name={data.organization.directorName ?? "Not specified"} post="RH" />
                                 <TeamCard name={data.organization.directorName ?? "Not specified"} post="GS" />

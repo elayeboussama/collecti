@@ -59,7 +59,7 @@ const Register = ({ showCloseButton = true }) => {
                     <form onSubmit={handleSubmit} className="flex-grow max-w-sm p-0 px-2 card-body">
                         <div className="form-control">
                             <label className="label">
-                                <span className="label-text">Name</span>
+                                <span className="label-text">Name <span className='text-error'>*</span></span>
                             </label>
                             <input type="text" placeholder="name" name='name'
                                 onChange={handleChange}
@@ -70,7 +70,7 @@ const Register = ({ showCloseButton = true }) => {
                         </div>
                         <div className="form-control">
                             <label className="label">
-                                <span className="label-text">Email</span>
+                                <span className="label-text">Email <span className='text-error'>*</span></span>
                             </label>
                             <input type="text" placeholder="email" name='email'
                                 onChange={handleChange}
@@ -82,7 +82,7 @@ const Register = ({ showCloseButton = true }) => {
                         </div>
                         <label className="form-control">
                             <label className="label">
-                                <span className="label-text">Password</span>
+                                <span className="label-text">Password <span className='text-error'>*</span></span>
                             </label>
                             <div className="relative w-full">
                                 <input type={showPassword ? "text" : "password"} placeholder="password" name='password'

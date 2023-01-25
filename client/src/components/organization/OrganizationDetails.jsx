@@ -103,12 +103,10 @@ const OrganizationDetails = () => {
           <div className="h-auto card bg-base-100 glass ">
             <div className="card-body">
               <h2 className="card-title">Team</h2>
-              <div className="flex-col -space-y-6 avatar-group">
+              <div className="flex-col">
                 <TeamCard name={data.organization.directorName ?? "Not specified"} post="director" />
                 <TeamCard name={data.organization.directorName ?? "Not specified"} post="RH" />
                 <TeamCard name={data.organization.directorName ?? "Not specified"} post="GS" />
-
-
               </div>
               {/* <div className="justify-end card-actions">
                     {/* <button className="btn btn-primary">Buy Now</button> }

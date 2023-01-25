@@ -53,6 +53,10 @@ const EditOrganization = () => {
         validationSchema: EditOrganizationSchema,
         onSubmit: async (values) => {
             setIsLoading(true)
+
+            let fistConnection = true
+            if (user.user.firstConnection === false) fistConnection = false
+
             const [avatar, coverPhoto] = await Promise.all([
                 uploadFile(values.avatar[0]),
                 uploadFile(values.coverPhoto[0])
@@ -62,7 +66,8 @@ const EditOrganization = () => {
                 _id: user.userId,
                 logo: avatar,
                 cover: coverPhoto,
-                firstConnection: false,
+                status: "pending",
+                fistConnection
             }
             try {
                 console.log(requestObject)
