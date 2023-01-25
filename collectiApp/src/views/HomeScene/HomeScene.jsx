@@ -111,7 +111,7 @@ const HomeScene = ({ navigation }) => {
               <MaterialIcons name="search" size={25} color="#333" />
             </TouchableOpacity>
           </View>
-          <View>{eventsState && <ListEvents />}</View>
+          <View style={{paddingBottom:80}}>{eventsState && <ListEvents />}</View>
           {/*here errrorr<EventCard item={item} />*/}
 
           <BottomSheet modalProps={{}} isVisible={isVisible}>

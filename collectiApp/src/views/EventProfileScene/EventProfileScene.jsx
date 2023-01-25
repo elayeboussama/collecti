@@ -149,8 +149,8 @@ const EventProfileScene = ({navigation, route}) => {
                 <Text style={{ fontSize: 14 }}>{item.status}</Text>
               </View>
               <View style={{ flexDirection: "row" }}>
-                <MaterialIcons name="format-list-numbered" size={18} color="#333" />
-                <Text style={{ fontSize: 14 }}>donators : {item.donators}</Text>
+                <MaterialIcons name="attach-money" size={18} color="#333"/>
+                <Text style={{ fontSize: 14 }}>funds : {item.raisedMoney}</Text>
               </View>
             </View>
           </View>
